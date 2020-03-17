@@ -31,6 +31,10 @@ html {
   color: #3b8070;
   text-decoration: none;
   padding: 10px 30px;
+  background: transparent;
+  line-height: 20px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .button--green:hover {
@@ -46,6 +50,10 @@ html {
   text-decoration: none;
   padding: 10px 30px;
   margin-left: 15px;
+  background: transparent;
+  line-height: 20px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .button--grey:hover {

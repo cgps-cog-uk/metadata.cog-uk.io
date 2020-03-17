@@ -1,4 +1,6 @@
 
+import apiServerMiddleware from "./api";
+
 export default {
   mode: 'universal',
   /*
@@ -58,5 +60,7 @@ export default {
     */
     extend (config, ctx) {
     }
-  }
+  },
+
+  serverMiddleware: [apiServerMiddleware],
 }
