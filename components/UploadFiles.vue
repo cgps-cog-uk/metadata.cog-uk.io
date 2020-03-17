@@ -36,7 +36,7 @@
           COVID-19 Sequencing Metadata Upload
         </h2>
         <p>
-          For small numbers of samples, you can upload your data through using EpiCollect.  You can upload batches of data as a CSV file by dragging and dropping the data below or clicking “Upload Metadata”
+          You can upload batches of data as a CSV file by dragging and dropping the files or clicking “Select files to upload”.
         </p>
         <p>
           You can create a CSV file in Excel, Google Docs or other spreadsheet software.  Please use this template; do not edit, add, or remove any columns.  Make sure you save it as a CSV (or Comma Separated Variable) file.
