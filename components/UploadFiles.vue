@@ -12,7 +12,7 @@
           </g>
         </svg>
         <div class="label-1">Drag and drop files</div>
-        <div class="label-2">or click to send up to 64GB</div>
+        <div class="label-2">or click to send up to 64MB</div>
         <input
           id="file-upload"
           ref="file-input"

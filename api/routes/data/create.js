@@ -1,14 +1,24 @@
+/* eslint "no-throw-literal": 0 */
+
 const axios = require("axios");
 
 const config = require("../../utils/config");
 const uuid = require("../../utils/uuid");
 
-async function createEntryData(rawVales) {
-  const { data: projectDef } = await axios.get(config["epicollect-project-endpoint"]);
+async function getProjectDef() {
+  const projectDef = await axios.get(config["epicollect-project-endpoint"]);
+  return projectDef.data;
+}
+
+async function createEntryData(req) {
+  const projectDef = await getProjectDef();
+
+  const rawValues = req.body;
   const version = projectDef.meta.project_stats.structure_last_updated;
   const formIndex = 0;
   const formRef = projectDef.meta.project_extra.project.forms[formIndex];
   const entryId = uuid();
+
   const data = {
     type: "entry",
     id: entryId,
@@ -32,11 +42,15 @@ async function createEntryData(rawVales) {
       project_version: version,
     },
   };
+
   for (const input of projectDef.data.project.forms[formIndex].inputs) {
-    const rawValue = rawVales[input.question];
+    const rawValue = rawValues[input.question.toLowerCase()];
     if (input.is_required) {
       if (!rawValue) {
-        throw new Error(`Question ${input.question} is required.`);
+        throw {
+          message: `Question ${input.question} is required.`,
+          field: input.question.toLowerCase(),
+        };
       }
     }
     const answer = {
@@ -45,12 +59,15 @@ async function createEntryData(rawVales) {
     };
     if (rawValue) {
       if (input.type === "radio") {
-        const foundAsnwer = input.possible_answers.find((x) => x.answer === rawValue);
+        const foundAsnwer = input.possible_answers.find((x) => x.answer.toLowerCase() === rawValue.toLowerCase());
         if (foundAsnwer) {
           answer.answer = foundAsnwer.answer_ref;
         }
         else {
-          throw new Error(`Invalid answer ${rawValue} for question ${input.question}.`);
+          throw {
+            message: `Invalid answer ${rawValue} for question ${input.question}.`,
+            field: input.question.toLowerCase(),
+          };
         }
       }
       else {
@@ -59,6 +76,9 @@ async function createEntryData(rawVales) {
     }
     data.entry.answers[input.ref] = answer;
   }
+
+  req.projectDef = projectDef;
+  req.formDef = projectDef.data.project.forms[formIndex];
   return data;
 }
 
@@ -76,15 +96,36 @@ function sendEntryRequest(data) {
 module.exports = function (req, res, next) {
   console.info("Got request to create data");
 
-  Promise.resolve(req.body)
+  Promise.resolve(req)
     .then(createEntryData)
     .then(sendEntryRequest)
     .then((done) => {
       res.send({ ok: true });
     })
     .catch((err) => {
+      let error = err;
+      if (err.response && err.response.data) {
+        if (err.response.data.errors && err.response.data.errors[0]) {
+          error = err.response.data.errors[0];
+          if (error.source) {
+            const input = req.formDef.inputs.find((x) => x.ref === error.source);
+            if (input) {
+              error = {
+                message: error.title,
+                field: input.question.toLowerCase(),
+              };
+            }
+          }
+        }
+        else {
+          error = err.response.data;
+        }
+      }
+      else if (err.message && !err.field) {
+        error = err.message;
+      }
       res
         .status(400)
-        .send({ ok: false, error: (err.response && err.response.data) ? err.response.data : (err.message || err) });
+        .send({ ok: false, error });
     });
 };

@@ -16,14 +16,13 @@ export const mutations = {
     if (entry) {
       entry._status = status;
       if (error) {
-        console.log(error);
         entry._error = error;
       }
     }
   },
   setData(state, data) {
     const entries = [];
-    const headers = data[0];
+    const headers = data[0].map((x) => (x.toLowerCase ? x.toLowerCase() : x));
     for (let index = 1; index < data.length; index++) {
       const row = data[index];
       const entry = {

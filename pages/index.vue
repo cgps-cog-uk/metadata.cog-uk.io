@@ -119,7 +119,8 @@ main {
   display: flex;
   position: relative;
   max-width: 64rem;
-  height: 100%;
+  /* height: 100%; */
+  flex-grow: 1;
 
   flex: 1 1 0%;
   align-self: center;
@@ -127,8 +128,8 @@ main {
   margin: auto;
   padding-top: 2rem;
   padding-bottom: 2rem;
-  min-height: 20rem;
-  max-height: 36rem;
+  /* min-height: 20rem; */
+  /* max-height: 36rem; */
   width: calc(100% - 3rem);
   -moz-box-flex: 0;
 }
