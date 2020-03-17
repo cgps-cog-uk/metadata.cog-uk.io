@@ -34,7 +34,7 @@
     </main>
     <footer>
       <span>
-        Developed by The Centre for Genomic Pathogen Surveillance (CGPS)
+        <!-- Developed by The Centre for Genomic Pathogen Surveillance (CGPS) -->
       </span>
       <span>
         <a href="mailto:support@cog-uk.io">support@cog-uk.io</a>
