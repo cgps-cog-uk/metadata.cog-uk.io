@@ -33,7 +33,7 @@
     <div>
       <div class="into">
         <h2>
-          Covid-19 Sequencing Metadata Upload
+          COVID-19 Sequencing Metadata Upload
         </h2>
         <p>
           For small numbers of samples, you can upload your data through using EpiCollect.  You can upload batches of data as a CSV file by dragging and dropping the data below or clicking “Upload Metadata”
