@@ -5,15 +5,47 @@
         COG-UK
       </h1>
       <nav>
-        <button
-          v-if="mode === 'data'"
-          class="button--green"
-          v-on:click="startUpload"
+        <template
+          v-if="uploading"
         >
-          Start Upload
-        </button>
+          <button
+            class="button--green"
+            v-on:click="setFilter('queued')"
+          >
+            Queued ({{ groups.queued.length }})
+          </button>
+          <button
+            class="button--green"
+            v-on:click="setFilter('uploaded')"
+          >
+            Uploaded ({{ groups.uploaded.length }})
+          </button>
+          <button
+            class="button--green"
+            v-on:click="setFilter('failed')"
+          >
+            Failed ({{ groups.failed.length }})
+          </button>
+          <button
+            class="button--green"
+            v-on:click="setFilter('duplicated')"
+          >
+            Duplicates ({{ groups.duplicated.length }})
+          </button>
+        </template>
+        <template
+          v-else
+        >
+          <button
+            v-if="mode === 'data'"
+            class="button--green"
+            v-on:click="startUpload"
+          >
+            Start Upload
+          </button>
+        </template>
         <button
-          v-if="mode === 'data'"
+          v-if="mode === 'data' && groups.queued.length === 0"
           class="button--grey"
           v-on:click="resetToFileMode"
         >
@@ -44,7 +76,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 import UploadFiles from "~/components/UploadFiles.vue";
 import DataGrid from "~/components/DataGrid.vue";
@@ -58,11 +90,18 @@ export default {
     ...mapState({
       data: "data",
       mode: "mode",
+      uploading: "uploading",
+    }),
+    ...mapGetters({
+      groups: "groups",
     }),
   },
   methods: {
     resetToFileMode() {
-      this.$store.commit("setMode", "files");
+      this.$store.commit("reset");
+    },
+    setFilter(filter) {
+
     },
     startUpload() {
       const entry = this.data.entries.find((x) => x._status === "Pending");

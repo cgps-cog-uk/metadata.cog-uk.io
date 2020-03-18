@@ -7,16 +7,23 @@ export const state = () => ({
     headers: undefined,
     entries: undefined,
   },
-  errorMessage: undefined,
+  uploading: false,
 });
 
 export const mutations = {
+  reset(state) {
+    state.mode = "files";
+    state.uploading = false;
+  },
   setEntryStatus(state, { entryId, status, error }) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
       entry._status = status;
       if (error) {
         entry._error = error;
+        if (error.message === "Field is not unique.") {
+          entry._status = "Duplicated";
+        }
       }
     }
   },
@@ -47,15 +54,50 @@ export const mutations = {
   setMode(state, mode) {
     state.mode = mode;
   },
+  setUploading(state, mode) {
+    state.uploading = mode;
+  },
 };
 
 export const getters = {
+  groups(state) {
+    const queued = [];
+    const uploaded = [];
+    const failed = [];
+    const duplicated = [];
+
+    for (const row of state.data.entries) {
+      switch (row._status) {
+        case "Pending":
+        case "Uploading":
+          queued.push(row);
+          break;
+        case "Uploaded":
+          uploaded.push(row);
+          break;
+        case "Failed":
+          failed.push(row);
+          break;
+        case "Duplicated":
+          duplicated.push(row);
+          break;
+      }
+    }
+
+    return {
+      queued,
+      uploaded,
+      failed,
+      duplicated,
+    };
+  },
 };
 
 export const actions = {
   uploadEntry({ commit, state }, entryId) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
+      commit("setUploading", true);
       commit("setEntryStatus", { entryId, status: "Uploading" });
       return (
         this.$axios.$post("/api/data/create/", entry)

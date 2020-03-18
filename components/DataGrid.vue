@@ -33,7 +33,7 @@
               v-else-if="row._status === 'Uploaded'"
             />
             <error-icon
-              v-else-if="row._status === 'Failed'"
+              v-else-if="row._status === 'Failed' || row._status === 'Duplicated'"
             />
           </td>
           <td
