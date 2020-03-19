@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(row, index) in data.entries"
+          v-for="(row, index) in list"
           v-bind:key="index"
         >
           <td
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 import ErrorIcon from "~/components/ErrorIcon.vue";
 import DoneIcon from "~/components/DoneIcon.vue";
@@ -72,6 +72,9 @@ export default {
   computed: {
     ...mapState({
       data: "data",
+    }),
+    ...mapGetters({
+      list: "filteredList",
     }),
   },
 };

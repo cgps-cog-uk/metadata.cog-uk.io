@@ -1,6 +1,14 @@
 /* eslint no-shadow: 0 */
 /* eslint dot-notation: 0 */
 
+const statudToFilterMap = {
+  Pending: "queued",
+  Uploading: "queued",
+  Uploaded: "uploaded",
+  Failed: "failed",
+  Duplidated: "duplicated",
+};
+
 export const state = () => ({
   mode: "files",
   data: {
@@ -8,6 +16,7 @@ export const state = () => ({
     entries: undefined,
   },
   uploading: false,
+  filter: null,
 });
 
 export const mutations = {
@@ -25,6 +34,14 @@ export const mutations = {
           entry._status = "Duplicated";
         }
       }
+    }
+  },
+  setFilter(state, filter) {
+    if (state.filter === filter) {
+      state.filter = null;
+    }
+    else {
+      state.filter = filter;
     }
   },
   setData(state, data) {
@@ -60,6 +77,14 @@ export const mutations = {
 };
 
 export const getters = {
+  filteredList(state) {
+    if (state.filter) {
+      return state.data.entries.filter((x) => statudToFilterMap[x._status] === state.filter);
+    }
+    else {
+      return state.data.entries;
+    }
+  },
   groups(state) {
     const queued = [];
     const uploaded = [];

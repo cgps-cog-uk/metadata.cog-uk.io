@@ -45,7 +45,7 @@
           </button>
         </template>
         <button
-          v-if="mode === 'data' && groups.queued.length === 0"
+          v-if="mode === 'data'"
           class="button--grey"
           v-on:click="resetToFileMode"
         >
@@ -101,7 +101,7 @@ export default {
       this.$store.commit("reset");
     },
     setFilter(filter) {
-
+      this.$store.commit("setFilter", filter);
     },
     startUpload() {
       const entry = this.data.entries.find((x) => x._status === "Pending");
@@ -161,7 +161,7 @@ main {
   /* height: 100%; */
   flex-grow: 1;
 
-  flex: 1 1 0%;
+  /* flex: 1 1 0%; */
   align-self: center;
   align-items: center;
   margin: auto;
@@ -169,8 +169,10 @@ main {
   padding-bottom: 2rem;
   /* min-height: 20rem; */
   /* max-height: 36rem; */
-  width: calc(100% - 3rem);
+  /* width: calc(100% - 3rem); */
   -moz-box-flex: 0;
+
+  overflow: auto;
 }
 
 footer {
@@ -190,9 +192,9 @@ main > section {
   display: flex;
   border-radius: 16px;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   /* min-height: 100%; */
-  height: 100%;
+  /* height: 100%; */
   border: 0 solid #d7d7db;
   /* min-height: 32rem; */
   /* max-height: 38rem; */

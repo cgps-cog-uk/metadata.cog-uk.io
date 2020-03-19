@@ -1,6 +1,7 @@
 /* eslint "no-throw-literal": 0 */
 
 const axios = require("axios");
+const moment = require("moment");
 
 const config = require("../../utils/config");
 const uuid = require("../../utils/uuid");
@@ -37,11 +38,27 @@ async function createEntryData(req) {
       created_at: (new Date()).toISOString(),
       device_id: "web",
       platform: "COG-UK.IO",
-      title: `${projectDef.data.project.forms[formIndex].name} ${entryId}`,
+      title: null,
       answers: {},
       project_version: version,
     },
   };
+
+  const titles = [];
+
+  for (const input of projectDef.data.project.forms[formIndex].inputs) {
+    if (input.type === "date") {
+      const questionFieldname = input.question.toLowerCase();
+      if (!rawValues[questionFieldname]) {
+        const rawYearValue = rawValues[`${questionFieldname} year`];
+        const rawMonthValue = rawValues[`${questionFieldname} month`];
+        const rawDayValue = rawValues[`${questionFieldname} day`];
+        if (rawYearValue) {
+          rawValues[questionFieldname] = `${rawYearValue}-${rawMonthValue}-${rawDayValue}`;
+        }
+      }
+    }
+  }
 
   for (const input of projectDef.data.project.forms[formIndex].inputs) {
     const rawValue = rawValues[input.question.toLowerCase()];
@@ -58,6 +75,9 @@ async function createEntryData(req) {
       answer: "",
     };
     if (rawValue) {
+      if (input.is_title) {
+        titles.push(rawValue);
+      }
       if (input.type === "radio") {
         const foundAsnwer = input.possible_answers.find((x) => x.answer.toLowerCase() === rawValue.toLowerCase());
         if (foundAsnwer) {
@@ -70,12 +90,32 @@ async function createEntryData(req) {
           };
         }
       }
+      else if (input.type === "date") {
+        const momentValue = moment(rawValue);
+        if (momentValue.isValid()) {
+          answer.answer = momentValue.toISOString();
+        }
+        else {
+          throw {
+            message: `Invalid date value ${rawValue} for question ${input.question}.`,
+            field: input.question.toLowerCase(),
+          };
+        }
+      }
       else {
         answer.answer = rawValue;
       }
     }
     data.entry.answers[input.ref] = answer;
   }
+
+  data.entry.title = (
+    titles.length
+      ?
+      titles.join(" ")
+      :
+      `${projectDef.data.project.forms[formIndex].name} ${entryId}`
+  );
 
   req.projectDef = projectDef;
   req.formDef = projectDef.data.project.forms[formIndex];

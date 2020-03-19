@@ -4,8 +4,12 @@
       <div
         ref="drop-target"
         class="upload-files"
+        v-on:click="selectFiles"
       >
-        <svg class="w-10 h-10 link-blue" viewBox="0 0 24 24">
+        <svg
+          class="w-10 h-10 link-blue"
+          viewBox="0 0 24 24"
+        >
           <g fill="currentColor" fill-rule="evenodd">
             <path fill-rule="nonzero" d="M12 22.667c5.891 0 10.667-4.776 10.667-10.667S17.89 1.333 12 1.333 1.333 6.11 1.333 12 6.11 22.667 12 22.667zM12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12z"></path>
             <path d="M11.143 6v5.143H6v1.714h5.143V18h1.714v-5.143H18v-1.714h-5.143V6z"></path>
@@ -76,11 +80,22 @@ export default {
     //     large: () => this.setInfoMessage("Large file"),
     //   },
     // });
+    this.$refs["drop-target"].addEventListener("dragenter", this.handleDragover, false);
+    this.$refs["drop-target"].addEventListener("dragover", this.handleDragover, false);
+    this.$refs["drop-target"].addEventListener("drop", this.handleFileDrop, false);
+  },
+  beforeDestroy() {
+    this.$refs["drop-target"].removeEventListener("dragenter", this.handleDragover);
+    this.$refs["drop-target"].removeEventListener("dragover", this.handleDragover);
+    this.$refs["drop-target"].removeEventListener("drop", this.handleFileDrop);
   },
   methods: {
     handleFileChange(event) {
-      // console.log(Array.from(event.target.files));
       this.processFile(event.target.files[0]);
+      const files = event.target.files;
+      if (files.length) {
+        this.processFile(files[0]);
+      }
     },
     processFile(file) {
       if (validFiles.test(file.name)) {
@@ -100,6 +115,22 @@ export default {
       else {
         this.setInfoMessage("Invalid file type. Supported files are: .xslx, .xsl, .csv, or .ods");
       }
+    },
+    handleDragover(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "copy";
+    },
+    handleFileDrop(event) {
+      event.stopPropagation();
+      event.preventDefault();
+      const files = event.dataTransfer.files;
+      if (files.length) {
+        this.processFile(files[0]);
+      }
+    },
+    selectFiles() {
+      this.$refs["file-input"].click();
     },
     setInfoMessage(message) {
       this.message = message;
@@ -121,6 +152,7 @@ export default {
   border-style: dashed;
   border-radius: .25rem;
   border-color: rgba(21,20,26,.2);
+  cursor: pointer;
 }
 
 svg {
