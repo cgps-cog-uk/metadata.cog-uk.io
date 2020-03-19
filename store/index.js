@@ -6,7 +6,7 @@ const statudToFilterMap = {
   Uploading: "queued",
   Uploaded: "uploaded",
   Failed: "failed",
-  Duplidated: "duplicated",
+  Duplicated: "duplicated",
 };
 
 export const state = () => ({
