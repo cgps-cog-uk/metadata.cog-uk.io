@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <nuxt />
-  </div>
+  <nuxt />
 </template>
 
 <style>
@@ -24,40 +22,13 @@ html {
   margin: 0;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-  background: transparent;
-  line-height: 20px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-  background: transparent;
-  line-height: 20px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+body {
+  font-family: Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,Oxygen,Fira Sans,Droid Sans,Helvetica Neue;
+  background-color: #f9f9fa;
+  background-image: url(/icon-white.svg);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
 }
 </style>

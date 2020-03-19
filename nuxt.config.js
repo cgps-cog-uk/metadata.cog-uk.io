@@ -1,4 +1,4 @@
-
+import colors from "vuetify/es5/util/colors";
 import apiServerMiddleware from "./api";
 
 export default {
@@ -15,6 +15,8 @@ export default {
     ],
     link: [
       // { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" },
+      { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" },
     ],
   },
   /*
@@ -36,6 +38,7 @@ export default {
   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
+    "@nuxtjs/vuetify",
     "@nuxtjs/eslint-module",
   ],
   /*
@@ -52,15 +55,36 @@ export default {
   axios: {
   },
   /*
+  ** vuetify module configuration
+  ** https://github.com/nuxt-community/vuetify-module
+  */
+  vuetify: {
+    customVariables: [ "~/assets/variables.scss" ],
+    theme: {
+      dark: false,
+      themes: {
+        dark: {
+          primary: colors.blue.darken2,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3,
+        },
+      },
+    },
+  },
+  /*
   ** Build configuration
   */
   build: {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     },
   },
 
-  serverMiddleware: [apiServerMiddleware],
+  serverMiddleware: [ apiServerMiddleware ],
 };

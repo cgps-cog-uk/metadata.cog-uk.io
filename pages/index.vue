@@ -52,7 +52,7 @@
           Upload another file
         </button>
         <a
-          href="https://docs.google.com/document/d/1Ziqy71O6cZ70KR6o-yhfgQmrYx9-qZBkVzEJ0C0YIDY"
+          href="https://cutt.ly/cog-uk-epicollect-docs"
           target="_blank"
           class="button--grey"
         >
@@ -71,7 +71,7 @@
       <span>
         <a href="mailto:support@cog-uk.io">support@cog-uk.io</a>
       </span>
-    </footer>
+    </footer>//
   </div>
 </template>
 
@@ -82,6 +82,7 @@ import UploadFiles from "~/components/UploadFiles.vue";
 import DataGrid from "~/components/DataGrid.vue";
 
 export default {
+  middleware: "authenticated",
   components: {
     DataGrid,
     UploadFiles,
@@ -117,17 +118,7 @@ export default {
 };
 </script>
 
-<style>
-body {
-  font-family: Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,Oxygen,Fira Sans,Droid Sans,Helvetica Neue;
-  background-color: #f9f9fa;
-  background-image: url(/icon-white.svg);
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow: hidden;
-}
-
+<style scoped>
 .container {
   position: fixed;
   top: 0;
@@ -184,19 +175,40 @@ footer {
   justify-content: space-between;
 }
 
-.into {
-  padding: 0 24px;
-  text-align: left;
+.button--green {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #3b8070;
+  color: #3b8070;
+  text-decoration: none;
+  padding: 10px 30px;
+  background: transparent;
+  line-height: 20px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-.into h2 {
-  font-size: 32px;
-  padding-bottom: 8px;
-  font-weight: 700;
+.button--green:hover {
+  color: #fff;
+  background-color: #3b8070;
 }
 
-.into p {
-  line-height: 1.75;
-  margin-top: 16px;
+.button--grey {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #35495e;
+  color: #35495e;
+  text-decoration: none;
+  padding: 10px 30px;
+  margin-left: 15px;
+  background: transparent;
+  line-height: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button--grey:hover {
+  color: #fff;
+  background-color: #35495e;
 }
 </style>

@@ -1,4 +1,11 @@
 {
   "epicollect-upload-endpoint": "https://five.epicollect.net/api/upload/cog-uk",
-  "epicollect-project-endpoint": "https://five.epicollect.net/api/project/cog-uk"
+  "epicollect-project-endpoint": "https://five.epicollect.net/api/project/cog-uk",
+  "mongodb": {
+    "url": "mongodb://localhost:27017/coguk"
+  },
+  "passport": {
+    "url": "http://localhost:3000",
+    "strategies": {}
+  }
 }

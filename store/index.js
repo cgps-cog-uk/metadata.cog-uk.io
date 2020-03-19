@@ -17,6 +17,7 @@ export const state = () => ({
   },
   uploading: false,
   filter: null,
+  user: null,
 });
 
 export const mutations = {
@@ -74,6 +75,9 @@ export const mutations = {
   setUploading(state, mode) {
     state.uploading = mode;
   },
+  setUser(state, value) {
+    state.user = value;
+  },
 };
 
 export const getters = {
@@ -84,6 +88,12 @@ export const getters = {
     else {
       return state.data.entries;
     }
+  },
+  isAnonymous(state) {
+    return !state.user;
+  },
+  isAuthenticated(state) {
+    return !!state.user;
   },
   groups(state) {
     const queued = [];
@@ -119,6 +129,17 @@ export const getters = {
 };
 
 export const actions = {
+  nuxtServerInit({ commit }, { req }) {
+    if (req.user) {
+      commit(
+        "setUser",
+        {
+          name: req.user.name,
+          email: req.user.email,
+        }
+      );
+    }
+  },
   uploadEntry({ commit, state }, entryId) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
