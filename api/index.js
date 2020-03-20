@@ -5,9 +5,16 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const MongoSessionStore = require("connect-mongo")(session);
 const userAccounts = require("cgps-user-accounts/src");
+const axios = require("axios");
 
 const config = require("./utils/config");
 const userStore = require("./utils/user-store");
+const accessTokenMiddleware = require("./access-token-middleware");
+
+const getProjectDef = (
+  axios.get(config["epicollect-project-endpoint"])
+    .then((response) => response.data)
+);
 
 const app = express();
 
@@ -34,14 +41,21 @@ if (process.env.npm_lifecycle_script !== "nuxt build") {
     })
   );
 
-  mongoose.connect(
-    config.mongodb.url,
-    {
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  );
+  Promise.all([
+    mongoose.connect(
+      config.mongodb.url,
+      {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    ),
+    getProjectDef,
+  ])
+    .catch((error) => {
+      console.error(error);
+      process.exit(1);
+    });
 
   mongoose.connection.on(
     "error",
@@ -65,9 +79,18 @@ userAccounts(app, {
   redirectToReferrer: false,
 });
 
+app.use(accessTokenMiddleware);
+
 app.use((req, res, next) => {
   req.config = config;
   next();
+});
+
+app.use((req, res, next) => {
+  getProjectDef.then((data) => {
+    req.projectDef = data;
+    next();
+  });
 });
 
 app.use("/api", require("./routes"));

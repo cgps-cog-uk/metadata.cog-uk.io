@@ -10,13 +10,14 @@ const statudToFilterMap = {
 };
 
 export const state = () => ({
-  mode: "files",
   data: {
     headers: undefined,
     entries: undefined,
   },
-  uploading: false,
   filter: null,
+  formManifest: null,
+  mode: "files",
+  uploading: false,
   user: null,
 });
 
@@ -69,14 +70,21 @@ export const mutations = {
     state.mode = "error";
     state.errorMessage = err.response.data.error;
   },
+  setFormManifest(state, formManifest) {
+    state.formManifest = formManifest;
+  },
   setMode(state, mode) {
     state.mode = mode;
   },
   setUploading(state, mode) {
     state.uploading = mode;
   },
-  setUser(state, value) {
-    state.user = value;
+  setUser(state, user) {
+    state.user = {
+      name: user.name,
+      email: user.email,
+      apiAccessToken: user.apiAccessToken,
+    };
   },
 };
 
@@ -133,10 +141,13 @@ export const actions = {
     if (req.user) {
       commit(
         "setUser",
-        {
-          name: req.user.name,
-          email: req.user.email,
-        }
+        req.user
+      );
+    }
+    if (req.projectDef) {
+      commit(
+        "setFormManifest",
+        req.projectDef.data.project.forms[0].inputs
       );
     }
   },

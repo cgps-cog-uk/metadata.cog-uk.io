@@ -75,6 +75,7 @@
 
 <script>
 export default {
+  layout: "login",
   data() {
     return {
       email: "",
@@ -101,22 +102,6 @@ export default {
 <style scoped>
 .v-card {
   position: relative;
-}
-section {
-  margin: 24px;
-  background-color: #fff;
-  box-shadow: 0 12px 18px 2px rgba(34,0,51,.04),0 6px 22px 4px rgba(7,48,114,.12),0 6px 10px -4px rgba(14,13,26,.12);
-  padding: 32px;
-  flex-direction: row;
-  display: flex;
-  border-radius: 16px;
-  width: 100%;
-  /* overflow: hidden; */
-  /* min-height: 100%; */
-  /* height: 100%; */
-  border: 0 solid #d7d7db;
-  /* min-height: 32rem; */
-  /* max-height: 38rem; */
 }
 input {
   border: 1px solid #d7d7db;
