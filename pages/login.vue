@@ -62,7 +62,7 @@
                   v-else
                 >
                   <br>
-                  {{ error }}.
+                  {{ message }}.
                 </p>
               </v-overlay>
             </v-card>

@@ -220,4 +220,19 @@ label {
   margin-top: 16px;
 }
 
+.into {
+  padding: 0 24px;
+  text-align: left;
+}
+
+.into h2 {
+  font-size: 32px;
+  padding-bottom: 8px;
+  font-weight: 700;
+}
+
+.into p {
+  line-height: 1.75;
+  margin-top: 16px;
+}
 </style>

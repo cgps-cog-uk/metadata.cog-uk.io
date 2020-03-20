@@ -60,7 +60,7 @@ userAccounts(app, {
   successRedirect: `${config.passport.url}`,
   failureRedirect: `${config.passport.url}/login`,
   logoutRedirect: config.passport.url,
-  logoutPath: "/auth/logout",
+  logoutPath: "/logout",
   strategies: config.passport.strategies,
   redirectToReferrer: false,
 });

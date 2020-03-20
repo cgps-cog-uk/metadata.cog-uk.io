@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="full-container">
     <header>
       <h1>
         COG-UK
@@ -66,12 +66,24 @@
     </main>
     <footer>
       <span>
-        <!-- Developed by The Centre for Genomic Pathogen Surveillance (CGPS) -->
+        Logged in as {{ user.email }}.
       </span>
-      <span>
-        <a href="mailto:support@cog-uk.io">support@cog-uk.io</a>
-      </span>
-    </footer>//
+      <ul>
+        <li>
+          <a href="mailto:support@cog-uk.io">support@cog-uk.io</a>
+        </li>
+        <li>
+          <a href="/api">
+            API
+          </a>
+        </li>
+        <li>
+          <a href="/logout">
+            Logout
+          </a>
+        </li>
+      </ul>
+    </footer>
   </div>
 </template>
 
@@ -89,6 +101,7 @@ export default {
   },
   computed: {
     ...mapState({
+      user: "user",
       data: "data",
       mode: "mode",
       uploading: "uploading",
@@ -119,7 +132,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.full-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -139,6 +152,7 @@ export default {
 header {
   width: 100%;
   height: 64px;
+  min-height: 64px;
   padding: 0 32px;
   display: flex;
   justify-content: space-between;
@@ -164,15 +178,6 @@ main {
   -moz-box-flex: 0;
 
   overflow: auto;
-}
-
-footer {
-  width: 100%;
-  padding: 16px 32px;
-  text-align: left;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 
 .button--green {
@@ -210,5 +215,36 @@ footer {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+footer {
+  width: 100%;
+  padding: 8px 32px;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: .75rem;
+  color: #4a4a4f;
+  align-items: center;
+  font-weight: 500;
+}
+footer ul {
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+  user-select: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+footer ul li {
+  margin: .5rem;
+}
+footer ul li a {
+  color: inherit;
+  text-decoration: none;
+  background-color: initial;
 }
 </style>
