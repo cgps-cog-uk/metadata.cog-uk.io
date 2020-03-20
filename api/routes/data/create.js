@@ -6,8 +6,13 @@ const moment = require("moment");
 const config = require("../../utils/config");
 const uuid = require("../../utils/uuid");
 
+async function getProjectDef() {
+  const projectDef = await axios.get(config["epicollect-project-endpoint"]);
+  return projectDef.data;
+}
+
 async function createEntryData(req) {
-  const projectDef = req.projectDef;
+  const projectDef = await getProjectDef();
 
   const rawValues = req.body;
   const version = projectDef.meta.project_stats.structure_last_updated;
