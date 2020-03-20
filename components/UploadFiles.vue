@@ -4,11 +4,11 @@
       <div
         ref="drop-target"
         class="upload-files"
-        v-on:click="selectFiles"
       >
         <svg
           class="w-10 h-10 link-blue"
           viewBox="0 0 24 24"
+          v-on:click="selectFiles"
         >
           <g fill="currentColor" fill-rule="evenodd">
             <path fill-rule="nonzero" d="M12 22.667c5.891 0 10.667-4.776 10.667-10.667S17.89 1.333 12 1.333 1.333 6.11 1.333 12 6.11 22.667 12 22.667zM12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12z"></path>
@@ -160,13 +160,13 @@ export default {
   border-style: dashed;
   border-radius: .25rem;
   border-color: rgba(21,20,26,.2);
-  cursor: pointer;
 }
 
 svg {
   color: #0060df;
   width: 24px;
   height: 24px;
+  cursor: pointer;
 }
 
 input {

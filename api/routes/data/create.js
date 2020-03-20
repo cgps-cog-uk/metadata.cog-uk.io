@@ -60,7 +60,17 @@ async function createEntryData(req) {
     }
   }
 
+  let wasJumped = false;
   for (const input of projectDef.data.project.forms[formIndex].inputs) {
+    const answer = {
+      question: input.question.toLowerCase(),
+      was_jumped: wasJumped,
+      answer: "",
+    };
+    data.entry.answers[input.ref] = answer;
+    if (wasJumped) {
+      continue;
+    }
     const rawValue = rawValues[input.question.toLowerCase()];
     if (input.is_required) {
       if (!rawValue) {
@@ -70,18 +80,17 @@ async function createEntryData(req) {
         };
       }
     }
-    const answer = {
-      was_jumped: false,
-      answer: "",
-    };
     if (rawValue) {
       if (input.is_title) {
         titles.push(rawValue);
       }
-      if (input.type === "radio") {
+      if (input.type === "radio" || input.type === "dropdown") {
         const foundAsnwer = input.possible_answers.find((x) => x.answer.toLowerCase() === rawValue.toLowerCase());
         if (foundAsnwer) {
           answer.answer = foundAsnwer.answer_ref;
+          if (input.jumps.length && input.jumps[0].answer_ref === foundAsnwer.answer_ref) {
+            wasJumped = true;
+          }
         }
         else {
           throw {
@@ -102,11 +111,13 @@ async function createEntryData(req) {
           };
         }
       }
-      else {
+      else if (input.type === "barcode" || input.type === "text" || input.type === "integer") {
         answer.answer = rawValue;
       }
+      else {
+        throw { message: `Invalid input type of ${input.type}` };
+      }
     }
-    data.entry.answers[input.ref] = answer;
   }
 
   data.entry.title = (

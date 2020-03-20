@@ -65,6 +65,7 @@ export const mutations = {
       entries,
     };
     state.mode = "data";
+    state.filter = null;
   },
   setError(state, err) {
     state.mode = "error";

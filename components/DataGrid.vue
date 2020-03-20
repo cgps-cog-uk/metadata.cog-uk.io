@@ -103,6 +103,9 @@ th {
   padding: 8px 0;
 }
 td {
-  padding: 4px 0;
+  padding: 8px 4px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 </style>
