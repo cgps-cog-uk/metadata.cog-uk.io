@@ -40,10 +40,11 @@
           COVID-19 Sequencing Metadata Upload
         </h2>
         <p>
-          You can upload batches of data as a CSV file by dragging and dropping the files or clicking “Select files to upload”.
+          You can upload batches of data using a spreadsheet by dragging and dropping the files or clicking “Select files to upload”.
         </p>
         <p>
-          You can create a CSV file in Excel, Google Docs or other spreadsheet software.  Please use this template; do not edit, add, or remove any columns.  Make sure you save it as a CSV (or Comma Separated Variable) file.
+          You can create a spreadsheet file in Excel, Google Docs or other spreadsheet software.
+          Please use <a href="https://cutt.ly/cog-uk-template" target="_blank">this template</a>; do not edit, add, or remove any columns. This page supports CSV, Excel, ODF formats.
         </p>
       </div>
     </div>
