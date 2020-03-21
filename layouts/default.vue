@@ -59,7 +59,7 @@ export default {
 
 <style scoped>
 .full-container {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   right: 0;
@@ -71,8 +71,9 @@ export default {
   align-items: center;
   text-align: center;
   flex-direction: column;
-  overflow: hidden;
-  height: 100vh;
+  /* overflow-x: hidden; */
+  /* overflow-y: auto; */
+  /* height: 100vh; */
 }
 
 header {
@@ -90,14 +91,13 @@ main {
   position: relative;
   max-width: 64rem;
   /* height: 100%; */
-  flex-grow: 1;
+  /* flex-grow: 1; */
 
   /* flex: 1 1 0%; */
   align-self: center;
-  align-items: center;
+  align-items: flex-start;
   margin: auto;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding: 0;
   /* min-height: 20rem; */
   /* max-height: 36rem; */
   /* width: calc(100% - 3rem); */
