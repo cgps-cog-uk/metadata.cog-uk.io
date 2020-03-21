@@ -7,10 +7,17 @@
     <pre>
   curl \
     --request POST \
-    --header "Content-type: application/json; charset=UTF-8" \
+    --header "content-type: application/json; charset=UTF-8" \
     --header "access-token: {{ user.apiAccessToken }}" \
-    --data '{ {{ sampleJsonDocument }} }' \
+    --data 'JSON REQUEST BODY' \
     https://www.cog-uk.io/api/data/create/</pre>
+
+    JSON Document Example:
+    <pre>
+    {
+      {{ sampleJsonDocument }}
+    }
+    </pre>
   </section>
 </template>
 
@@ -30,7 +37,7 @@ export default {
       return (
         this.formManifest
           .map((x) => `"${x.question.toLowerCase()}": ""`)
-          .join(", ")
+          .join(",\n    ")
       );
     },
   },
@@ -38,16 +45,13 @@ export default {
 </script>
 
 <style scoped>
-section > div {
-  display: flex;
-  flex-direction: column;
-}
 pre {
   max-width: 920px;
   overflow-x: scroll;
   overflow-y: hidden;
-  margin: 32px 0;
+  margin: 0;
   padding: 16px;
   background: #f9f9fa;
+  font-size: 13px;
 }
 </style>
