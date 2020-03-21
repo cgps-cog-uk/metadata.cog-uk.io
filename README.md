@@ -20,3 +20,11 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## Create a new image
+
+``` bash
+npm run dev
+# make changes and commit them
+npm run release # this creates a new tag and starts a job on Gotlab CI to build a new image
+```
