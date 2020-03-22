@@ -171,7 +171,6 @@ footer ul li a {
   .full-container {
     min-height: 100vh;
   }
-  header h1,
   header nav {
     display: unset;
   }
