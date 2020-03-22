@@ -5,16 +5,11 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const MongoSessionStore = require("connect-mongo")(session);
 const userAccounts = require("cgps-user-accounts/src");
-const axios = require("axios");
 
 const config = require("./utils/config");
 const userStore = require("./utils/user-store");
 const accessTokenMiddleware = require("./access-token-middleware");
-
-const getProjectDef = (
-  axios.get(config["epicollect-project-endpoint"])
-    .then((response) => response.data)
-);
+const epicollectApi = require("./utils/epicollect");
 
 const app = express();
 
@@ -41,17 +36,14 @@ if (process.env.npm_lifecycle_script !== "nuxt build") {
     })
   );
 
-  Promise.all([
-    mongoose.connect(
-      config.mongodb.url,
-      {
-        useCreateIndex: true,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
-    ),
-    getProjectDef,
-  ])
+  mongoose.connect(
+    config.mongodb.url,
+    {
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
     .catch((error) => {
       console.error(error);
       process.exit(1);
@@ -83,14 +75,11 @@ app.use(accessTokenMiddleware);
 
 app.use((req, res, next) => {
   req.config = config;
+  req.getProjectDefinition = () => {
+    const project = req.user.getProject();
+    return epicollectApi.getProjectDefinition(project);
+  }
   next();
-});
-
-app.use((req, res, next) => {
-  getProjectDef.then((data) => {
-    req.projectDef = data;
-    next();
-  });
 });
 
 app.use("/api", require("./routes"));

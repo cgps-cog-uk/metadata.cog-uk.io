@@ -99,7 +99,22 @@ export default {
 <style scoped>
 nav {
   position: fixed;
-  top: 11px;
-  right: 96px;
+  top: 32px;
+  left: 8px;
+}
+@media (max-width:768px) {
+  nav button {
+    padding: 0 1px;
+    margin: 0;
+    border: 0;
+  }
+}
+@media (min-width:768px) {
+  nav {
+    position: fixed;
+    top: 11px;
+    right: 96px;
+    left: unset;
+  }
 }
 </style>

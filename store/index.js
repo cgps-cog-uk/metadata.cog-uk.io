@@ -138,17 +138,18 @@ export const getters = {
 };
 
 export const actions = {
-  nuxtServerInit({ commit }, { req }) {
+  async nuxtServerInit({ commit }, { req }) {
     if (req.user) {
       commit(
         "setUser",
         req.user
       );
     }
-    if (req.projectDef) {
+    if (req.user) {
+      const projectDefinition = await req.getProjectDefinition();
       commit(
         "setFormManifest",
-        req.projectDef.data.project.forms[0].inputs
+        projectDefinition.data.project.forms[0].inputs
       );
     }
   },

@@ -143,11 +143,9 @@ export default {
 <style scoped>
 .columns {
   display: flex;
-  direction: row;
+  flex-direction: column;
 }
-.columns > div {
-  width: 50%;
-}
+
 .upload-files {
   width: 100%;
   padding: 64px 24px;
@@ -221,5 +219,14 @@ label {
 .into p {
   line-height: 1.75;
   margin-top: 16px;
+}
+
+@media (min-width:768px) {
+  .columns {
+    flex-direction: row;
+  }
+  .columns > div {
+    width: 50%;
+  }
 }
 </style>

@@ -65,7 +65,6 @@ export default {
   right: 0;
   bottom: 0;
   margin: 0 auto;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,10 +79,17 @@ header {
   width: 100%;
   height: 64px;
   min-height: 64px;
-  padding: 0 32px;
+  padding: 0 8px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+}
+header h1 {
+  margin-top: 8px;
+  font-size: 16px;
+}
+header nav {
+  display: none;
 }
 
 main {
@@ -92,7 +98,6 @@ main {
   max-width: 64rem;
   /* height: 100%; */
   /* flex-grow: 1; */
-
   /* flex: 1 1 0%; */
   align-self: center;
   align-items: flex-start;
@@ -102,16 +107,12 @@ main {
   /* max-height: 36rem; */
   /* width: calc(100% - 3rem); */
   -moz-box-flex: 0;
-
   overflow: auto;
 }
 
 section {
-  margin: 24px;
   background-color: #fff;
-  box-shadow: 0 12px 18px 2px rgba(34,0,51,.04),0 6px 22px 4px rgba(7,48,114,.12),0 6px 10px -4px rgba(14,13,26,.12);
   padding: 32px;
-  border-radius: 16px;
   width: 100%;
   /* overflow: hidden; */
   /* min-height: 100%; */
@@ -127,17 +128,17 @@ footer {
   padding: 8px 32px;
   text-align: left;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   font-size: .75rem;
   color: #4a4a4f;
-  align-items: center;
+  align-items: flex-start;
   font-weight: 500;
 }
 footer ul {
   justify-content: flex-end;
-  align-items: center;
-  flex-direction: row;
+  align-items: flex-start;
+  flex-direction: column;
   display: flex;
   user-select: none;
   list-style: none;
@@ -145,11 +146,45 @@ footer ul {
   padding: 0;
 }
 footer ul li {
-  margin: .5rem;
+  margin: .25rem 0;
 }
 footer ul li a {
   color: inherit;
   text-decoration: none;
   background-color: initial;
+}
+
+@media (min-width:768px) {
+  header {
+    padding: 0 32px;
+    align-items: center;
+  }
+  header h1 {
+    font-size: 32px;
+    margin: unset;
+  }
+  section {
+    margin: 24px;
+    box-shadow: 0 12px 18px 2px rgba(34,0,51,.04),0 6px 22px 4px rgba(7,48,114,.12),0 6px 10px -4px rgba(14,13,26,.12);
+    border-radius: 16px;
+  }
+  .full-container {
+    min-height: 100vh;
+  }
+  header h1,
+  header nav {
+    display: unset;
+  }
+  footer {
+    flex-direction: row;
+    align-items: center;
+  }
+  footer ul {
+    flex-direction: row;
+    align-items: center;
+  }
+  footer ul li {
+    margin: .5rem;
+  }
 }
 </style>
