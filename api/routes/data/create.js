@@ -3,7 +3,6 @@
 const axios = require("axios");
 const moment = require("moment");
 
-const config = require("../../utils/config");
 const uuid = require("../../utils/uuid");
 const epicollectApi = require("../../utils/epicollect");
 
@@ -29,8 +28,8 @@ function createEntryData(projectDefinition, rawValues) {
     entry: {
       entry_uuid: entryId,
       created_at: (new Date()).toISOString(),
-      device_id: "web",
-      platform: "COG-UK.IO",
+      device_id: "cog-uk.io",
+      platform: "API",
       title: null,
       answers: {},
       project_version: version,
