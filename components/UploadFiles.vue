@@ -44,7 +44,7 @@
         </p>
         <p>
           You can create a spreadsheet file in Excel, Google Docs or other spreadsheet software.
-          Please use <a href="https://cutt.ly/cog-uk-template" target="_blank">this template</a>; do not edit, add, or remove any columns. This page supports CSV, Excel, ODF formats.
+          Please use <a href="/api/downloads/template" target="_blank">this template</a>; do not edit, add, or remove any columns. This page supports CSV, Excel, ODF formats.
         </p>
       </div>
     </div>

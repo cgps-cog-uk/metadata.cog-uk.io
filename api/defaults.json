@@ -1,6 +1,11 @@
 {
-  "epicollect-upload-endpoint": "https://five.epicollect.net/api/upload/cog-uk",
-  "epicollect-project-endpoint": "https://five.epicollect.net/api/project/cog-uk",
+  "epicollect": {
+    "id": "cog-uk-copy",
+    "client": { 
+      "id": "1559", 
+      "secret": "GX9qPDdQNKT0ii9OVsCsl7X0mk6WO4ytxw0ojTVm"
+    }
+  },
   "mongodb": {
     "url": "mongodb://localhost:27017/coguk"
   },

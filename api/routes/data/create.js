@@ -5,19 +5,12 @@ const moment = require("moment");
 
 const config = require("../../utils/config");
 const uuid = require("../../utils/uuid");
+const epicollectApi = require("../../utils/epicollect");
 
-async function getProjectDef() {
-  const projectDef = await axios.get(config["epicollect-project-endpoint"]);
-  return projectDef.data;
-}
-
-async function createEntryData(req) {
-  const projectDef = await getProjectDef();
-
-  const rawValues = req.body;
-  const version = projectDef.meta.project_stats.structure_last_updated;
+function createEntryData(projectDefinition, rawValues) {
+  const version = projectDefinition.meta.project_stats.structure_last_updated;
   const formIndex = 0;
-  const formRef = projectDef.meta.project_extra.project.forms[formIndex];
+  const formRef = projectDefinition.data.project.forms[formIndex].ref;
   const entryId = uuid();
 
   const data = {
@@ -46,7 +39,7 @@ async function createEntryData(req) {
 
   const titles = [];
 
-  for (const input of projectDef.data.project.forms[formIndex].inputs) {
+  for (const input of projectDefinition.data.project.forms[formIndex].inputs) {
     if (input.type === "date") {
       const questionFieldname = input.question.toLowerCase();
       if (!rawValues[questionFieldname]) {
@@ -61,7 +54,7 @@ async function createEntryData(req) {
   }
 
   let wasJumped = false;
-  for (const input of projectDef.data.project.forms[formIndex].inputs) {
+  for (const input of projectDefinition.data.project.forms[formIndex].inputs) {
     const answer = {
       question: input.question.toLowerCase(),
       was_jumped: wasJumped,
@@ -125,31 +118,33 @@ async function createEntryData(req) {
       ?
       titles.join(" ")
       :
-      `${projectDef.data.project.forms[formIndex].name} ${entryId}`
+      `${projectDefinition.data.project.forms[formIndex].name} ${entryId}`
   );
 
-  req.projectDef = projectDef;
-  req.formDef = projectDef.data.project.forms[formIndex];
   return data;
 }
 
-function sendEntryRequest(data) {
-  return axios({
-    method: "POST",
-    url: config["epicollect-upload-endpoint"],
-    headers: {
-      "Content-Type": "application/vnd.api+json",
-    },
-    data: { data },
-  });
+async function createEntry(req) {
+  const project = req.user.getProject();
+  const projectDefinition = await epicollectApi.getProjectDefinition(project);
+
+  const data = createEntryData(projectDefinition, req.body);
+  const formDef = projectDefinition.data.project.forms[0];
+
+  return (
+    epicollectApi.createEntry(project, data)
+      .catch((error) => {
+        error.formDef = formDef;
+        throw error;
+      })
+  );
 }
 
 module.exports = function (req, res, next) {
   console.info("Got request to create data");
 
   Promise.resolve(req)
-    .then(createEntryData)
-    .then(sendEntryRequest)
+    .then(createEntry)
     .then((done) => {
       res.send({ ok: true });
     })
@@ -159,7 +154,7 @@ module.exports = function (req, res, next) {
         if (err.response.data.errors && err.response.data.errors[0]) {
           error = err.response.data.errors[0];
           if (error.source) {
-            const input = req.formDef.inputs.find((x) => x.ref === error.source);
+            const input = err.formDef.inputs.find((x) => x.ref === error.source);
             if (input) {
               error = {
                 message: error.title,
