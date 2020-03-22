@@ -6,7 +6,7 @@
       </h1>
       <nav>
         <a
-          href="https://cutt.ly/cog-uk-epicollect-docs"
+          href="https://docs.google.com/document/d/1cqyBfCV2De58qlMwAxCWr96aKUJsZnG4Mu-UncpEmk4/view"
           target="_blank"
           class="button--grey"
         >
