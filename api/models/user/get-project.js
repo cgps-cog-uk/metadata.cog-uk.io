@@ -1,5 +1,5 @@
 const config = require("../../utils/config");
 
 module.exports = function () {
-  return this.epicollect || config.epicollect;
+  return this.project || config.epicollect;
 };
