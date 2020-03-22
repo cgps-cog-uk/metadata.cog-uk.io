@@ -1,6 +1,5 @@
 /* eslint "no-throw-literal": 0 */
 
-const axios = require("axios");
 const moment = require("moment");
 
 const uuid = require("../../utils/uuid");
@@ -139,36 +138,43 @@ async function createEntry(req) {
   );
 }
 
+function handleErrors(err) {
+  let error = err;
+  if (err.response && err.response.data) {
+    if (err.response.data.errors && err.response.data.errors[0]) {
+      error = err.response.data.errors[0];
+      error.message = error.title;
+      if (error.source) {
+        const input = err.formDef.inputs.find((x) => x.ref === error.source);
+        if (input) {
+          error = {
+            message: error.title,
+            field: input.question.toLowerCase(),
+          };
+        }
+      }
+    }
+    else {
+      error = err.response.data;
+    }
+  }
+  else if (err instanceof Error) {
+    error = err.message;
+  }
+
+  return error;
+}
+
 module.exports = function (req, res, next) {
   console.info("Got request to create data");
 
   Promise.resolve(req)
     .then(createEntry)
-    .then((done) => {
+    .then(() => {
       res.send({ ok: true });
     })
     .catch((err) => {
-      let error = err;
-      if (err.response && err.response.data) {
-        if (err.response.data.errors && err.response.data.errors[0]) {
-          error = err.response.data.errors[0];
-          if (error.source) {
-            const input = err.formDef.inputs.find((x) => x.ref === error.source);
-            if (input) {
-              error = {
-                message: error.title,
-                field: input.question.toLowerCase(),
-              };
-            }
-          }
-        }
-        else {
-          error = err.response.data;
-        }
-      }
-      else if (err.message && !err.field) {
-        error = err.message;
-      }
+      const error = handleErrors(err);
       res
         .status(400)
         .send({ ok: false, error });
