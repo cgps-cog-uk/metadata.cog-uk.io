@@ -35,7 +35,7 @@
         <nuxt-link
           to="/form"
         >
-          Create new entry form
+          Add a single entry
         </nuxt-link>
         <p>{{ message }}</p>
       </div>
