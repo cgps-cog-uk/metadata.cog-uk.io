@@ -1,4 +1,5 @@
 <template>
+  <v-app>
   <div class="full-container">
     <header>
       <h1>
@@ -43,6 +44,7 @@
       </ul>
     </footer>
   </div>
+  </v-app>
 </template>
 
 <script>
@@ -58,6 +60,9 @@ export default {
 </script>
 
 <style scoped>
+.v-application >>> .v-application--wrap {
+  display: unset;
+}
 .full-container {
   /* position: fixed; */
   top: 0;
@@ -95,7 +100,6 @@ header nav {
 main {
   display: flex;
   position: relative;
-  max-width: 64rem;
   /* height: 100%; */
   /* flex-grow: 1; */
   /* flex: 1 1 0%; */
@@ -105,7 +109,7 @@ main {
   padding: 0;
   /* min-height: 20rem; */
   /* max-height: 36rem; */
-  /* width: calc(100% - 3rem); */
+  width: calc(100%);
   -moz-box-flex: 0;
   overflow: auto;
 }
@@ -162,6 +166,9 @@ footer ul li a {
   header h1 {
     font-size: 32px;
     margin: unset;
+  }
+  main {
+    max-width: 64rem;
   }
   section {
     margin: 24px;

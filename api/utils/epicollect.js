@@ -71,6 +71,11 @@ module.exports.getProjectDefinition = async function (project) {
 };
 
 module.exports.createEntry = async function (project, data) {
-  const response = await makeApiRequest(project, "POST", `/import/entries/${project.id}`, { data });
+  const response = await makeApiRequest(
+    project,
+    "POST",
+    `/import/entries/${project.id}`,
+    { data }
+  );
   return response.data;
 };

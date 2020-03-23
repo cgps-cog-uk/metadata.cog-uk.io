@@ -90,6 +90,113 @@ export const mutations = {
 };
 
 export const getters = {
+  allTypes() {
+    return [
+      {
+        name: "boolean",
+        assignable: true,
+        default: false,
+        hasEnum: true,
+      },
+      {
+        name: "datatable",
+        assignable: false,
+        default: null,
+        hasEnum: false,
+      },
+      {
+        name: "date",
+        assignable: true,
+        default: null,
+        hasEnum: true,
+      },
+      {
+        name: "file",
+        assignable: false,
+        default: null,
+        hasEnum: false,
+      },
+      {
+        name: "graph",
+        assignable: false,
+        default: null,
+        hasEnum: false,
+      },
+      {
+        name: "integer",
+        assignable: true,
+        default: null,
+        hasEnum: true,
+      },
+      {
+        name: "list",
+        assignable: true,
+        default: [],
+        hasEnum: false,
+      },
+      {
+        name: "map",
+        assignable: true,
+        default: {},
+        hasEnum: false,
+      },
+      {
+        name: "number",
+        assignable: true,
+        default: 0,
+        hasEnum: true,
+      },
+      {
+        name: "regex",
+        assignable: true,
+        default: "",
+        hasEnum: true,
+      },
+      {
+        name: "text",
+        assignable: true,
+        default: "",
+        hasEnum: true,
+      },
+      {
+        name: "url",
+        assignable: true,
+        default: "",
+        hasEnum: true,
+      },
+    ];
+  },
+  formInputs(state) {
+    const inputs = [];
+    let jumpField;
+    let jumpValue;
+    for (const question of state.formManifest) {
+      let enumItems;
+      let type = "text";
+      if (question.type === "date" || question.type === "integer") {
+        type = question.type;
+      }
+      if (question.type === "radio" || question.type === "dropdown") {
+        enumItems = question.possible_answers.map((answer) => ({ text: answer.answer, value: answer.answer }));
+      }
+      inputs.push({
+        name: question.question.toLowerCase(),
+        description: question.question,
+        type,
+        required: question.is_required,
+        enum: enumItems,
+        jumpField,
+        jumpValue,
+      });
+      if (question.type === "radio" || question.type === "dropdown") {
+        if (question.jumps.length) {
+          jumpField = question.question.toLowerCase();
+          jumpValue = question.possible_answers.find((x) => x.answer_ref === question.jumps[0].answer_ref).answer;
+        }
+      }
+    }
+    return inputs;
+  },
   filteredList(state) {
     if (state.filter) {
       return state.data.entries.filter((x) => statudToFilterMap[x._status] === state.filter);
@@ -134,6 +241,13 @@ export const getters = {
       failed,
       duplicated,
     };
+  },
+  typesByName(state, getters) {
+    const dict = {};
+    for (const item of getters.allTypes) {
+      dict[item.name] = item;
+    }
+    return dict;
   },
 };
 

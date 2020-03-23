@@ -31,6 +31,12 @@
         >
           Select files to upload
         </label>
+        <div>or</div>
+        <nuxt-link
+          to="/form"
+        >
+          Create new entry form
+        </nuxt-link>
         <p>{{ message }}</p>
       </div>
     </div>
