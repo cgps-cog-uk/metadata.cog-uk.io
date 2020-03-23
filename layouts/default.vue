@@ -3,7 +3,9 @@
   <div class="full-container">
     <header>
       <h1>
-        COG-UK
+        <nuxt-link to="/">
+          COG-UK
+        </nuxt-link>
       </h1>
       <nav>
         <a
