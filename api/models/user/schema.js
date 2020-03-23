@@ -12,5 +12,6 @@ module.exports = {
       id: String,
       secret: String,
     },
+    uniqueIdField: String,
   },
 };

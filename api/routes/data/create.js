@@ -2,14 +2,36 @@
 
 const moment = require("moment");
 
+const EntryCache = require("../../models/entry-cache");
 const uuid = require("../../utils/uuid");
 const epicollectApi = require("../../utils/epicollect");
 
-function createEntryData(projectDefinition, rawValues) {
+async function createEntryId(project, rawValues) {
+  const newId = uuid();
+  if (project.uniqueIdField) {
+    const doc = await EntryCache.findOneOrCreate(
+      {
+        projectId: project.id,
+        localId: rawValues[project.uniqueIdField],
+      },
+      {
+        projectId: project.id,
+        localId: rawValues[project.uniqueIdField],
+        entryId: newId,
+      }
+    );
+    return doc.entryId;
+  }
+  else {
+    return newId;
+  }
+}
+
+async function createEntryData(project, projectDefinition, rawValues) {
   const version = projectDefinition.meta.project_stats.structure_last_updated;
   const formIndex = 0;
   const formRef = projectDefinition.data.project.forms[formIndex].ref;
-  const entryId = uuid();
+  const entryId = await createEntryId(project, rawValues);
 
   const data = {
     type: "entry",
@@ -126,7 +148,7 @@ async function createEntry(req) {
   const project = req.user.getProject();
   const projectDefinition = await epicollectApi.getProjectDefinition(project);
 
-  const data = createEntryData(projectDefinition, req.body);
+  const data = await createEntryData(project, projectDefinition, req.body);
   const formDef = projectDefinition.data.project.forms[0];
 
   return (
