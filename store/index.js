@@ -93,74 +93,67 @@ export const getters = {
   allTypes() {
     return [
       {
+        name: "barcode",
+        default: "",
+        hasEnum: true,
+      },
+      {
         name: "boolean",
-        assignable: true,
         default: false,
         hasEnum: true,
       },
       {
         name: "datatable",
-        assignable: false,
         default: null,
         hasEnum: false,
       },
       {
         name: "date",
-        assignable: true,
         default: null,
         hasEnum: true,
       },
       {
         name: "file",
-        assignable: false,
         default: null,
         hasEnum: false,
       },
       {
         name: "graph",
-        assignable: false,
         default: null,
         hasEnum: false,
       },
       {
         name: "integer",
-        assignable: true,
         default: null,
         hasEnum: true,
       },
       {
         name: "list",
-        assignable: true,
         default: [],
         hasEnum: false,
       },
       {
         name: "map",
-        assignable: true,
         default: {},
         hasEnum: false,
       },
       {
         name: "number",
-        assignable: true,
         default: 0,
         hasEnum: true,
       },
       {
         name: "regex",
-        assignable: true,
         default: "",
         hasEnum: true,
       },
       {
         name: "text",
-        assignable: true,
         default: "",
         hasEnum: true,
       },
       {
         name: "url",
-        assignable: true,
         default: "",
         hasEnum: true,
       },
@@ -173,7 +166,7 @@ export const getters = {
     for (const question of state.formManifest) {
       let enumItems;
       let type = "text";
-      if (question.type === "date" || question.type === "integer") {
+      if (question.type === "barcode" || question.type === "date" || question.type === "integer") {
         type = question.type;
       }
       if (question.type === "radio" || question.type === "dropdown") {

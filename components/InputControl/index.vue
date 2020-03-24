@@ -16,6 +16,7 @@
 <script>
 import { mapGetters } from "vuex";
 
+import barcode from "./barcode.vue";
 import boolean from "./boolean.vue";
 import combobox from "./combobox.vue";
 import date from "./date.vue";
@@ -28,6 +29,7 @@ import text from "./text.vue";
 import url from "./url.vue";
 
 const editors = {
+  barcode,
   boolean,
   combobox,
   date,
