@@ -1,6 +1,8 @@
 /* eslint no-shadow: 0 */
 /* eslint dot-notation: 0 */
 
+const formManifest = require("../assets/form-manifest");
+
 const statudToFilterMap = {
   Pending: "queued",
   Uploading: "queued",
@@ -70,9 +72,6 @@ export const mutations = {
   setError(state, err) {
     state.mode = "error";
     state.errorMessage = err.response.data.error;
-  },
-  setFormManifest(state, formManifest) {
-    state.formManifest = formManifest;
   },
   setMode(state, mode) {
     state.mode = mode;
@@ -160,35 +159,7 @@ export const getters = {
     ];
   },
   formInputs(state) {
-    const inputs = [];
-    let jumpField;
-    let jumpValue;
-    for (const question of state.formManifest) {
-      let enumItems;
-      let type = "text";
-      if (question.type === "barcode" || question.type === "date" || question.type === "integer") {
-        type = question.type;
-      }
-      if (question.type === "radio" || question.type === "dropdown") {
-        enumItems = question.possible_answers.map((answer) => ({ text: answer.answer, value: answer.answer }));
-      }
-      inputs.push({
-        name: question.question.toLowerCase(),
-        description: question.question,
-        type,
-        required: question.is_required,
-        enum: enumItems,
-        jumpField,
-        jumpValue,
-      });
-      if (question.type === "radio" || question.type === "dropdown") {
-        if (question.jumps.length) {
-          jumpField = question.question.toLowerCase();
-          jumpValue = question.possible_answers.find((x) => x.answer_ref === question.jumps[0].answer_ref).answer;
-        }
-      }
-    }
-    return inputs;
+    return formManifest;
   },
   filteredList(state) {
     if (state.filter) {
@@ -250,13 +221,6 @@ export const actions = {
       commit(
         "setUser",
         req.user
-      );
-    }
-    if (req.user) {
-      const projectDefinition = await req.getProjectDefinition();
-      commit(
-        "setFormManifest",
-        projectDefinition.data.project.forms[0].inputs
       );
     }
   },
