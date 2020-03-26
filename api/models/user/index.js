@@ -5,6 +5,7 @@ const schema = mongoose.Schema(require("./schema"));
 schema.pre("save", require("./pre-save"));
 
 schema.statics.findByAccessToken = require("./find-by-access-token");
+schema.statics.findOneOrCreate = require("./findOneOrCreate");
 
 schema.methods.getProject = require("./get-project");
 
