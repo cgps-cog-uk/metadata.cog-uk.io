@@ -42,7 +42,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     "@nuxtjs/vuetify",
-    "@nuxtjs/eslint-module",
+    // "@nuxtjs/eslint-module",
   ],
   /*
   ** Nuxt.js modules
