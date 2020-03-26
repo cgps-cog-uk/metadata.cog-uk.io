@@ -1,7 +1,7 @@
 /* eslint no-shadow: 0 */
 /* eslint dot-notation: 0 */
 
-const formManifest = require("../assets/form-manifest");
+import formManifest from "../assets/form-manifest";
 
 const statudToFilterMap = {
   Pending: "queued",
