@@ -1,11 +1,4 @@
 {
-  "epicollect": {
-    "id": "cog-uk-copy",
-    "client": { 
-      "id": "1559", 
-      "secret": "GX9qPDdQNKT0ii9OVsCsl7X0mk6WO4ytxw0ojTVm"
-    }
-  },
   "mongodb": {
     "url": "mongodb://localhost:27017/coguk"
   },

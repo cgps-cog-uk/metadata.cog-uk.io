@@ -9,7 +9,6 @@ const userAccounts = require("cgps-user-accounts/src");
 const config = require("./utils/config");
 const userStore = require("./utils/user-store");
 const accessTokenMiddleware = require("./access-token-middleware");
-const epicollectApi = require("./utils/epicollect");
 
 const app = express();
 
@@ -71,14 +70,10 @@ userAccounts(app, {
   redirectToReferrer: false,
 });
 
-app.use(accessTokenMiddleware);
+// app.use(accessTokenMiddleware);
 
 app.use((req, res, next) => {
   req.config = config;
-  req.getProjectDefinition = () => {
-    const project = req.user.getProject();
-    return epicollectApi.getProjectDefinition(project);
-  }
   next();
 });
 

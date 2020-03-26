@@ -1,17 +1,14 @@
-const epicollectApi = require("../../utils/epicollect");
+const formManifest = require("../../../assets/form-manifest");
 
 async function generateTemplate(req, res) {
-  const project = req.user.getProject();
-  const projectDefinition = await epicollectApi.getProjectDefinition(project);
-  const formManifest = projectDefinition.data.project.forms[0].inputs;
   const csvHeader = (
     formManifest
-      .map((x) => `"${x.question.toLowerCase()}"`)
+      .map((x) => `"${x.name}"`)
       .join(",")
   );
   res.setHeader(
     "Content-Disposition",
-    `attachment; filename=${project.id}-metadata-template.csv`
+    "attachment; filename=cog-uk-metadata-template.csv"
   );
   res.setHeader(
     "Content-Type",

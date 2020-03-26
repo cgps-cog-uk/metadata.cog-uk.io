@@ -38,6 +38,7 @@
           Add a single entry
         </nuxt-link>
         <p>{{ message }}</p>
+        <Options />
       </div>
     </div>
     <div>
@@ -61,9 +62,14 @@
 // import dropSheet from "../assets/scripts/dropsheet";
 import readFile from "../assets/scripts/read-file";
 
+import Options from "./Options.vue";
+
 const validFiles = /(\.xlsx|\.xls|\.csv|\.ods)$/i;
 
 export default {
+  components: {
+    Options,
+  },
   data() {
     return {
       message: "",
@@ -173,7 +179,7 @@ svg {
   cursor: pointer;
 }
 
-input {
+input[type="file"] {
   width: 0;
   position: absolute;
   overflow: hidden;
@@ -183,6 +189,19 @@ input {
   -moz-appearance: none;
   appearance: none;
 }
+
+input[type="text"] {
+  padding: 4px 8px;
+  margin: 4px 0;
+  line-height: 1.5;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid #d7d7db;
+}
+input[type="text"]:focus {
+  border-color:#0060df;
+}
+
 
 .label-1 {
   font-weight: 700;
@@ -225,6 +244,11 @@ label {
 .into p {
   line-height: 1.75;
   margin-top: 16px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width:768px) {

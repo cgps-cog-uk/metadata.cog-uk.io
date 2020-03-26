@@ -1,6 +1,8 @@
 /* eslint no-shadow: 0 */
 /* eslint dot-notation: 0 */
 
+const formManifest = require("../assets/form-manifest");
+
 const statudToFilterMap = {
   Pending: "queued",
   Uploading: "queued",
@@ -17,6 +19,7 @@ export const state = () => ({
   filter: null,
   formManifest: null,
   mode: "files",
+  options: {},
   uploading: false,
   user: null,
 });
@@ -26,15 +29,12 @@ export const mutations = {
     state.mode = "files";
     state.uploading = false;
   },
-  setEntryStatus(state, { entryId, status, error }) {
+  setEntryStatus(state, { entryId, status, messages }) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
       entry._status = status;
-      if (error) {
-        entry._error = error;
-        if (error.message === "Field is not unique.") {
-          entry._status = "Duplicated";
-        }
+      if (messages) {
+        entry._messages = messages;
       }
     }
   },
@@ -71,11 +71,14 @@ export const mutations = {
     state.mode = "error";
     state.errorMessage = err.response.data.error;
   },
-  setFormManifest(state, formManifest) {
-    state.formManifest = formManifest;
-  },
   setMode(state, mode) {
     state.mode = mode;
+  },
+  setOptions(state, options) {
+    state.options = {
+      ...state.options,
+      ...options,
+    };
   },
   setUploading(state, mode) {
     state.uploading = mode;
@@ -160,35 +163,7 @@ export const getters = {
     ];
   },
   formInputs(state) {
-    const inputs = [];
-    let jumpField;
-    let jumpValue;
-    for (const question of state.formManifest) {
-      let enumItems;
-      let type = "text";
-      if (question.type === "barcode" || question.type === "date" || question.type === "integer") {
-        type = question.type;
-      }
-      if (question.type === "radio" || question.type === "dropdown") {
-        enumItems = question.possible_answers.map((answer) => ({ text: answer.answer, value: answer.answer }));
-      }
-      inputs.push({
-        name: question.question.toLowerCase(),
-        description: question.question,
-        type,
-        required: question.is_required,
-        enum: enumItems,
-        jumpField,
-        jumpValue,
-      });
-      if (question.type === "radio" || question.type === "dropdown") {
-        if (question.jumps.length) {
-          jumpField = question.question.toLowerCase();
-          jumpValue = question.possible_answers.find((x) => x.answer_ref === question.jumps[0].answer_ref).answer;
-        }
-      }
-    }
-    return inputs;
+    return formManifest;
   },
   filteredList(state) {
     if (state.filter) {
@@ -252,23 +227,23 @@ export const actions = {
         req.user
       );
     }
-    if (req.user) {
-      const projectDefinition = await req.getProjectDefinition();
-      commit(
-        "setFormManifest",
-        projectDefinition.data.project.forms[0].inputs
-      );
-    }
   },
   uploadEntry({ commit, state }, entryId) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
       commit("setUploading", true);
       commit("setEntryStatus", { entryId, status: "Uploading" });
+      const request = {
+        ...state.options,
+        biosamples: [ entry ],
+      };
       return (
-        this.$axios.$post("/api/data/create/", entry)
-          .then(() => commit("setEntryStatus", { entryId, status: "Uploaded" }))
-          .catch((err) => commit("setEntryStatus", { entryId, status: "Failed", error: err.response.data.error }))
+        this.$axios.$post("/api/data/create/", request)
+          .then((response) => {
+            const status = response.ok ? "Uploaded" : "Failed";
+            commit("setEntryStatus", { entryId, status, messages: response.messages[0] });
+          })
+          .catch((err) => commit("setEntryStatus", { entryId, status: "Failed", errors: err }))
       );
     }
     return Promise.resolve();
