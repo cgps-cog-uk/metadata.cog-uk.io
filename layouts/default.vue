@@ -24,16 +24,11 @@
       </span>
       <ul>
         <li>
-          <a href="mailto:support@cog-uk.io">support@cog-uk.io</a>
+          <a href="mailto:metadata-support@cog-uk.io">metadata-support@cog-uk.io</a>
         </li>
         <li>
           <nuxt-link to="/">
             Upload
-          </nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/api">
-            API
           </nuxt-link>
         </li>
         <li>
