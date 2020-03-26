@@ -4,7 +4,7 @@
     <header>
       <h1>
         <nuxt-link to="/">
-          COG-UK
+          <img src="~/assets/images/cog-uk-metadata_smaller.png">
         </nuxt-link>
       </h1>
       <nav>
