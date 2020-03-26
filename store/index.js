@@ -252,21 +252,28 @@ export const actions = {
               {
                 entryId,
                 status,
-                error: `Errors in the following fields: ${Object.keys(response.messages[0]).join(", ")}`,
+                error: (
+                  response.ok
+                    ?
+                    null
+                    :
+                    `Errors in the following fields: ${Object.keys(response.messages[0]).join(", ")}`
+                ),
                 messages: response.messages[0],
               }
             );
           })
-          .catch(
-            (err) => commit(
+          .catch((err) => {
+            console.error(err);
+            commit(
               "setEntryStatus",
               {
                 entryId,
                 status: "Failed",
-                error: err.response.data.error,
+                error: err.response ? err.response.data.error : err,
               }
-            )
-          )
+            );
+          })
       );
     }
     return Promise.resolve();

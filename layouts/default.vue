@@ -22,12 +22,7 @@
       </main>
       <footer>
         <span>
-          Logged in as {{ user.email }}
-          <template
-            v-if="hasCredentials"
-          >
-            ({{ options.username }})
-          </template>
+          Logged in as {{ user.email }}. COG-UK Username: {{ hasCredentials ? options.username : "" }}
         </span>
         <ul>
           <li>
