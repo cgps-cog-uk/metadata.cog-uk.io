@@ -1,44 +1,44 @@
 <template>
   <v-app>
-  <div class="full-container">
-    <header>
-      <h1>
-        COG-UK
-      </h1>
-      <nav>
-        <a
-          href="https://docs.google.com/document/d/1cqyBfCV2De58qlMwAxCWr96aKUJsZnG4Mu-UncpEmk4/view"
-          target="_blank"
-          class="button--grey"
-        >
-          Help
-        </a>
-      </nav>
-    </header>
-    <main>
-      <nuxt />
-    </main>
-    <footer>
-      <span>
-        Logged in as {{ user.email }}.
-      </span>
-      <ul>
-        <li>
-          <a href="mailto:metadata-support@cog-uk.io">metadata-support@cog-uk.io</a>
-        </li>
-        <li>
-          <nuxt-link to="/">
-            Upload
-          </nuxt-link>
-        </li>
-        <li>
-          <a href="/logout">
-            Logout
+    <div class="full-container">
+      <header>
+        <h1>
+          COG-UK
+        </h1>
+        <nav>
+          <a
+            href="https://docs.google.com/document/d/1cqyBfCV2De58qlMwAxCWr96aKUJsZnG4Mu-UncpEmk4/view"
+            target="_blank"
+            class="button--grey"
+          >
+            Help
           </a>
-        </li>
-      </ul>
-    </footer>
-  </div>
+        </nav>
+      </header>
+      <main>
+        <nuxt />
+      </main>
+      <footer>
+        <span>
+          Logged in as {{ user.email }}.
+        </span>
+        <ul>
+          <li>
+            <a href="mailto:metadata-support@cog-uk.io">metadata-support@cog-uk.io</a>
+          </li>
+          <li>
+            <nuxt-link to="/">
+              Upload
+            </nuxt-link>
+          </li>
+          <li>
+            <a href="/logout">
+              Logout
+            </a>
+          </li>
+        </ul>
+      </footer>
+    </div>
   </v-app>
 </template>
 
