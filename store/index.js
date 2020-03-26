@@ -1,7 +1,7 @@
 /* eslint no-shadow: 0 */
 /* eslint dot-notation: 0 */
 
-const formManifest = require("../assets/form-manifest");
+import formManifest from "../assets/form-manifest";
 
 const statudToFilterMap = {
   Pending: "queued",
@@ -243,7 +243,16 @@ export const actions = {
             const status = response.ok ? "Uploaded" : "Failed";
             commit("setEntryStatus", { entryId, status, messages: response.messages[0] });
           })
-          .catch((err) => commit("setEntryStatus", { entryId, status: "Failed", errors: err }))
+          .catch(
+            (err) => commit(
+              "setEntryStatus",
+              {
+                entryId,
+                status: "Failed",
+                messages: { "*": err.response.data.error },
+              }
+            )
+          )
       );
     }
     return Promise.resolve();

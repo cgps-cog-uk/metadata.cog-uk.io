@@ -1,4 +1,4 @@
-const formManifest = require("../../../assets/form-manifest");
+const formManifest = require("../../../assets/form-manifest.json");
 
 async function generateTemplate(req, res) {
   const csvHeader = (

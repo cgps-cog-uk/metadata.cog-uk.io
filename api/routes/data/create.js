@@ -15,6 +15,11 @@ module.exports = function (req, res, next) {
     .catch((error) => {
       res
         .status(400)
-        .send(error);
+        .send({
+          error: error.message,
+          code: error.response.status,
+          status: error.response.statusText,
+          data: error.response.data,
+        });
     });
 };

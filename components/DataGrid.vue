@@ -32,7 +32,7 @@
             />
             <error-icon
               v-else-if="row._status === 'Failed'"
-              v-bind:title="row._messages"
+              v-bind:title="row._messages['*']"
             />
           </td>
           <td
