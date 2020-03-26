@@ -29,12 +29,15 @@ export const mutations = {
     state.mode = "files";
     state.uploading = false;
   },
-  setEntryStatus(state, { entryId, status, messages }) {
+  setEntryStatus(state, { entryId, status, error, messages }) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
       entry._status = status;
       if (messages) {
         entry._messages = messages;
+      }
+      if (error) {
+        entry._error = error;
       }
     }
   },
@@ -244,7 +247,15 @@ export const actions = {
         this.$axios.$post("/api/data/create/", request)
           .then((response) => {
             const status = response.ok ? "Uploaded" : "Failed";
-            commit("setEntryStatus", { entryId, status, messages: response.messages[0] });
+            commit(
+              "setEntryStatus",
+              {
+                entryId,
+                status,
+                error: `Errors in the following fields: ${Object.keys(response.messages[0]).join(", ")}`,
+                messages: response.messages[0],
+              }
+            );
           })
           .catch(
             (err) => commit(
@@ -252,7 +263,7 @@ export const actions = {
               {
                 entryId,
                 status: "Failed",
-                messages: { "*": err.response.data.error },
+                error: err.response.data.error,
               }
             )
           )
