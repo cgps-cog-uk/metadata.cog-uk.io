@@ -179,6 +179,9 @@ export const getters = {
   isAuthenticated(state) {
     return !!state.user;
   },
+  hasCredentials(state) {
+    return state.options.username && state.options.token;
+  },
   groups(state) {
     const queued = [];
     const uploaded = [];
