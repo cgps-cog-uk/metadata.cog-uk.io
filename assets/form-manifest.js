@@ -9,7 +9,7 @@ module.exports = [
   {
     name: "central_sample_id",
     description: "central sample id",
-    type: "text",
+    type: "barcode",
     required: true,
   },
   {
