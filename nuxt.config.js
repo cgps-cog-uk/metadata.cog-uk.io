@@ -33,6 +33,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    // { src: "@/plugins/localstorage.js" },
     { src: "@/plugins/qrcode-reader.js", mode: "client" },
   ],
   /*
@@ -49,6 +50,10 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
+    [
+      "nuxt-vuex-localstorage",
+      { localStorage: ["options"] },
+    ],
   ],
   /*
   ** Axios module configuration

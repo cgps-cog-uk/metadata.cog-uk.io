@@ -19,9 +19,7 @@
           v-for="(row, index) in list"
           v-bind:key="index"
         >
-          <td
-            v-bind:title="row._error && row._error.message ? row._error.message : row._error"
-          >
+          <td>
             <pending-icon
               v-if="row._status === 'Pending'"
               title="Pending"
@@ -33,7 +31,7 @@
               v-else-if="row._status === 'Uploaded'"
             />
             <error-icon
-              v-else-if="row._status === 'Failed' || row._status === 'Duplicated'"
+              v-else-if="row._status === 'Failed'"
             />
           </td>
           <td
@@ -41,8 +39,8 @@
             v-bind:key="header"
           >
             <warning-icon
-              v-if="row._error && row._error.field === header"
-              v-bind:title="row._error.message"
+              v-if="row._messages && row._messages[header]"
+              v-bind:title="row._messages[header].map((x) => x.message).join('. ')"
             />
             {{ row[header] }}
           </td>
@@ -108,5 +106,8 @@ td {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+th, td {
+  border-right: 1px solid #ccc;
 }
 </style>

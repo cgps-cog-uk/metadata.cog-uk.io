@@ -10,14 +10,27 @@ const axiosClient = axios.create({
 });
 
 module.exports.createBiosamples = async function (username, token, biosamples) {
-  const response = axiosClient.request({
+  const response = await axiosClient.request({
     method: "POST",
-    url: "biosample/add",
+    url: "biosample/add/",
     data: {
       username,
       token,
       biosamples,
     },
   });
+  // const results = response.data;
+  // if (results.errors > 0) {
+  //   // const errors = [];
+  //   // for (const field of Object.keys(results.messages[0])) {
+  //   //   for (const message of results.messages[0][field]) {
+  //   //     errors.push({
+  //   //       field,
+  //   //       message: message.message,
+  //   //     });
+  //   //   }
+  //   // }
+  //   throw results.messages[0];
+  // }
   return response.data;
 };

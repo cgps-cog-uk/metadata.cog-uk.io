@@ -70,7 +70,7 @@ userAccounts(app, {
   redirectToReferrer: false,
 });
 
-app.use(accessTokenMiddleware);
+// app.use(accessTokenMiddleware);
 
 app.use((req, res, next) => {
   req.config = config;

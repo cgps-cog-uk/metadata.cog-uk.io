@@ -19,6 +19,7 @@ export const state = () => ({
   filter: null,
   formManifest: null,
   mode: "files",
+  options: {},
   uploading: false,
   user: null,
 });
@@ -28,15 +29,12 @@ export const mutations = {
     state.mode = "files";
     state.uploading = false;
   },
-  setEntryStatus(state, { entryId, status, error }) {
+  setEntryStatus(state, { entryId, status, messages }) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
       entry._status = status;
-      if (error) {
-        entry._error = error;
-        if (error.message === "Field is not unique.") {
-          entry._status = "Duplicated";
-        }
+      if (messages) {
+        entry._messages = messages;
       }
     }
   },
@@ -75,6 +73,12 @@ export const mutations = {
   },
   setMode(state, mode) {
     state.mode = mode;
+  },
+  setOptions(state, options) {
+    state.options = {
+      ...state.options,
+      ...options,
+    };
   },
   setUploading(state, mode) {
     state.uploading = mode;
@@ -229,10 +233,17 @@ export const actions = {
     if (entry) {
       commit("setUploading", true);
       commit("setEntryStatus", { entryId, status: "Uploading" });
+      const request = {
+        ...state.options,
+        biosamples: [ entry ],
+      };
       return (
-        this.$axios.$post("/api/data/create/", entry)
-          .then(() => commit("setEntryStatus", { entryId, status: "Uploaded" }))
-          .catch((err) => commit("setEntryStatus", { entryId, status: "Failed", error: err.response.data.error }))
+        this.$axios.$post("/api/data/create/", request)
+          .then((response) => {
+            const status = response.ok ? "Uploaded" : "Failed";
+            commit("setEntryStatus", { entryId, status, messages: response.messages[0] });
+          })
+          .catch((err) => commit("setEntryStatus", { entryId, status: "Failed", errors: err }))
       );
     }
     return Promise.resolve();

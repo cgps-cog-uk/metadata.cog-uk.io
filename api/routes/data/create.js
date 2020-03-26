@@ -9,13 +9,12 @@ module.exports = function (req, res, next) {
 
   Promise.resolve(req.body)
     .then((data) => climbApi.createBiosamples(data.username, data.token, data.biosamples))
-    .then(() => {
-      res.send({ ok: true });
+    .then((results) => {
+      res.send({ ok: results.success, messages: results.messages });
     })
-    .catch((err) => {
-      const error = err;
+    .catch((error) => {
       res
         .status(400)
-        .send({ ok: false, error });
+        .send(error);
     });
 };

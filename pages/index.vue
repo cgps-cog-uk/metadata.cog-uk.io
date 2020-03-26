@@ -22,12 +22,6 @@
         >
           Failed ({{ groups.failed.length }})
         </button>
-        <button
-          class="button--green"
-          v-on:click="setFilter('duplicated')"
-        >
-          Duplicates ({{ groups.duplicated.length }})
-        </button>
       </template>
       <template
         v-else
@@ -86,7 +80,7 @@ export default {
       const entry = this.data.entries.find((x) => x._status === "Pending");
       if (entry) {
         this.$store.dispatch("uploadEntry", entry._id)
-          .catch(() => {})
+          .catch((error) => console.error(error))
           .then(() => {
             setTimeout(() => this.startUpload(), 0);
           });
