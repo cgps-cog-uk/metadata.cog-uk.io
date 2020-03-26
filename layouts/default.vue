@@ -20,16 +20,16 @@
       </main>
       <footer>
         <span>
-          Logged in as {{ user.email }}.
+          Logged in as {{ user.email }}
+          <template
+            v-if="hasCredentials"
+          >
+            ({{ options.username }})
+          </template>
         </span>
         <ul>
           <li>
             <a href="mailto:metadata-support@cog-uk.io">metadata-support@cog-uk.io</a>
-          </li>
-          <li>
-            <nuxt-link to="/">
-              Upload
-            </nuxt-link>
           </li>
           <li>
             <a href="/logout">
@@ -43,13 +43,19 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   computed: {
     ...mapState({
       user: "user",
     }),
+    ...mapGetters({
+      hasCredentials: "hasCredentials",
+    }),
+    options() {
+      return this.$store.state.options;
+    },
   },
 };
 </script>
