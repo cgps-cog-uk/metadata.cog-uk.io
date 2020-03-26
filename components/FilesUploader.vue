@@ -7,7 +7,7 @@
     <div>
       <div class="into">
         <h2>
-          COVID-19 Sample Metadata Upload
+          COG-UK Sample Metadata Uploader
         </h2>
         <p>
           You can upload batches of data using a spreadsheet by dragging and dropping the files or clicking “Select files to upload”.

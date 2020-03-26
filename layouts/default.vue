@@ -3,10 +3,9 @@
     <div class="full-container">
       <header>
         <h1>
-          <nuxt-link to="/">
+          <a v-on:click="resetToFileMode">
             <img title="COG-UK Sample Metadata Uploade" src="/images/cog-uk-metadata.png">
-            COG-UK Sample Metadata Uploader
-          </nuxt-link>
+          </a>
         </h1>
         <nav>
           <a
@@ -46,7 +45,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
   computed: {
@@ -59,6 +58,11 @@ export default {
     options() {
       return this.$store.state.options;
     },
+  },
+  methods: {
+    ...mapMutations({
+      resetToFileMode: "reset",
+    }),
   },
 };
 </script>
@@ -110,7 +114,7 @@ header h1 a {
   text-decoration: none;
 }
 header img {
-  height: 32px;
+  height: 16px;
   margin-right: 8px;
 }
 
@@ -183,6 +187,9 @@ footer ul li a {
   header h1 {
     font-size: 24px;
     margin: unset;
+  }
+  header img {
+    height: 32px;
   }
   main {
     max-width: 64rem;
