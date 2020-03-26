@@ -9,7 +9,7 @@
         </h1>
         <nav>
           <a
-            href="https://docs.google.com/document/d/1cqyBfCV2De58qlMwAxCWr96aKUJsZnG4Mu-UncpEmk4/view"
+            href="https://docs.cog-uk.io/metadata/"
             target="_blank"
             class="button--grey"
           >
