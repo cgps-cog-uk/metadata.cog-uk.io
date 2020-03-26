@@ -23,7 +23,7 @@ header {
 header a {
   font-size: 40px;
   text-decoration: none;
-
+  color: #673c90 !important;
 }
 body {
   font-family: Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,Oxygen,Fira Sans,Droid Sans,Helvetica Neue;

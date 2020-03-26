@@ -32,7 +32,7 @@
             />
             <error-icon
               v-else-if="row._status === 'Failed'"
-              v-bind:title="row._messages['*']"
+              v-bind:title="objectKeys(row._messages)"
             />
           </td>
           <td
@@ -75,6 +75,11 @@ export default {
     ...mapGetters({
       list: "filteredList",
     }),
+  },
+  methods: {
+    objectKeys(object) {
+      return `Errors in the following fields: ${Object.keys(object).join(", ")}`;
+    },
   },
 };
 </script>

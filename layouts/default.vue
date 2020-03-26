@@ -4,7 +4,8 @@
     <header>
       <h1>
         <nuxt-link to="/">
-          <img src="~/assets/images/cog-uk-metadata_smaller.png">
+          <img title="COG-UK Sample Metadata Uploade" src="~/assets/images/cog-uk-metadata_smaller.png">
+          COG-UK Sample Metadata Uploader
         </nuxt-link>
       </h1>
       <nav>
