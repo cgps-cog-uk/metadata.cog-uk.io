@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
 import FilesUploader from "~/components/FilesUploader.vue";
 import DataGrid from "~/components/DataGrid.vue";
@@ -70,9 +70,9 @@ export default {
     }),
   },
   methods: {
-    resetToFileMode() {
-      this.$store.commit("reset");
-    },
+    ...mapMutations({
+      resetToFileMode: "reset",
+    }),
     setFilter(filter) {
       this.$store.commit("setFilter", filter);
     },

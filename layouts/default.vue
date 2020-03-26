@@ -3,7 +3,9 @@
     <div class="full-container">
       <header>
         <h1>
-          COG-UK
+          <a v-on:click="resetToFileMode">
+            <img title="COG-UK Sample Metadata Uploade" src="/images/cog-uk-metadata.png">
+          </a>
         </h1>
         <nav>
           <a
@@ -43,7 +45,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
   computed: {
@@ -57,12 +59,20 @@ export default {
       return this.$store.state.options;
     },
   },
+  methods: {
+    ...mapMutations({
+      resetToFileMode: "reset",
+    }),
+  },
 };
 </script>
 
 <style scoped>
 .v-application >>> .v-application--wrap {
   display: unset;
+}
+.theme--light.v-application {
+  background: unset;
 }
 .full-container {
   /* position: fixed; */
@@ -96,6 +106,16 @@ header h1 {
 }
 header nav {
   display: none;
+}
+header h1 a {
+  align-items: center;
+  color: #0060df;
+  display: flex;
+  text-decoration: none;
+}
+header img {
+  height: 16px;
+  margin-right: 8px;
 }
 
 main {
@@ -165,8 +185,11 @@ footer ul li a {
     align-items: center;
   }
   header h1 {
-    font-size: 32px;
+    font-size: 24px;
     margin: unset;
+  }
+  header img {
+    height: 32px;
   }
   main {
     max-width: 64rem;

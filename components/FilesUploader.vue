@@ -7,7 +7,7 @@
     <div>
       <div class="into">
         <h2>
-          COVID-19 Sequencing Metadata Upload
+          COG-UK Sample Metadata Uploader
         </h2>
         <p>
           You can upload batches of data using a spreadsheet by dragging and dropping the files or clicking “Select files to upload”.
@@ -15,12 +15,6 @@
         <p>
           You can create a spreadsheet file in Excel, Google Docs or other spreadsheet software.
           Please use <a href="/api/downloads/template" target="_blank">this template</a>; do not edit, add, or remove any columns. This page supports CSV, Excel, ODF formats.
-        </p>
-        <p>
-          You also need to set your
-          <a>
-            Change COG-UK username or token.
-          </a>
         </p>
       </div>
     </div>
@@ -58,7 +52,7 @@ export default {
 }
 
 .into h2 {
-  font-size: 32px;
+  font-size: 24px;
   padding-bottom: 8px;
   font-weight: 700;
 }
