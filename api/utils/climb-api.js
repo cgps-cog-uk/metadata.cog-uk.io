@@ -9,7 +9,7 @@ const axiosClient = axios.create({
   },
 });
 
-module.exports.createBiosamples = async function (username, token, biosamples) {
+module.exports.createOrUpdateBiosamples = async function (username, token, biosamples) {
   const response = await axiosClient.request({
     method: "POST",
     url: "biosample/add/",
@@ -19,18 +19,28 @@ module.exports.createBiosamples = async function (username, token, biosamples) {
       biosamples,
     },
   });
-  // const results = response.data;
-  // if (results.errors > 0) {
-  //   // const errors = [];
-  //   // for (const field of Object.keys(results.messages[0])) {
-  //   //   for (const message of results.messages[0][field]) {
-  //   //     errors.push({
-  //   //       field,
-  //   //       message: message.message,
-  //   //     });
-  //   //   }
-  //   // }
-  //   throw results.messages[0];
-  // }
   return response.data;
 };
+
+module.exports.createOrUpdateLibrary = async function (username, token, library) {
+  const response = await axiosClient.request({
+    method: "POST",
+    url: "library/add/",
+    data: {
+      username,
+      token,
+      library,
+    },
+  });
+}
+module.exports.createOrUpdateSequencing = async function (username, token, sequencing) {
+  const response = await axiosClient.request({
+    method: "POST",
+    url: "sequencing/add/",
+    data: {
+      username,
+      token,
+      sequencing,
+    },
+  });
+}
