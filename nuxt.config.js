@@ -3,6 +3,9 @@ import apiServerMiddleware from "./api";
 
 export default {
   mode: "universal",
+  server: {
+    port: 3002,
+  },
   /*
   ** Headers of the page
   */

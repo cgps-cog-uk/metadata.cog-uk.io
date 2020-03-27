@@ -244,7 +244,7 @@ export const actions = {
         biosamples: [ entry ],
       };
       return (
-        this.$axios.$post("/api/data/create/", request)
+        this.$axios.$post("/api/data/submit/", request)
           .then((response) => {
             const status = response.ok ? "Uploaded" : "Failed";
             commit(
