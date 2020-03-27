@@ -76,6 +76,11 @@ export default {
       list: "filteredList",
     }),
   },
+  methods: {
+    objectKeys(object) {
+      return `Errors in the following fields: ${Object.keys(object).join(", ")}`;
+    },
+  },
 };
 </script>
 

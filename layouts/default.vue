@@ -4,7 +4,7 @@
       <header>
         <h1>
           <a v-on:click="resetToFileMode">
-            <img title="COG-UK Sample Metadata Uploade" src="/images/cog-uk-metadata.png">
+            <img title="COG-UK Sample Metadata Uploader" src="/images/cog-uk-metadata.png">
           </a>
         </h1>
         <nav>

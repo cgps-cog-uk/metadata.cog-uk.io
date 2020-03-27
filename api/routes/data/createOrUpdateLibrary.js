@@ -5,10 +5,10 @@ const moment = require("moment");
 const climbApi = require("../../utils/climb-api");
 
 module.exports = function (req, res, next) {
-  console.info("Got request to create data");
+  console.info("Got request to create or update library data");
 
   Promise.resolve(req.body)
-    .then((data) => climbApi.createBiosamples(data.username, data.token, data.biosamples))
+    .then((data) => climbApi.createOrUpdateLibrary(data.username, data.token, data.library))
     .then((results) => {
       res.send({ ok: results.success, messages: results.messages });
     })

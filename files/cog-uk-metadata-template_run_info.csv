@@ -1,0 +1,4 @@
+adm1,central_sample_id,collection_date,source_age,source_sex,override_heron,secondary_accession,secondary_identifier,adm2,biosample_source_id,collecting_org,root_sample_id,sample_type_collected,sample_type_received,sender_sample_id,swab_site,library_name,library_seq_kit,library_seq_protocol,library_layout_config,library_layout_config,library_layout_insert_length,library_layout_read_length,library_selection,library_source,library_strategy,barcode,run_name,instrument_make,instrument_model,start_time,end_time,flowcell_id,flowcell_type
+,,,,,,,,,,,,,,,,iilumina_lib1,TrueSeq,LIGATION,PAIRED,,,,PCR,GENOMIC,WGA,1,run1,ILLUMINA,NextSeq,,,,
+,,,,,,,,,,,,,,,,iilumina_lib2,TrueSeq,LIGATION,PAIRED,,,,PCR,GENOMIC,WGA,2,run1,ILLUMINA,NextSeq,,,,
+,,,,,,,,,,,,,,,,ONT_lib1,LSK109,LIGATION,PAIRED,,,,PCR,GENOMIC,WGA,,run2,OXFORD_NANOPORE,,,,5678,

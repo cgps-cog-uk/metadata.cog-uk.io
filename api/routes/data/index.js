@@ -3,8 +3,8 @@ const express = require("express");
 const router = express.Router();
 
 router.use(
-  "/create",
-  require("./create")
+  "/submit",
+  require("./submit")
 );
 
 module.exports = router;
