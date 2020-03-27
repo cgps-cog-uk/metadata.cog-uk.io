@@ -42,7 +42,7 @@ body {
   color: #3b8070;
   text-decoration: none;
   padding: 10px 8px;
-  background: transparent;
+  background: #fff;
   line-height: 20px;
   cursor: pointer;
   font-size: 16px;
@@ -61,7 +61,7 @@ body {
   text-decoration: none;
   padding: 10px 8px;
   margin-left: 4px;
-  background: transparent;
+  background: #fff;
   line-height: 20px;
   cursor: pointer;
   font-size: 16px;

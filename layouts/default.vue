@@ -3,14 +3,13 @@
     <div class="full-container">
       <header>
         <h1>
-          <nuxt-link to="/">
-            <img title="COG-UK Sample Metadata Uploade" src="~/assets/images/cog-uk-metadata_smaller.png">
-            COG-UK Sample Metadata Uploader
-          </nuxt-link>
+          <a v-on:click="resetToFileMode">
+            <img title="COG-UK Sample Metadata Uploader" src="/images/cog-uk-metadata.png">
+          </a>
         </h1>
         <nav>
           <a
-            href="https://docs.google.com/document/d/1cqyBfCV2De58qlMwAxCWr96aKUJsZnG4Mu-UncpEmk4/view"
+            href="https://docs.cog-uk.io/metadata/"
             target="_blank"
             class="button--grey"
           >
@@ -23,16 +22,11 @@
       </main>
       <footer>
         <span>
-          Logged in as {{ user.email }}.
+          Logged in as {{ user.email }}. COG-UK Username: {{ hasCredentials ? options.username : "" }}
         </span>
         <ul>
           <li>
             <a href="mailto:metadata-support@cog-uk.io">metadata-support@cog-uk.io</a>
-          </li>
-          <li>
-            <nuxt-link to="/">
-              Upload
-            </nuxt-link>
           </li>
           <li>
             <a href="/logout">
@@ -46,12 +40,23 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
   computed: {
     ...mapState({
       user: "user",
+    }),
+    ...mapGetters({
+      hasCredentials: "hasCredentials",
+    }),
+    options() {
+      return this.$store.state.options;
+    },
+  },
+  methods: {
+    ...mapMutations({
+      resetToFileMode: "reset",
     }),
   },
 };
@@ -60,6 +65,9 @@ export default {
 <style scoped>
 .v-application >>> .v-application--wrap {
   display: unset;
+}
+.theme--light.v-application {
+  background: unset;
 }
 .full-container {
   /* position: fixed; */
@@ -93,6 +101,16 @@ header h1 {
 }
 header nav {
   display: none;
+}
+header h1 a {
+  align-items: center;
+  color: #0060df;
+  display: flex;
+  text-decoration: none;
+}
+header img {
+  height: 16px;
+  margin-right: 8px;
 }
 
 main {
@@ -162,8 +180,11 @@ footer ul li a {
     align-items: center;
   }
   header h1 {
-    font-size: 32px;
+    font-size: 24px;
     margin: unset;
+  }
+  header img {
+    height: 32px;
   }
   main {
     max-width: 64rem;

@@ -6,12 +6,4 @@ module.exports = {
     type: String,
     index: true,
   },
-  project: {
-    id: String,
-    client: {
-      id: String,
-      secret: String,
-    },
-    uniqueIdField: String,
-  },
 };

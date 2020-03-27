@@ -29,12 +29,15 @@ export const mutations = {
     state.mode = "files";
     state.uploading = false;
   },
-  setEntryStatus(state, { entryId, status, messages }) {
+  setEntryStatus(state, { entryId, status, error, messages }) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
       entry._status = status;
       if (messages) {
         entry._messages = messages;
+      }
+      if (error) {
+        entry._error = error;
       }
     }
   },
@@ -179,6 +182,9 @@ export const getters = {
   isAuthenticated(state) {
     return !!state.user;
   },
+  hasCredentials(state) {
+    return state.options.username && state.options.token;
+  },
   groups(state) {
     const queued = [];
     const uploaded = [];
@@ -241,18 +247,33 @@ export const actions = {
         this.$axios.$post("/api/data/create/", request)
           .then((response) => {
             const status = response.ok ? "Uploaded" : "Failed";
-            commit("setEntryStatus", { entryId, status, messages: response.messages[0] });
+            commit(
+              "setEntryStatus",
+              {
+                entryId,
+                status,
+                error: (
+                  response.ok
+                    ?
+                    null
+                    :
+                    `Errors in the following fields: ${Object.keys(response.messages[0]).join(", ")}`
+                ),
+                messages: response.messages[0],
+              }
+            );
           })
-          .catch(
-            (err) => commit(
+          .catch((err) => {
+            console.error(err);
+            commit(
               "setEntryStatus",
               {
                 entryId,
                 status: "Failed",
-                messages: { "*": err.response.data.error },
+                error: err.response ? err.response.data.error : err,
               }
-            )
-          )
+            );
+          })
       );
     }
     return Promise.resolve();

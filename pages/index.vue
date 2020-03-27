@@ -42,22 +42,22 @@
         Upload another file
       </button>
     </nav>
-    <upload-files v-if="mode === 'files'" />
+    <files-uploader v-if="mode === 'files'" />
     <data-grid v-if="mode === 'data'" />
   </section>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
-import UploadFiles from "~/components/UploadFiles.vue";
+import FilesUploader from "~/components/FilesUploader.vue";
 import DataGrid from "~/components/DataGrid.vue";
 
 export default {
   middleware: "authenticated",
   components: {
     DataGrid,
-    UploadFiles,
+    FilesUploader,
   },
   computed: {
     ...mapState({
@@ -70,9 +70,9 @@ export default {
     }),
   },
   methods: {
-    resetToFileMode() {
-      this.$store.commit("reset");
-    },
+    ...mapMutations({
+      resetToFileMode: "reset",
+    }),
     setFilter(filter) {
       this.$store.commit("setFilter", filter);
     },

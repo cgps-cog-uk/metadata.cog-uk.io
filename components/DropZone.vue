@@ -1,60 +1,30 @@
 <template>
-  <div class="columns">
-    <div>
-      <div
-        ref="drop-target"
-        class="upload-files"
-      >
-        <svg
-          class="w-10 h-10 link-blue"
-          viewBox="0 0 24 24"
-          v-on:click="selectFiles"
-        >
-          <g fill="currentColor" fill-rule="evenodd">
-            <path fill-rule="nonzero" d="M12 22.667c5.891 0 10.667-4.776 10.667-10.667S17.89 1.333 12 1.333 1.333 6.11 1.333 12 6.11 22.667 12 22.667zM12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12z"></path>
-            <path d="M11.143 6v5.143H6v1.714h5.143V18h1.714v-5.143H18v-1.714h-5.143V6z"></path>
-          </g>
-        </svg>
-        <div class="label-1">Drag and drop files</div>
-        <div class="label-2">or click to send up to 64MB</div>
-        <input
-          id="file-upload"
-          ref="file-input"
-          type="file"
-          multiple="multiple"
-          v-on:change="handleFileChange"
-        >
-        <label
-          role="button"
-          title="Select files to upload"
-          for="file-upload"
-        >
-          Select files to upload
-        </label>
-        <div>or</div>
-        <nuxt-link
-          to="/form"
-        >
-          Add a single entry
-        </nuxt-link>
-        <p>{{ message }}</p>
-        <Options />
-      </div>
-    </div>
-    <div>
-      <div class="into">
-        <h2>
-          COVID-19 sample metadata upload
-        </h2>
-        <p>
-          You can upload batches of data using a spreadsheet by dragging and dropping the files or clicking “Select files to upload”.
-        </p>
-        <p>
-          You can create a spreadsheet file in Excel, Google Docs or other spreadsheet software.
-          Please use <a href="/api/downloads/template" target="_blank">this template</a>; do not edit, add, or remove any columns. This page supports CSV, Excel, ODF formats.
-        </p>
-      </div>
-    </div>
+  <div
+    ref="drop-target"
+    class="upload-files"
+  >
+    <div class="label-1">Drag and drop files</div>
+    <input
+      id="file-upload"
+      ref="file-input"
+      type="file"
+      multiple="multiple"
+      v-on:change="handleFileChange"
+    >
+    <label
+      role="button"
+      title="Select files to upload"
+      for="file-upload"
+    >
+      Select files to upload
+    </label>
+    <div>or</div>
+    <nuxt-link
+      to="/form"
+    >
+      Add a single entry
+    </nuxt-link>
+    <p>{{ message }}</p>
   </div>
 </template>
 
@@ -62,14 +32,9 @@
 // import dropSheet from "../assets/scripts/dropsheet";
 import readFile from "../assets/scripts/read-file";
 
-import Options from "./Options.vue";
-
 const validFiles = /(\.xlsx|\.xls|\.csv|\.ods)$/i;
 
 export default {
-  components: {
-    Options,
-  },
   data() {
     return {
       message: "",
@@ -153,11 +118,6 @@ export default {
 </script>
 
 <style scoped>
-.columns {
-  display: flex;
-  flex-direction: column;
-}
-
 .upload-files {
   width: 100%;
   padding: 64px 24px;
@@ -202,7 +162,6 @@ input[type="text"]:focus {
   border-color:#0060df;
 }
 
-
 .label-1 {
   font-weight: 700;
   padding-bottom: 8px;
@@ -228,35 +187,5 @@ label {
   display: flex;
   align-items: center;
   margin-top: 16px;
-}
-
-.into {
-  padding: 0 24px;
-  text-align: left;
-}
-
-.into h2 {
-  font-size: 32px;
-  padding-bottom: 8px;
-  font-weight: 700;
-}
-
-.into p {
-  line-height: 1.75;
-  margin-top: 16px;
-}
-
-.options {
-  display: flex;
-  flex-direction: column;
-}
-
-@media (min-width:768px) {
-  .columns {
-    flex-direction: row;
-  }
-  .columns > div {
-    width: 50%;
-  }
 }
 </style>
