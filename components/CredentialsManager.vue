@@ -8,7 +8,6 @@
           id="username"
           v-model="username"
           type="text"
-          placeholder=""
         >
       </p>
       <p>
@@ -16,8 +15,7 @@
         <input
           id="token"
           v-model="token"
-          type="text"
-          placeholder=""
+          type="password"
         >
       </p>
     </div>

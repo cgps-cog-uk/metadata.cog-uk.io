@@ -57,7 +57,7 @@ body {
   display: inline-block;
   border-radius: 4px;
   border: 1px solid #35495e;
-  color: #35495e;
+  color: #35495e !important;
   text-decoration: none;
   padding: 10px 8px;
   margin-left: 4px;
@@ -68,6 +68,6 @@ body {
 }
 
 .button--grey:hover {
-  color: #fff;
+  color: #fff !important;
   background-color: #35495e;
 }
