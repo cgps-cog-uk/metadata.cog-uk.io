@@ -1,8 +1,10 @@
 <template>
   <div class="columns">
     <div>
-      <drop-zone v-if="hasCredentials" />
-      <credentials-manager v-else />
+      <client-only>
+        <drop-zone v-if="hasCredentials" />
+        <credentials-manager v-else />
+      </client-only>
     </div>
     <div>
       <div class="into">
