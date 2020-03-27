@@ -61,6 +61,6 @@ body {
 }
 
 .button--grey:hover {
-  color: #fff;
+  color: #fff !important;
   background-color: #35495e;
 }
