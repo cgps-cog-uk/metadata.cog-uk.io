@@ -1,9 +1,2 @@
 {
-  "mongodb": {
-    "url": "mongodb://localhost:27017/coguk"
-  },
-  "passport": {
-    "url": "http://localhost:3000",
-    "strategies": {}
-  }
 }
