@@ -5,6 +5,7 @@
     scrollable
     time-format="hh:ss"
     v-bind:value="value"
+    v-bind:label="label"
     v-bind:text-field-props="textFieldProps"
     v-on:input="handleInput"
   />
