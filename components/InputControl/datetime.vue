@@ -1,6 +1,6 @@
 <template>
   <v-datetime-picker
-    date-format="yyyy-mm-dd"
+    date-format="yyyy-MM-dd"
     v-bind:label="label"
     scrollable
     v-bind:text-field-props="textFieldProps"
