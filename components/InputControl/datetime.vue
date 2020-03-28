@@ -31,7 +31,7 @@ export default {
     name: String,
     required: Boolean,
     rules: Array,
-    value: String,
+    value: null,
   },
   computed: {
     textFieldProps() {
