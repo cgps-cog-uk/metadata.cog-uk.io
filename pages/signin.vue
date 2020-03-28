@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <v-content>
       <v-container
+        v-if="credentials.status"
         class="fill-height"
         fluid
       >
@@ -77,6 +78,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   layout: "login",
   data() {
@@ -96,6 +99,9 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      credentials: "credentials",
+    }),
     loginLabel() {
       if (this.username && /^test-/i.test(this.username)) {
         if (/^test-/i.test(this.username)) {
