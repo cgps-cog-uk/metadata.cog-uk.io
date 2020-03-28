@@ -117,6 +117,11 @@ export const getters = {
         hasEnum: true,
       },
       {
+        name: "datetime",
+        default: null,
+        hasEnum: false,
+      },
+      {
         name: "file",
         default: null,
         hasEnum: false,

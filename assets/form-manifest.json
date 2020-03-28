@@ -1,101 +1,236 @@
 [
   {
+    "name": "central_sample_id",
+    "description": "central sample id",
+    "type": "barcode",
+    "required": true,
+    "section": "samples"
+  },
+  {
     "name": "adm1",
     "description": "adm1",
     "type": "text",
     "required": true,
-    "enum": [ "UK-ENG", "UK-SCT", "UK-WLS", "UK-NIR"]
-  },
-  {
-    "name": "central_sample_id",
-    "description": "central sample id",
-    "type": "barcode",
-    "required": true
+    "enum": [ "UK-ENG", "UK-SCT", "UK-WLS", "UK-NIR"],
+    "section": "samples"
   },
   {
     "name": "collection_date",
     "description": "collection date",
     "type": "date",
-    "required": true
+    "required": true,
+    "section": "samples"
   },
   {
     "name": "source_age",
     "description": "source age",
     "type": "integer",
-    "required": true
+    "required": true,
+    "section": "samples"
   },
   {
     "name": "source_sex",
     "description": "source sex",
     "type": "text",
     "required": true,
-    "enum": [ "F", "M", "Other" ]
-  },
-  {
-    "name": "override_heron",
-    "description": "override heron",
-    "type": "text",
-    "required": false,
-    "enum": [ "true", "false" ]
-  },
-  {
-    "name": "secondary_accession",
-    "description": "secondary accession",
-    "type": "text",
-    "required": false
-  },
-  {
-    "name": "secondary_identifier",
-    "description": "secondary identifier",
-    "type": "text",
-    "required": false
+    "enum": [ "F", "M", "Other" ],
+    "section": "samples"
   },
   {
     "name": "adm2",
     "description": "adm2",
     "type": "text",
-    "required": false
+    "required": false,
+    "section": "samples"
   },
   {
     "name": "biosample_source_id",
     "description": "biosample source id",
     "type": "text",
-    "required": false
-  },
-  {
-    "name": "collecting_org",
-    "description": "collecting org",
-    "type": "text",
-    "required": false
+    "required": false,
+    "section": "samples"
   },
   {
     "name": "root_sample_id",
     "description": "root sample id",
     "type": "text",
-    "required": false
-  },
-  {
-    "name": "sample_type_collected",
-    "description": "sample type collected",
-    "type": "text",
-    "required": false
-  },
-  {
-    "name": "sample_type_received",
-    "description": "sample type received",
-    "type": "text",
-    "required": false
+    "required": false,
+    "section": "samples"
   },
   {
     "name": "sender_sample_id",
     "description": "sender sample id",
     "type": "text",
-    "required": false
+    "required": false,
+    "section": "samples"
+  },
+  {
+    "name": "collecting_org",
+    "description": "collecting org",
+    "type": "text",
+    "required": false,
+    "section": "samples"
+  },
+  {
+    "name": "sample_type_collected",
+    "description": "sample type collected",
+    "type": "text",
+    "required": false,
+    "section": "samples"
+  },
+  {
+    "name": "sample_type_received",
+    "description": "sample type received",
+    "type": "text",
+    "required": false,
+    "section": "samples"
   },
   {
     "name": "swab_site",
     "description": "swab site",
     "type": "text",
-    "required": false
+    "required": false,
+    "section": "samples"
+  },
+  {
+    "name": "secondary_accession",
+    "description": "secondary accession",
+    "type": "text",
+    "required": false,
+    "section": "samples"
+  },
+  {
+    "name": "secondary_identifier",
+    "description": "secondary identifier",
+    "type": "text",
+    "required": false,
+    "section": "samples"
+  },
+  {
+    "name": "library_name",
+    "description": "Library name",
+    "type": "text",
+    "required": true,
+    "section": "library"
+  }
+  ,
+  {
+    "name": "library_seq_kit",
+    "description": "Library kit",
+    "type": "text",
+    "required": true,
+    "section": "library"
+  }
+  ,
+  {
+    "name": "library_seq_protocol",
+    "description": "Library protocol",
+    "type": "text",
+    "required": true,
+    "section": "library"
+  },
+  {
+    "name": "library_layout_config",
+    "description": "Library configuration",
+    "type": "text",
+    "required": true,
+    "enum": ["SINGLE", "PAIRED"],
+    "section": "library"
+  },
+  {
+    "name": "library_selection",
+    "description": "Library selection",
+    "type": "text",
+    "required": true,
+    "enum": ["RANDOM", "PCR", "RANDOM_PCR", "OTHER"],
+    "section": "library"
+  },
+  {
+    "name": "library_source",
+    "description": "Library source",
+    "type": "text",
+    "required": true,
+    "enum": ["GENOMIC", "TRANSCRIPTOMIC", "METAGENOMIC", "METATRANSCRIPTOMIC", "VIRAL_RNA", "OTHER"],
+    "section": "library"
+  },
+  {
+    "name": "library_strategy",
+    "description": "Library strategy",
+    "type": "text",
+    "required": true,
+    "enum": ["WGA", "WGS", "AMPLICON", "OTHER"],
+    "section": "library"
+  },
+  {
+    "name": "library_layout_insert_length",
+    "description": "Insert length",
+    "type": "text",
+    "required": false,
+    "section": "library"
+  },
+  {
+    "name": "library_layout_read_length",
+    "description": "Read Length",
+    "type": "text",
+    "required": false,
+    "section": "library"
+  },
+  {
+    "name": "barcode",
+    "description": "Sequencing Barcode",
+    "type": "text",
+    "required": false,
+    "section": "library"
+  },
+  {
+    "name": "run_name",
+    "description": "Run Name",
+    "type": "text",
+    "required": true,
+    "section": "sequencing"
+  },
+  {
+    "name": "instrument_make",
+    "description": "Instrument make",
+    "type": "text",
+    "required": true,
+    "enum": ["ILLUMINA", "OXFORD_NANOPORE", "PACIFIC_BIOSCIENCES"],
+    "section": "sequencing"
+  },
+  {
+    "name": "instrument_model",
+    "description": "Instrument model",
+    "type": "text",
+    "required": true,
+    "section": "sequencing"
+  },
+  {
+    "name": "start_time",
+    "description": "Sequencing run start time",
+    "type": "datetime",
+    "required": false,
+    "section": "sequencing"
+  },
+  {
+    "name": "end_time",
+    "description": "Sequencing run end time",
+    "type": "datetime",
+    "required": false,
+    "section": "sequencing"
+  },
+  {
+    "name": "flowcell_id",
+    "description": "Flowcell id",
+    "type": "text",
+    "required": false,
+    "section": "sequencing"
+  }
+  ,
+  {
+    "name": "flowcell_type",
+    "description": "Flow cell type",
+    "type": "text",
+    "required": false,
+    "section": "sequencing"
   }
 ]

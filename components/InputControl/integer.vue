@@ -22,7 +22,7 @@ export default {
     name: String,
     required: Boolean,
     rules: Array,
-    value: Number,
+    value: null,
   },
 };
 </script>
