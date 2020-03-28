@@ -18,12 +18,12 @@
       />
     </template>
     <v-datetime-picker
-      v-bind:value="value"
-      scrollable
-      v-on:input="handleInput"
       v-model="datetime"
-      dateFormat = "yyyy-mm-dd"
-      timeFormat = "hh:ss"
+      date-format="yyyy-mm-dd"
+      scrollable
+      time-format="hh:ss"
+      v-bind:value="value"
+      v-on:input="handleInput"
     >
       <v-spacer />
       <v-btn
