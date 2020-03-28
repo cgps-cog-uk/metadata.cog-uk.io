@@ -2,15 +2,10 @@
   <v-datetime-picker
     v-model="datetime"
     date-format="yyyy-mm-dd"
-    v-bind:hide-details="inline ? true : false"
-    v-bind:hint="inline ? undefined : description"
-    v-bind:name="name"
-    outlined
-    v-bind:required="required"
-    v-bind:rules="rules"
     scrollable
     time-format="hh:ss"
     v-bind:value="value"
+    v-bind:text-field-props="textFieldProps"
     v-on:input="handleInput"
   />
 </template>
@@ -26,11 +21,19 @@ export default {
     rules: Array,
     value: String,
   },
-  data() {
-    return {
-      modal: false,
-      datetime: new Date(),
-    };
+  computed: {
+    textFieldProps() {
+      return {
+        hideDetails: this.inline,
+        hint: this.inline ? undefined : this.description,
+        name: this.name,
+        required: this.required,
+        rules: this.rules,
+        value: this.value,
+        label: this.label,
+        outlined: true,
+      };
+    },
   },
   methods: {
     handleInput($event) {
