@@ -1,0 +1,64 @@
+<template>
+  <v-dialog
+    ref="dialog"
+    v-model="modal"
+    width="290px"
+  >
+    <template v-slot:activator="{ on }">
+      <v-text-field
+        v-bind:hide-details="inline ? true : false"
+        v-bind:hint="inline ? undefined : description"
+        v-bind:label="label"
+        v-bind:name="name"
+        v-bind:required="required"
+        v-bind:rules="rules"
+        v-bind:value="value"
+        outlined
+        v-on="on"
+      />
+    </template>
+    <v-datetime-picker
+      v-bind:value="value"
+      scrollable
+      v-on:input="handleInput"
+      v-model="datetime"
+      dateFormat = "yyyy-mm-dd"
+      timeFormat = "hh:ss"
+    >
+      <v-spacer />
+      <v-btn
+        color="primary"
+        text
+        v-on:click="modal = false"
+      >
+        Close
+      </v-btn>
+    </v-datetime-picker>
+  </v-dialog>
+</template>
+
+<script>
+export default {
+  props: {
+    description: String,
+    inline: Boolean,
+    label: String,
+    name: String,
+    required: Boolean,
+    rules: Array,
+    value: String,
+  },
+  data() {
+    return {
+      modal: false,
+      datetime: new Date(),
+    };
+  },
+  methods: {
+    handleInput($event) {
+      this.$emit("input", $event);
+      this.modal = false;
+    },
+  },
+};
+</script>

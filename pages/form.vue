@@ -27,25 +27,69 @@
       <h2>
         Add New Entry
       </h2>
-
       <v-alert
         v-if="!!error"
         type="error"
       >
         {{ error.message || error }}
       </v-alert>
-      <input-control
-        v-for="(arg, index) in formInputs"
-        v-if="!(arg.jumpField && (!formValues[arg.jumpField] || formValues[arg.jumpField] === arg.jumpValue))"
-        v-bind:key="index"
-        v-model="formValues[arg.name]"
-        v-bind:description="arg.description"
-        v-bind:enum-values="arg.enum"
-        v-bind:label="arg.name"
-        v-bind:name="arg.name"
-        v-bind:required="arg.required"
-        v-bind:type="arg.type"
-      />
+      <v-expansion-panels
+        v-model="sections"
+        multiple
+        accordion
+      >
+        <v-expansion-panel>
+          <v-expansion-panel-header>Samples</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <input-control
+              v-for="(arg, index) in formInputs"
+              v-if="!(arg.jumpField && (!formValues[arg.jumpField] || formValues[arg.jumpField] === arg.jumpValue)) && arg.section === 'samples'"
+              v-bind:key="index"
+              v-model="formValues[arg.name]"
+              v-bind:description="arg.description"
+              v-bind:enum-values="arg.enum"
+              v-bind:label="arg.name"
+              v-bind:name="arg.name"
+              v-bind:required="arg.required"
+              v-bind:type="arg.type"
+            />
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+        <v-expansion-panel>
+          <v-expansion-panel-header>Library</v-expansion-panel-header>
+          <v-expansion-panel-content v-if="sections.includes(1)">
+            <input-control
+              v-for="(arg, index) in formInputs"
+              v-if="!(arg.jumpField && (!formValues[arg.jumpField] || formValues[arg.jumpField] === arg.jumpValue)) && arg.section === 'library'"
+              v-bind:key="index"
+              v-model="formValues[arg.name]"
+              v-bind:description="arg.description"
+              v-bind:enum-values="arg.enum"
+              v-bind:label="arg.name"
+              v-bind:name="arg.name"
+              v-bind:required="arg.required"
+              v-bind:type="arg.type"
+            />
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+        <v-expansion-panel>
+          <v-expansion-panel-header>Sequencing</v-expansion-panel-header>
+          <v-expansion-panel-content v-if="sections.includes(2)">
+            <input-control
+              v-for="(arg, index) in formInputs"
+              v-if="!(arg.jumpField && (!formValues[arg.jumpField] || formValues[arg.jumpField] === arg.jumpValue)) && arg.section === 'sequencing'"
+              v-bind:key="index"
+              v-model="formValues[arg.name]"
+              v-bind:description="arg.description"
+              v-bind:enum-values="arg.enum"
+              v-bind:label="arg.name"
+              v-bind:name="arg.name"
+              v-bind:required="arg.required"
+              v-bind:type="arg.type"
+            />
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
       <v-btn
         v-bind:disabled="!isFormValid"
         color="primary"
@@ -79,6 +123,7 @@ export default {
       isFormValid: false,
       wasAdded: false,
       error: null,
+      sections: [0],
     };
   },
   computed: {
@@ -91,7 +136,7 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$axios.$post("/api/data/create/", this.formValues)
+      this.$axios.$post("/api/data/submit/", this.formValues)
         .then(() => {
           this.wasAdded = true;
         })

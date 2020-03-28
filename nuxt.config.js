@@ -38,6 +38,7 @@ export default {
   plugins: [
     // { src: "@/plugins/localstorage.js" },
     { src: "@/plugins/qrcode-reader.js", mode: "client" },
+    { src: "@/plugins/datetime.js", mode: "client" },
   ],
   /*
   ** Nuxt.js dev-modules

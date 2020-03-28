@@ -20,6 +20,7 @@ import barcode from "./barcode.vue";
 import boolean from "./boolean.vue";
 import combobox from "./combobox.vue";
 import date from "./date.vue";
+import datetime from "./datetime.vue";
 import file from "./file.vue";
 import integer from "./integer.vue";
 import list from "./list.vue";
@@ -33,6 +34,7 @@ const editors = {
   boolean,
   combobox,
   date,
+  datetime,
   file,
   integer,
   list,
