@@ -7,9 +7,7 @@
             v-if="this.$route.fullPath !== '/'"
             href="/"
           >
-            
-            <img title="COG-UK Sample Metadata Uploader" src="/images/cog-uk-metadata.png">
-            {{ this.$route.fullPath }}
+           <img title="COG-UK Sample Metadata Uploader" src="/images/cog-uk-metadata.png">
           </a>
           <a
             v-else
