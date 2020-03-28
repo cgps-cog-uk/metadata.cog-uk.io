@@ -1,18 +1,29 @@
 <template>
   <v-datetime-picker
-    v-model="datetime"
-    date-format="yyyy-mm-dd"
-    scrollable
-    time-format="hh:ss"
-    v-bind:value="value"
+    date-format="yyyy-MM-dd"
     v-bind:label="label"
+    scrollable
     v-bind:text-field-props="textFieldProps"
+    time-format="hh:mm"
+    v-bind:value="value"
     v-on:input="handleInput"
-  />
+  >
+    <template v-slot:dateIcon>
+      <v-icon>mdi-calendar</v-icon>
+    </template>
+    <template v-slot:timeIcon>
+      <v-icon>mdi-clock</v-icon>
+    </template>
+  </v-datetime-picker>
 </template>
 
 <script>
+import VDatetimePicker from "vuetify-datetime-picker/src/components/DatetimePicker.vue";
+
 export default {
+  components: {
+    VDatetimePicker,
+  },
   props: {
     description: String,
     inline: Boolean,
@@ -20,7 +31,7 @@ export default {
     name: String,
     required: Boolean,
     rules: Array,
-    value: String,
+    value: null,
   },
   computed: {
     textFieldProps() {
@@ -39,7 +50,6 @@ export default {
   methods: {
     handleInput($event) {
       this.$emit("input", $event);
-      this.modal = false;
     },
   },
 };
