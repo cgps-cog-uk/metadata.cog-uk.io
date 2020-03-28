@@ -43,7 +43,6 @@ export default {
   methods: {
     handleInput($event) {
       this.$emit("input", $event);
-      this.modal = false;
     },
   },
 };
