@@ -4,7 +4,7 @@
     v-bind:label="label"
     scrollable
     v-bind:text-field-props="textFieldProps"
-    time-format="hh:ss"
+    time-format="hh:mm"
     v-bind:value="value"
     v-on:input="handleInput"
   >
