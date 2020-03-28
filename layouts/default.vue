@@ -3,7 +3,18 @@
     <div class="full-container">
       <header>
         <h1>
-          <a v-on:click="resetToFileMode">
+          <a
+            v-if="this.$route.fullPath !== '/'"
+            href="/"
+          >
+            
+            <img title="COG-UK Sample Metadata Uploader" src="/images/cog-uk-metadata.png">
+            {{ this.$route.fullPath }}
+          </a>
+          <a
+            v-else
+            v-on:click="resetToFileMode"
+          >
             <img title="COG-UK Sample Metadata Uploader" src="/images/cog-uk-metadata.png">
           </a>
         </h1>
