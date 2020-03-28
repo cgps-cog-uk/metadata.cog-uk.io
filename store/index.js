@@ -176,6 +176,26 @@ export const getters = {
       return state.data.entries;
     }
   },
+  dataGridHeaders(state, getters) {
+    const inputsByName = {};
+    for (const input of getters.formInputs) {
+      inputsByName[input.name] = input;
+    }
+    const headers = [
+      {
+        value: "_status",
+        text: "Status",
+      },
+    ];
+    for (const header of state.data.headers) {
+      const input = inputsByName[header];
+      headers.push({
+        value: header,
+        text: input ? input.description : header,
+      });
+    }
+    return headers;
+  },
   isAnonymous(state) {
     return !state.user;
   },

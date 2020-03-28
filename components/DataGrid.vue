@@ -1,6 +1,16 @@
 <template>
   <div class="data-grid">
-    <table>
+    <v-data-table
+      v-model="selected"
+      v-bind:disable-pagination="true"
+      group-by="_status"
+      v-bind:headers="headers"
+      item-key="_id"
+      v-bind:items="list"
+      show-group-by
+      show-select
+    />
+    <!-- <table>
       <thead>
         <tr>
           <th>
@@ -47,7 +57,7 @@
           </td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
   </div>
 </template>
 
@@ -68,12 +78,18 @@ export default {
     PendingIcon,
     UploadingIcon,
   },
+  data() {
+    return {
+      selected: [],
+    };
+  },
   computed: {
     ...mapState({
       data: "data",
     }),
     ...mapGetters({
       list: "filteredList",
+      headers: "dataGridHeaders",
     }),
   },
 };
