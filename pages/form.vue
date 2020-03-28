@@ -55,6 +55,7 @@
             />
           </v-expansion-panel-content>
         </v-expansion-panel>
+
         <v-expansion-panel>
           <v-expansion-panel-header>Library</v-expansion-panel-header>
           <v-expansion-panel-content v-if="sections.includes(1)">
@@ -72,6 +73,7 @@
             />
           </v-expansion-panel-content>
         </v-expansion-panel>
+
         <v-expansion-panel>
           <v-expansion-panel-header>Sequencing</v-expansion-panel-header>
           <v-expansion-panel-content v-if="sections.includes(2)">
@@ -141,6 +143,7 @@ export default {
           this.wasAdded = true;
         })
         .catch((err) => {
+          console.log(err);
           this.error = err.response.data.error;
         });
     },
@@ -156,6 +159,9 @@ export default {
 <style scoped>
 section {
   width: 100%;
+}
+.v-expansion-panels {
+  margin: 16px 0;
 }
 @media (min-width:768px) {
   section {
