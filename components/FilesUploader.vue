@@ -1,10 +1,7 @@
 <template>
   <div class="columns">
     <div>
-      <client-only>
-        <drop-zone v-if="hasCredentials" />
-        <credentials-manager v-else />
-      </client-only>
+      <drop-zone />
     </div>
     <div>
       <div class="into">
@@ -24,20 +21,11 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
-import CredentialsManager from "./CredentialsManager.vue";
 import DropZone from "./DropZone.vue";
 
 export default {
   components: {
-    CredentialsManager,
     DropZone,
-  },
-  computed: {
-    ...mapGetters({
-      hasCredentials: "hasCredentials",
-    }),
   },
 };
 </script>

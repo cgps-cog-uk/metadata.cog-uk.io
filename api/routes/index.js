@@ -3,14 +3,14 @@
 const express = require("express");
 
 const { catchErrorResponse } = require("../errors");
-const auth = require("./auth");
+const requireUser = require("./require-user");
 
 const apiRouter = express.Router();
 
 apiRouter
-  .use(auth)
-  .use("/data", require("./data"))
-  .use("/downloads", require("./downloads"))
+  .use("/authenticate", require("./authenticate"))
+  .use("/data", requireUser, require("./data"))
+  .use("/downloads", requireUser, require("./downloads"))
   .use((err, req, res, next) => {
     catchErrorResponse(res, err);
   });

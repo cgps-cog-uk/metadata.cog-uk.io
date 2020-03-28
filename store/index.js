@@ -19,7 +19,7 @@ export const state = () => ({
   filter: null,
   formManifest: null,
   mode: "files",
-  options: {},
+  credentials: {},
   uploading: false,
   user: null,
 });
@@ -49,6 +49,9 @@ export const mutations = {
       state.filter = filter;
     }
   },
+  setCredentials(state, credentials) {
+    state.credentials = credentials;
+  },
   setData(state, data) {
     const entries = [];
     const headers = data[0].map((x) => (x.toLowerCase ? x.toLowerCase() : x));
@@ -77,12 +80,7 @@ export const mutations = {
   setMode(state, mode) {
     state.mode = mode;
   },
-  setOptions(state, options) {
-    state.options = {
-      ...state.options,
-      ...options,
-    };
-  },
+
   setUploading(state, mode) {
     state.uploading = mode;
   },
@@ -180,10 +178,7 @@ export const getters = {
     return !state.user;
   },
   isAuthenticated(state) {
-    return !!state.user;
-  },
-  hasCredentials(state) {
-    return state.options.username && state.options.token;
+    return state.credentials.username && state.credentials.token;
   },
   groups(state) {
     const queued = [];
@@ -234,13 +229,26 @@ export const actions = {
       );
     }
   },
+  signin({ commit }, payload) {
+    return this.$axios.$post(
+      "/api/authenticate/",
+      {
+        username: payload.username,
+        token: payload.token,
+      }
+    )
+      .then(() => {
+        commit("setCredentials", payload);
+        this.$router.push("/");
+      });
+  },
   uploadEntry({ commit, state }, entryId) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
       commit("setUploading", true);
       commit("setEntryStatus", { entryId, status: "Uploading" });
       const request = {
-        ...state.options,
+        ...state.credentials,
         biosamples: [ entry ],
       };
       return (
@@ -277,5 +285,8 @@ export const actions = {
       );
     }
     return Promise.resolve();
+  },
+  signout({ commit }, payload) {
+    commit("setCredentials", {});
   },
 };
