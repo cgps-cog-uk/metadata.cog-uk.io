@@ -22,15 +22,15 @@
       </main>
       <footer>
         <span>
-          Logged in as {{ user.email }}. COG-UK Username: {{ hasCredentials ? options.username : "" }}
+          Logged in as <strong>{{ credentials.username }}</strong>
         </span>
         <ul>
           <li>
             <a href="mailto:metadata-support@cog-uk.io">metadata-support@cog-uk.io</a>
           </li>
           <li>
-            <a href="/logout">
-              Logout
+            <a href="/signout">
+              Sign out
             </a>
           </li>
         </ul>
@@ -40,19 +40,13 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   computed: {
     ...mapState({
-      user: "user",
+      credentials: "credentials",
     }),
-    ...mapGetters({
-      hasCredentials: "hasCredentials",
-    }),
-    options() {
-      return this.$store.state.options;
-    },
   },
   methods: {
     ...mapMutations({
