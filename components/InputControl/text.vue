@@ -8,7 +8,7 @@
     v-bind:rules="rules"
     v-bind:value="value"
     outlined
-    rows="2"
+    rows="1"
     v-on:input="$emit('input', $event)"
   />
 </template>
