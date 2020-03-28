@@ -7,7 +7,14 @@
     v-bind:value="value"
     v-bind:text-field-props="textFieldProps"
     v-on:input="handleInput"
-  />
+  >
+    <template v-slot:dateIcon>
+      <v-icon>mdi-calendar</v-icon>
+    </template>
+    <template v-slot:timeIcon>
+      <v-icon>mdi-clock</v-icon>
+    </template>
+  </v-datetime-picker>
 </template>
 
 <script>
