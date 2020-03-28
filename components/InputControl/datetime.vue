@@ -1,40 +1,18 @@
 <template>
-  <v-dialog
-    ref="dialog"
-    v-model="modal"
-    width="290px"
-  >
-    <template v-slot:activator="{ on }">
-      <v-text-field
-        v-bind:hide-details="inline ? true : false"
-        v-bind:hint="inline ? undefined : description"
-        v-bind:label="label"
-        v-bind:name="name"
-        v-bind:required="required"
-        v-bind:rules="rules"
-        v-bind:value="value"
-        outlined
-        v-on="on"
-      />
-    </template>
-    <v-datetime-picker
-      v-model="datetime"
-      date-format="yyyy-mm-dd"
-      scrollable
-      time-format="hh:ss"
-      v-bind:value="value"
-      v-on:input="handleInput"
-    >
-      <v-spacer />
-      <v-btn
-        color="primary"
-        text
-        v-on:click="modal = false"
-      >
-        Close
-      </v-btn>
-    </v-datetime-picker>
-  </v-dialog>
+  <v-datetime-picker
+    v-model="datetime"
+    date-format="yyyy-mm-dd"
+    v-bind:hide-details="inline ? true : false"
+    v-bind:hint="inline ? undefined : description"
+    v-bind:name="name"
+    outlined
+    v-bind:required="required"
+    v-bind:rules="rules"
+    scrollable
+    time-format="hh:ss"
+    v-bind:value="value"
+    v-on:input="handleInput"
+  />
 </template>
 
 <script>
