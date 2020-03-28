@@ -11,7 +11,12 @@
 </template>
 
 <script>
+import VDatetimePicker from "vuetify-datetime-picker/src/components/DatetimePicker.vue";
+
 export default {
+  components: {
+    VDatetimePicker,
+  },
   props: {
     description: String,
     inline: Boolean,
