@@ -1,11 +1,11 @@
 <template>
   <v-datetime-picker
-    v-model="datetime"
     date-format="yyyy-mm-dd"
+    v-bind:label="label"
     scrollable
+    v-bind:text-field-props="textFieldProps"
     time-format="hh:ss"
     v-bind:value="value"
-    v-bind:text-field-props="textFieldProps"
     v-on:input="handleInput"
   >
     <template v-slot:dateIcon>
