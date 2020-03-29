@@ -40,8 +40,8 @@ async function submitData(username, token, data) {
 module.exports = function (req, res, next) {
   console.info("Got request to create or update biosample data");
 
-  Promise.resolve(req.body)
-    .then((data) => submitData(data.username, data.token, data.biosamples))
+  Promise.resolve(req)
+    .then(({ user, body }) => submitData(user.username, user.token, body.biosamples))
     .then((results) => {
       res.send({ ok: results.success, messages: results.messages });
     })

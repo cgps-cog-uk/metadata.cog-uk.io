@@ -22,15 +22,15 @@
       </main>
       <footer>
         <span>
-          Logged in as <strong>{{ credentials.username }}</strong>
+          Logged in as <strong>{{ $auth.user.username }}</strong>
         </span>
         <ul>
           <li>
             <a href="mailto:metadata-support@cog-uk.io">metadata-support@cog-uk.io</a>
           </li>
           <li>
-            <a href="/signout">
-              Sign out
+            <a href="/logout">
+              Log out
             </a>
           </li>
         </ul>

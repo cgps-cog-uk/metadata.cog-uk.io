@@ -1,5 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const jwt = require("express-jwt");
 
 const config = require("./utils/config");
 
@@ -15,11 +17,18 @@ app.use(
   })
 );
 
+app.use(cookieParser());
+
 app.use((req, res, next) => {
   req.config = config;
   next();
 });
 
-app.use("/api", require("./routes"));
+app.use(
+  "/api",
+  jwt({ secret: config.secret })
+    .unless({ path: [ "/api/auth/login" ] }),
+  require("./routes")
+);
 
 module.exports = app;

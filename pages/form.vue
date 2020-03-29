@@ -115,7 +115,7 @@ import { mapState, mapGetters } from "vuex";
 import InputControl from "~/components/InputControl/index.vue";
 
 export default {
-  middleware: "authenticated",
+  middleware: "auth",
   components: {
     InputControl,
   },

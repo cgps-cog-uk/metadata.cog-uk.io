@@ -6,18 +6,11 @@ const { catchErrorResponse, StatusCodeError } = require("../errors");
 
 const apiRouter = express.Router();
 
-function requireCredentials(req, res, next) {
-  if (!req.body.username || !req.body.token) {
-    throw new StatusCodeError(401); // Unauthorized: User must be authenticated
-  }
-
-  next();
-}
-
 apiRouter
-  .use("/authenticate", require("./authenticate"))
-  .use("/data", requireCredentials, require("./data"))
-  .use("/downloads", requireCredentials, require("./downloads"))
+  .use("/auth", require("./auth"))
+  .use("/data", require("./data"))
+  .use("/downloads", require("./downloads"))
+  .use((req, res) => res.sendStatus(404))
   .use((err, req, res, next) => {
     catchErrorResponse(res, err);
   });

@@ -2,7 +2,6 @@
   <v-app id="inspire">
     <v-content>
       <v-container
-        v-if="credentials.status"
         class="fill-height"
         fluid
       >
@@ -49,7 +48,7 @@
                   large
                   block
                   color="primary"
-                  v-on:click="login"
+                  v-on:click="loginUser"
                 >
                   {{ loginLabel }}
                 </v-btn>
@@ -86,7 +85,6 @@ export default {
     return {
       username: null,
       token: null,
-      mode: "input",
       isFormValid: false,
       usernameRules: [
         (v) => !!v || "Username is required",
@@ -120,16 +118,32 @@ export default {
     login() {
       if (this.isFormValid) {
         this.mode = "sending";
+        const user = {
+          username: this.username,
+          token: this.token,
+        };
         this.$store.dispatch(
           "signin",
-          {
-            username: this.username,
-            token: this.token,
-          }
+          user
         )
+          .then(() => {
+          })
           .catch((err) => {
             this.mode = "error";
           });
+      }
+    },
+    async loginUser() {
+      try {
+        const data = {
+          username: this.username,
+          token: this.token,
+        };
+        const response = await this.$auth.loginWith("local", { data });
+        console.log(response);
+      }
+      catch (err) {
+        console.log(err);
       }
     },
   },

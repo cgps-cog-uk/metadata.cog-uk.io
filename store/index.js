@@ -234,19 +234,17 @@ export const actions = {
       );
     }
   },
-  signin({ commit }, payload) {
-    return this.$axios.$post(
-      "/api/authenticate/",
-      {
-        username: payload.username,
-        token: payload.token,
-      }
-    )
-      .then(() => {
-        commit("setCredentials", payload);
-        this.$router.push("/");
-      });
-  },
+  // signin({ commit }, user) {
+  //   return this.$axios.$post(
+  //     "/api/authenticate/",
+  //     user
+  //   )
+  //     .then(() => {
+  //       this.$auth.setUser(user);
+  //       // commit("setCredentials", payload);
+  //       this.$router.push("/");
+  //     });
+  // },
   uploadEntry({ commit, state }, entryId) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
