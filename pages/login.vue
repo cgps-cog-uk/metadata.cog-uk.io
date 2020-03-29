@@ -48,7 +48,7 @@
                   large
                   block
                   color="primary"
-                  v-on:click="loginUser"
+                  v-on:click="login"
                 >
                   {{ loginLabel }}
                 </v-btn>
@@ -77,14 +77,13 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   layout: "login",
   data() {
     return {
       username: null,
       token: null,
+      mode: "input",
       isFormValid: false,
       usernameRules: [
         (v) => !!v || "Username is required",
@@ -97,9 +96,6 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      credentials: "credentials",
-    }),
     loginLabel() {
       if (this.username && /^test-/i.test(this.username)) {
         if (/^test-/i.test(this.username)) {
@@ -122,28 +118,10 @@ export default {
           username: this.username,
           token: this.token,
         };
-        this.$store.dispatch(
-          "signin",
-          user
-        )
-          .then(() => {
-          })
+        this.$auth.loginWith("local", { data: user })
           .catch((err) => {
             this.mode = "error";
           });
-      }
-    },
-    async loginUser() {
-      try {
-        const data = {
-          username: this.username,
-          token: this.token,
-        };
-        const response = await this.$auth.loginWith("local", { data });
-        console.log(response);
-      }
-      catch (err) {
-        console.log(err);
       }
     },
   },

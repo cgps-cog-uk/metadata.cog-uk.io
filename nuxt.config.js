@@ -54,10 +54,6 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
     "@nuxtjs/auth",
-    // [
-    //   "nuxt-vuex-localstorage",
-    //   { localStorage: ["credentials"] },
-    // ],
   ],
   /*
   ** Axios module configuration

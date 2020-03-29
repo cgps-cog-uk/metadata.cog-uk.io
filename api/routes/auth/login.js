@@ -8,7 +8,7 @@ module.exports = async function (req, res, next) {
   const valid = await climbApi.authenticate(username, token);
 
   if (!valid) {
-    throw new Error("Invalid username or password");
+    res.status(400).send("Invalid credentials");
   }
 
   const accessToken = jsonwebtoken.sign(

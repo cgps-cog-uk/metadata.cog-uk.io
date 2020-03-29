@@ -40,14 +40,9 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 
 export default {
-  computed: {
-    ...mapState({
-      credentials: "credentials",
-    }),
-  },
   methods: {
     ...mapMutations({
       resetToFileMode: "reset",

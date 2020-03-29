@@ -19,7 +19,6 @@ export const state = () => ({
   filter: null,
   formManifest: null,
   mode: "files",
-  credentials: {},
   uploading: false,
   user: null,
 });
@@ -49,9 +48,6 @@ export const mutations = {
       state.filter = filter;
     }
   },
-  setCredentials(state, credentials) {
-    state.credentials = credentials;
-  },
   setData(state, data) {
     const entries = [];
     const headers = data[0].map((x) => (x.toLowerCase ? x.toLowerCase() : x));
@@ -80,16 +76,8 @@ export const mutations = {
   setMode(state, mode) {
     state.mode = mode;
   },
-
   setUploading(state, mode) {
     state.uploading = mode;
-  },
-  setUser(state, user) {
-    state.user = {
-      name: user.name,
-      email: user.email,
-      apiAccessToken: user.apiAccessToken,
-    };
   },
 };
 
@@ -179,12 +167,6 @@ export const getters = {
       return state.data.entries;
     }
   },
-  isAnonymous(state) {
-    return !state.user;
-  },
-  isAuthenticated(state) {
-    return !!state.credentials.username && !!state.credentials.token;
-  },
   groups(state) {
     const queued = [];
     const uploaded = [];
@@ -226,32 +208,12 @@ export const getters = {
 };
 
 export const actions = {
-  async nuxtServerInit({ commit }, { req }) {
-    if (req.user) {
-      commit(
-        "setUser",
-        req.user
-      );
-    }
-  },
-  // signin({ commit }, user) {
-  //   return this.$axios.$post(
-  //     "/api/authenticate/",
-  //     user
-  //   )
-  //     .then(() => {
-  //       this.$auth.setUser(user);
-  //       // commit("setCredentials", payload);
-  //       this.$router.push("/");
-  //     });
-  // },
   uploadEntry({ commit, state }, entryId) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
       commit("setUploading", true);
       commit("setEntryStatus", { entryId, status: "Uploading" });
       const request = {
-        ...state.credentials,
         biosamples: [ entry ],
       };
       return (

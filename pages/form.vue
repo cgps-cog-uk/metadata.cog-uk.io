@@ -139,7 +139,6 @@ export default {
   methods: {
     submitForm() {
       const request = {
-        ...this.$store.state.credentials,
         biosamples: [ this.formValues ],
       };
       this.$axios.$post("/api/data/submit/", request)
