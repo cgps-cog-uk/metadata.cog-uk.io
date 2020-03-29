@@ -56,6 +56,7 @@ export const mutations = {
       const row = data[index];
       const entry = {
         _id: index.toString(),
+        _icon: true,
         Status: "Pending",
       };
       for (let column = 0; column < headers.length; column++) {
@@ -175,6 +176,11 @@ export const getters = {
     }
     const headers = [
       {
+        value: "_icon",
+        text: "",
+        width: 40,
+      },
+      {
         value: "Status",
         text: "Status",
         width: 88,
@@ -188,7 +194,6 @@ export const getters = {
         text,
         width: measureTextWidth(text) + 36,
       });
-      console.log(text, measureTextWidth(text));
     }
     return headers;
   },

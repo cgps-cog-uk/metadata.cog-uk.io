@@ -10,7 +10,42 @@
       item-key="_id"
       v-bind:items="list"
       v:bind-show-select="false"
-    />
+    >
+      <template v-slot:group.header="{ group, groupBy, items, headers, isOpen, toggle, remove }">
+        <td
+          class="group-header text-start"
+          v-bind:colspan="headers.length"
+        >
+          <v-btn
+            class="ma-0"
+            small
+            icon
+            v-on:click="toggle"
+          >
+            <v-icon>
+              {{ isOpen ? "mdi-minus" : "mdi-plus" }}
+            </v-icon>
+          </v-btn>
+          {{ group }}: {{ items.length }} {{ items.length === 1 ? "row" : "rows" }}
+        </td>
+      </template>
+      <template v-slot:item._icon="{ item }">
+        <pending-icon
+          v-if="item.Status === 'Pending'"
+          title="Pending"
+        />
+        <uploading-icon
+          v-else-if="item.Status === 'Uploading'"
+        />
+        <done-icon
+          v-else-if="item.Status === 'Uploaded'"
+        />
+        <error-icon
+          v-else-if="item.Status === 'Failed'"
+          v-bind:title="item._error"
+        />
+      </template>
+    </v-data-table>
     <!-- <table>
       <thead>
         <tr>
@@ -119,5 +154,8 @@ section {
   position: absolute;
   right: 0;
   top: calc(50% - 10px);
+}
+.group-header {
+  padding-left: 2px;
 }
 </style>
