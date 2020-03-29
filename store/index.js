@@ -2,6 +2,7 @@
 /* eslint dot-notation: 0 */
 
 import formManifest from "../assets/form-manifest";
+import measureTextWidth from "../assets/scripts/measure-text-width";
 
 const statudToFilterMap = {
   Pending: "queued",
@@ -31,7 +32,7 @@ export const mutations = {
   setEntryStatus(state, { entryId, status, error, messages }) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
-      entry._status = status;
+      entry.Status = status;
       if (messages) {
         entry._messages = messages;
       }
@@ -55,7 +56,7 @@ export const mutations = {
       const row = data[index];
       const entry = {
         _id: index.toString(),
-        _status: "Pending",
+        Status: "Pending",
       };
       for (let column = 0; column < headers.length; column++) {
         entry[headers[column]] = row[column];
@@ -161,11 +162,34 @@ export const getters = {
   },
   filteredList(state) {
     if (state.filter) {
-      return state.data.entries.filter((x) => statudToFilterMap[x._status] === state.filter);
+      return state.data.entries.filter((x) => statudToFilterMap[x.Status] === state.filter);
     }
     else {
       return state.data.entries;
     }
+  },
+  dataGridHeaders(state, getters) {
+    const inputsByName = {};
+    for (const input of getters.formInputs) {
+      inputsByName[input.name] = input;
+    }
+    const headers = [
+      {
+        value: "Status",
+        text: "Status",
+        width: 88,
+      },
+    ];
+    for (const header of state.data.headers) {
+      const input = inputsByName[header];
+      const text = input ? input.description : header;
+      headers.push({
+        value: header,
+        text,
+        width: measureTextWidth(text) + 36,
+      });
+    }
+    return headers;
   },
   groups(state) {
     const queued = [];
@@ -174,7 +198,7 @@ export const getters = {
     const duplicated = [];
 
     for (const row of state.data.entries) {
-      switch (row._status) {
+      switch (row.Status) {
         case "Pending":
         case "Uploading":
           queued.push(row);
