@@ -12,7 +12,6 @@
         v-bind:label="label"
         v-bind:name="name"
         outlined
-        readonly
         v-bind:required="required"
         v-bind:rules="rules"
         v-bind:value="value"

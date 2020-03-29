@@ -1,6 +1,6 @@
 {
   "name": "cog-uk",
-  "version": "33.0.0",
+  "version": "38.0.0",
   "description": "COG-UK",
   "author": "CGPS",
   "private": true,
@@ -13,21 +13,19 @@
     "release": "npm version major && git push && git push --tags"
   },
   "dependencies": {
+    "@nuxtjs/auth": "^4.9.0",
     "@nuxtjs/axios": "^5.3.6",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
-    "cgps-user-accounts": "gitlab:cgps/dev/user-accounts",
-    "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
-    "express-session": "^1.17.0",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.5.1",
     "merge-options": "^2.0.0",
     "moment": "^2.24.0",
-    "mongoose": "^5.9.5",
     "nuxt": "^2.0.0",
-    "nuxt-vuex-localstorage": "^1.2.6",
-    "uuid-random": "^1.3.0",
     "vue-qrcode-reader": "^2.1.1",
+    "vuetify-datetime-picker": "^2.1.1",
     "vuex": "^3.1.3",
     "xlsx": "^0.15.6"
   },

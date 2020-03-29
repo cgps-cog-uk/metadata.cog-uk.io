@@ -19,7 +19,6 @@ export const state = () => ({
   filter: null,
   formManifest: null,
   mode: "files",
-  options: {},
   uploading: false,
   user: null,
 });
@@ -77,21 +76,8 @@ export const mutations = {
   setMode(state, mode) {
     state.mode = mode;
   },
-  setOptions(state, options) {
-    state.options = {
-      ...state.options,
-      ...options,
-    };
-  },
   setUploading(state, mode) {
     state.uploading = mode;
-  },
-  setUser(state, user) {
-    state.user = {
-      name: user.name,
-      email: user.email,
-      apiAccessToken: user.apiAccessToken,
-    };
   },
 };
 
@@ -117,6 +103,11 @@ export const getters = {
         name: "date",
         default: null,
         hasEnum: true,
+      },
+      {
+        name: "datetime",
+        default: null,
+        hasEnum: false,
       },
       {
         name: "file",
@@ -196,15 +187,6 @@ export const getters = {
     }
     return headers;
   },
-  isAnonymous(state) {
-    return !state.user;
-  },
-  isAuthenticated(state) {
-    return !!state.user;
-  },
-  hasCredentials(state) {
-    return state.options.username && state.options.token;
-  },
   groups(state) {
     const queued = [];
     const uploaded = [];
@@ -246,21 +228,12 @@ export const getters = {
 };
 
 export const actions = {
-  async nuxtServerInit({ commit }, { req }) {
-    if (req.user) {
-      commit(
-        "setUser",
-        req.user
-      );
-    }
-  },
   uploadEntry({ commit, state }, entryId) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
       commit("setUploading", true);
       commit("setEntryStatus", { entryId, status: "Uploading" });
       const request = {
-        ...state.options,
         biosamples: [ entry ],
       };
       return (
@@ -297,5 +270,8 @@ export const actions = {
       );
     }
     return Promise.resolve();
+  },
+  signout({ commit }, payload) {
+    commit("setCredentials", {});
   },
 };

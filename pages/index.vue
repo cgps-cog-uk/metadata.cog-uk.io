@@ -34,13 +34,13 @@
           Start Upload
         </button>
       </template>
-      <button
+      <a
         v-if="mode === 'data'"
         class="button--grey"
-        v-on:click="resetToFileMode"
+        href="/"
       >
         Upload another file
-      </button>
+      </a>
     </nav>
     <files-uploader v-if="mode === 'files'" />
     <data-grid v-if="mode === 'data'" />
@@ -48,13 +48,13 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 import FilesUploader from "~/components/FilesUploader.vue";
 import DataGrid from "~/components/DataGrid.vue";
 
 export default {
-  middleware: "authenticated",
+  middleware: "auth",
   components: {
     DataGrid,
     FilesUploader,
@@ -70,9 +70,6 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations({
-      resetToFileMode: "reset",
-    }),
     setFilter(filter) {
       this.$store.commit("setFilter", filter);
     },

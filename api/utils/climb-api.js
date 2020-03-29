@@ -49,3 +49,11 @@ module.exports.createOrUpdateSequencing = async function (username, token, seque
   });
   return response.data;
 };
+
+module.exports.authenticate = function (username, token) {
+  return (
+    module.exports.createOrUpdateBiosamples(username, token, [{}])
+      .then(() => true)
+      .catch(() => false)
+  );
+};

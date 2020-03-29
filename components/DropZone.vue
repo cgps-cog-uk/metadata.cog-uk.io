@@ -3,7 +3,9 @@
     ref="drop-target"
     class="upload-files"
   >
-    <div class="label-1">Drag and drop files</div>
+    <div class="label-1">
+      Drag and drop files
+    </div>
     <input
       id="file-upload"
       ref="file-input"
@@ -85,6 +87,16 @@ export default {
               this.setInfoMessage(err);
             }
             else {
+              const fields = [];
+              for (const field of data[0]) {
+                if (fields.includes(field)) {
+                  this.setInfoMessage(`Dupliate field: ${field}`);
+                  return;
+                }
+                else {
+                  fields.push(field);
+                }
+              }
               this.$store.commit("setData", data);
             }
           }

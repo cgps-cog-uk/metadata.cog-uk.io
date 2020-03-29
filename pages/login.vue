@@ -14,58 +14,61 @@
             sm="8"
             md="4"
           >
-            <v-card class="elevation-12">
-              <v-toolbar
-                color="primary"
-                dark
-                flat
-              >
-                <v-toolbar-title>Login to COG-UK</v-toolbar-title>
-              </v-toolbar>
-              <v-card-text>
-                <v-form>
-                  <v-text-field
-                    v-model="email"
-                    type="email"
-                    label="Email"
-                    name="email"
-                    prepend-icon="mdi-email"
-                  />
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer />
+            <section>
+              <center>
+                <h1>Sign in with</h1>
+                <h2>COG-UK CLIMB account</h2>
+              </center>
+              <v-form v-model="isFormValid">
+                <v-text-field
+                  v-model="username"
+                  label="Username"
+                  name="username"
+                  outlined
+                  required
+                  v-bind:rules="usernameRules"
+                  type="text"
+                />
+                <v-text-field
+                  v-model="token"
+                  label="Token"
+                  name="password"
+                  outlined
+                  required
+                  v-bind:rules="tokenRules"
+                  type="password"
+                />
+                <!-- <v-select
+                  v-bind:items="[ 'covid.majora.ironowl.it', 'majora.covid19.climb.ac.uk' ]"
+                  label="Outlined style"
+                  outlined
+                /> -->
                 <v-btn
-                  v-bind:disabled="!email"
+                  depressed
+                  large
+                  block
                   color="primary"
                   v-on:click="login"
                 >
-                  Login
+                  {{ loginLabel }}
                 </v-btn>
-              </v-card-actions>
+                <footer>
+                  <strong
+                    v-show="mode === 'error'"
+                  >
+                    Invalid credentials
+                  </strong>
+                </footer>
+              </v-form>
+              <v-progress-linear
+                v-if="mode === 'sending'"
+                indeterminate
+              />
               <v-overlay
                 absolute
-                v-bind:value="mode !== 'input'"
-              >
-                <v-progress-circular
-                  v-if="mode === 'sending'"
-                  indeterminate
-                  color="primary"
-                />
-                <p
-                  v-else-if="mode === 'sent'"
-                  style="padding-top: 80px"
-                >
-                  Login link has been sent to <strong>{{ email }}</strong>
-                </p>
-                <p
-                  v-else
-                >
-                  <br>
-                  {{ message }}.
-                </p>
-              </v-overlay>
-            </v-card>
+                v-bind:value="mode === 'sending'"
+              />
+            </section>
           </v-col>
         </v-row>
       </v-container>
@@ -78,50 +81,85 @@ export default {
   layout: "login",
   data() {
     return {
-      email: "",
+      username: null,
+      token: null,
       mode: "input",
-      message: "",
+      isFormValid: false,
+      usernameRules: [
+        (v) => !!v || "Username is required",
+      ],
+      tokenRules: [
+        (v) => !!v || "Token is required",
+        (v) => (v && v.length === 36) || "Token must be 36 characters long",
+        (v) => /[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}/i.test(v) || "Token must be a valid UUID",
+      ],
     };
+  },
+  computed: {
+    loginLabel() {
+      if (this.username && /^test-/i.test(this.username)) {
+        if (/^test-/i.test(this.username)) {
+          return "Login to covid.majora.ironowl.it";
+        }
+        else {
+          return "Login to majora.covid19.climb.ac.uk";
+        }
+      }
+      else {
+        return "Login";
+      }
+    },
   },
   methods: {
     login() {
-      this.mode = "sending";
-      this.$axios.$post("/auth/passwordless/", { user: this.email })
-        .then(() => {
-          this.mode = "sent";
-        })
-        .catch((err) => {
-          this.mode = "error";
-          this.message = err;
-        });
+      if (this.isFormValid) {
+        this.mode = "sending";
+        const user = {
+          username: this.username,
+          token: this.token,
+        };
+        this.$auth.loginWith("local", { data: user })
+          .catch((err) => {
+            this.mode = "error";
+          });
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-.v-card {
+section {
   position: relative;
-}
-input {
-  border: 1px solid #d7d7db;
-  padding-left: .5rem;
-  padding-right: .5rem;
-  padding-top: .25rem;
-  padding-bottom: .25rem;
-  height: 3rem;
-  border-radius: .5rem;
-}
-button {
-  background-color:#0060df;
-  color:#fff;
-  cursor: pointer;
-  padding: 16px 24px;
-  font-weight: 600;
+  /* min-height: 500px; */
+  padding: 48px 40px 0px 40px;
+  font-size: 14px;
+  line-height: 1.4286;
   border-radius: 8px;
+  border: 1px solid #dadce0;
+}
+.v-form {
+  padding: 24px 0 0 0;
+}
+.v-form footer {
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-top: 16px;
-  border: 1px solid #d7d7db;
+  height: 48px;
+}
+
+.v-progress-linear {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.v-btn {
+  margin-left: auto;
+}
+
+.v-overlay--active >>> .v-overlay__scrim {
+  opacity: 0.14 !important;
 }
 </style>

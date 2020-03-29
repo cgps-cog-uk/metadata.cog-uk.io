@@ -3,8 +3,8 @@
     <div class="full-container">
       <header>
         <h1>
-          <a v-on:click="resetToFileMode">
-            <img title="COG-UK Sample Metadata Uploade" src="/images/cog-uk-metadata.png">
+          <a href="/">
+            <img title="COG-UK Sample Metadata Uploader" src="/images/cog-uk-metadata.png">
           </a>
         </h1>
         <nav>
@@ -22,7 +22,7 @@
       </main>
       <footer>
         <span>
-          Logged in as {{ user.email }}. COG-UK Username: {{ hasCredentials ? options.username : "" }}
+          Logged in as <strong>{{ $auth.user.username }}</strong>
         </span>
         <ul>
           <li>
@@ -30,7 +30,7 @@
           </li>
           <li>
             <a href="/logout">
-              Logout
+              Log out
             </a>
           </li>
         </ul>
@@ -40,25 +40,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
-
 export default {
-  computed: {
-    ...mapState({
-      user: "user",
-    }),
-    ...mapGetters({
-      hasCredentials: "hasCredentials",
-    }),
-    options() {
-      return this.$store.state.options;
-    },
-  },
-  methods: {
-    ...mapMutations({
-      resetToFileMode: "reset",
-    }),
-  },
 };
 </script>
 
