@@ -9,9 +9,11 @@
       hide-default-footer
       item-key="_id"
       v-bind:items="list"
+      show-expand
+      single-expand
       v:bind-show-select="false"
     >
-      <template v-slot:group.header="{ group, groupBy, items, headers, isOpen, toggle, remove }">
+      <!-- <template v-slot:group.header="{ group, groupBy, items, headers, isOpen, toggle, remove }">
         <td
           class="group-header text-start"
           v-bind:colspan="headers.length"
@@ -28,8 +30,8 @@
           </v-btn>
           {{ group }}: {{ items.length }} {{ items.length === 1 ? "row" : "rows" }}
         </td>
-      </template>
-      <template v-slot:item._icon="{ item }">
+      </template> -->
+      <!-- <template v-slot:item._icon="{ item }">
         <pending-icon
           v-if="item.Status === 'Pending'"
           title="Pending"
@@ -44,63 +46,61 @@
           v-else-if="item.Status === 'Failed'"
           v-bind:title="item._error"
         />
+      </template> -->
+      <template v-slot:item="{ item, headers, isExpanded, expand }">
+        <tr
+          v-bind:class="{ expanded: isExpanded, expandable: (item.Status === 'Failed') }"
+          v-on:click="(item.Status === 'Failed') ? expand(!isExpanded) : undefined"
+        >
+          <td
+            v-for="header in headers"
+            v-bind:key="header.name"
+            class="text-start"
+          >
+            <template v-if="header.value === 'data-table-expand'">
+              <pending-icon
+                v-if="item.Status === 'Pending'"
+                title="Pending"
+              />
+              <uploading-icon
+                v-else-if="item.Status === 'Uploading'"
+              />
+              <done-icon
+                v-else-if="item.Status === 'Uploaded'"
+              />
+              <v-icon
+                v-else-if="item.Status === 'Failed'"
+                class="v-data-table__expand-icon"
+                v-bind:class="{ 'v-data-table__expand-icon--active': isExpanded }"
+                title="Failed, click to see details."
+              >
+                {{ isExpanded ? "mdi-alert-circle" : "mdi-alert-circle-outline" }}
+              </v-icon>
+            </template>
+            <template v-else>
+              <warning-icon
+                v-if="item._messages && item._messages[header.value]"
+                v-bind:title="item._messages[header.value].map((x) => x.message).join('. ')"
+              />
+              {{ item[header.value] }}
+            </template>
+          </td>
+        </tr>
+      </template>
+      <template v-slot:expanded-item="{ headers, item }">
+        <tr class="expanded-content">
+          <td v-bind:colspan="headers.length">
+            {{ item._error }}
+          </td>
+        </tr>
       </template>
     </v-data-table>
-    <!-- <table>
-      <thead>
-        <tr>
-          <th>
-            Status
-          </th>
-          <th
-            v-for="header in data.headers"
-            v-bind:key="header"
-          >
-            {{ header }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(row, index) in list"
-          v-bind:key="index"
-        >
-          <td>
-            <pending-icon
-              v-if="row._status === 'Pending'"
-              title="Pending"
-            />
-            <uploading-icon
-              v-else-if="row._status === 'Uploading'"
-            />
-            <done-icon
-              v-else-if="row._status === 'Uploaded'"
-            />
-            <error-icon
-              v-else-if="row._status === 'Failed'"
-              v-bind:title="row._error"
-            />
-          </td>
-          <td
-            v-for="header in data.headers"
-            v-bind:key="header"
-          >
-            <warning-icon
-              v-if="row._messages && row._messages[header]"
-              v-bind:title="row._messages[header].map((x) => x.message).join('. ')"
-            />
-            {{ row[header] }}
-          </td>
-        </tr>
-      </tbody>
-    </table> -->
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from "vuex";
 
-import ErrorIcon from "~/components/ErrorIcon.vue";
 import DoneIcon from "~/components/DoneIcon.vue";
 import WarningIcon from "~/components/WarningIcon.vue";
 import PendingIcon from "~/components/PendingIcon.vue";
@@ -108,7 +108,6 @@ import UploadingIcon from "~/components/UploadingIcon.vue";
 
 export default {
   components: {
-    ErrorIcon,
     WarningIcon,
     DoneIcon,
     PendingIcon,
@@ -157,5 +156,15 @@ section {
 }
 .group-header {
   padding-left: 2px;
+}
+tr.expanded,
+tr.expanded-content {
+  background: #eeeeee;
+}
+tr.expandable td {
+  cursor: pointer;
+}
+tr.expanded td {
+  border-bottom-color: transparent !important;
 }
 </style>
