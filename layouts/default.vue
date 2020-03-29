@@ -3,7 +3,7 @@
     <div class="full-container">
       <header>
         <h1>
-          <a v-on:click="resetToFileMode">
+          <a href="/">
             <img title="COG-UK Sample Metadata Uploader" src="/images/cog-uk-metadata.png">
           </a>
         </h1>
@@ -40,14 +40,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-
 export default {
-  methods: {
-    ...mapMutations({
-      resetToFileMode: "reset",
-    }),
-  },
 };
 </script>
 
