@@ -13,7 +13,7 @@
       single-expand
       v:bind-show-select="false"
     >
-      <!-- <template v-slot:group.header="{ group, groupBy, items, headers, isOpen, toggle, remove }">
+      <template v-slot:group.header="{ group, groupBy, items, headers, isOpen, toggle, remove }">
         <td
           class="group-header text-start"
           v-bind:colspan="headers.length"
@@ -28,9 +28,9 @@
               {{ isOpen ? "mdi-minus" : "mdi-plus" }}
             </v-icon>
           </v-btn>
-          {{ group }}: {{ items.length }} {{ items.length === 1 ? "row" : "rows" }}
+          {{ group.toUpperCase() }}: {{ items.length }} {{ items.length === 1 ? "row" : "rows" }}
         </td>
-      </template> -->
+      </template>
       <!-- <template v-slot:item._icon="{ item }">
         <pending-icon
           v-if="item.Status === 'Pending'"
