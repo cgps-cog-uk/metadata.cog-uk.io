@@ -2,13 +2,14 @@
   <div class="data-grid">
     <v-data-table
       v-model="selected"
-      v-bind:disable-pagination="true"
-      group-by="_status"
+      dense
+      disable-pagination
+      group-by="Status"
       v-bind:headers="headers"
+      hide-default-footer
       item-key="_id"
       v-bind:items="list"
-      show-group-by
-      show-select
+      v:bind-show-select="false"
     />
     <!-- <table>
       <thead>
@@ -111,20 +112,12 @@ export default {
 section {
   overflow: auto;
 }
-table {
-  width: 100%;
+.v-data-table >>> th {
+  position: relative;
 }
-th {
-  background-color: #f9f9fa;
-  padding: 8px 0;
-}
-td {
-  padding: 8px 4px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-th, td {
-  border-right: 1px solid #ccc;
+.v-data-table >>> .v-data-table-header__icon {
+  position: absolute;
+  right: 0;
+  top: calc(50% - 10px);
 }
 </style>
