@@ -3,7 +3,9 @@
     ref="drop-target"
     class="upload-files"
   >
-    <div class="label-1">Drag and drop files</div>
+    <div class="label-1">
+      Drag and drop files
+    </div>
     <input
       id="file-upload"
       ref="file-input"
