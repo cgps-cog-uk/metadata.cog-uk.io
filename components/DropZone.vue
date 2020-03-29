@@ -87,6 +87,16 @@ export default {
               this.setInfoMessage(err);
             }
             else {
+              const fields = [];
+              for (const field of data[0]) {
+                if (fields.includes(field)) {
+                  this.setInfoMessage(`Dupliate field: ${field}`);
+                  return;
+                }
+                else {
+                  fields.push(field);
+                }
+              }
               this.$store.commit("setData", data);
             }
           }
