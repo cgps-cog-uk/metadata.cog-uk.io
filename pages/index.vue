@@ -2,29 +2,7 @@
   <section>
     <nav>
       <template
-        v-if="uploading"
-      >
-        <button
-          class="button--green"
-          v-on:click="setFilter('queued')"
-        >
-          Queued ({{ groups.queued.length }})
-        </button>
-        <button
-          class="button--green"
-          v-on:click="setFilter('uploaded')"
-        >
-          Uploaded ({{ groups.uploaded.length }})
-        </button>
-        <button
-          class="button--green"
-          v-on:click="setFilter('failed')"
-        >
-          Failed ({{ groups.failed.length }})
-        </button>
-      </template>
-      <template
-        v-else
+        v-if="!uploading"
       >
         <button
           v-if="mode === 'data'"
@@ -48,7 +26,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 import FilesUploader from "~/components/FilesUploader.vue";
 import DataGrid from "~/components/DataGrid.vue";
@@ -65,16 +43,13 @@ export default {
       mode: "mode",
       uploading: "uploading",
     }),
-    ...mapGetters({
-      groups: "groups",
-    }),
   },
   methods: {
     setFilter(filter) {
       this.$store.commit("setFilter", filter);
     },
     startUpload() {
-      const entry = this.data.entries.find((x) => x._status === "Pending");
+      const entry = this.data.entries.find((x) => x.Status === "Pending");
       if (entry) {
         this.$store.dispatch("uploadEntry", entry._id)
           .catch((error) => console.error(error))

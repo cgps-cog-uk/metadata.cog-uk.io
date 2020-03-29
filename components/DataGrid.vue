@@ -1,60 +1,100 @@
 <template>
   <div class="data-grid">
-    <table>
-      <thead>
-        <tr>
-          <th>
-            Status
-          </th>
-          <th
-            v-for="header in data.headers"
-            v-bind:key="header"
-          >
-            {{ header }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(row, index) in list"
-          v-bind:key="index"
+    <v-data-table
+      v-model="selected"
+      dense
+      disable-pagination
+      group-by="Status"
+      v-bind:headers="headers"
+      hide-default-footer
+      item-key="_id"
+      v-bind:items="list"
+      show-expand
+      single-expand
+      v:bind-show-select="false"
+    >
+      <template v-slot:group.header="{ group, groupBy, items, headers, isOpen, toggle }">
+        <td
+          class="group-header text-start"
+          v-bind:colspan="headers.length"
         >
-          <td>
-            <pending-icon
-              v-if="row._status === 'Pending'"
-              title="Pending"
-            />
-            <uploading-icon
-              v-else-if="row._status === 'Uploading'"
-            />
-            <done-icon
-              v-else-if="row._status === 'Uploaded'"
-            />
-            <error-icon
-              v-else-if="row._status === 'Failed'"
-              v-bind:title="row._error"
-            />
-          </td>
+          <v-btn
+            class="ma-0"
+            small
+            icon
+            v-on:click="toggle"
+          >
+            <v-icon>
+              {{ isOpen ? "mdi-minus" : "mdi-plus" }}
+            </v-icon>
+          </v-btn>
+          {{ group.toUpperCase() }}: {{ items.length }} {{ items.length === 1 ? "row" : "rows" }}
+        </td>
+      </template>
+      <template v-slot:item="{ item, headers, isExpanded, expand }">
+        <tr
+          v-bind:class="{ expanded: isExpanded, expandable: (item.Status === 'Failed') }"
+          v-on:click="(item.Status === 'Failed') ? expand(!isExpanded) : undefined"
+        >
           <td
-            v-for="header in data.headers"
-            v-bind:key="header"
+            v-for="header in headers"
+            v-bind:key="header.name"
+            class="text-start"
+            v-bind:class="{ 'has-error': item._messages && item._messages[header.value] }"
+          >
+            <template v-if="header.value === 'data-table-expand'">
+              <pending-icon
+                v-if="item.Status === 'Pending'"
+                title="Pending"
+              />
+              <uploading-icon
+                v-else-if="item.Status === 'Uploading'"
+              />
+              <done-icon
+                v-else-if="item.Status === 'Uploaded'"
+              />
+              <v-icon
+                v-else-if="item.Status === 'Failed'"
+                class="v-data-table__expand-icon"
+                v-bind:class="{ 'v-data-table__expand-icon--active': isExpanded }"
+                title="Failed, click to see details."
+              >
+                {{ isExpanded ? "mdi-alert-circle" : "mdi-alert-circle-outline" }}
+              </v-icon>
+            </template>
+            <template v-else>
+              {{ item[header.value] }}
+            </template>
+          </td>
+        </tr>
+      </template>
+      <template v-slot:expanded-item="{ headers, item }">
+        <tr class="expanded-cells">
+          <td
+            v-for="header in headers"
+            v-bind:key="header.name"
+            class="text-start"
+            v-bind:class="{ 'has-error': item._messages && item._messages[header.value] }"
           >
             <warning-icon
-              v-if="row._messages && row._messages[header]"
-              v-bind:title="row._messages[header].map((x) => x.message).join('. ')"
+              v-if="item._messages && item._messages[header.value]"
+              v-bind:title="item._messages[header.value].map((x) => x.message).join('. ')"
             />
-            {{ row[header] }}
           </td>
         </tr>
-      </tbody>
-    </table>
+        <tr class="expanded-info">
+          <td v-bind:colspan="headers.length">
+            {{ item._error }}
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from "vuex";
 
-import ErrorIcon from "~/components/ErrorIcon.vue";
 import DoneIcon from "~/components/DoneIcon.vue";
 import WarningIcon from "~/components/WarningIcon.vue";
 import PendingIcon from "~/components/PendingIcon.vue";
@@ -62,11 +102,15 @@ import UploadingIcon from "~/components/UploadingIcon.vue";
 
 export default {
   components: {
-    ErrorIcon,
     WarningIcon,
     DoneIcon,
     PendingIcon,
     UploadingIcon,
+  },
+  data() {
+    return {
+      selected: [],
+    };
   },
   computed: {
     ...mapState({
@@ -74,6 +118,7 @@ export default {
     }),
     ...mapGetters({
       list: "filteredList",
+      headers: "dataGridHeaders",
     }),
   },
 };
@@ -95,20 +140,53 @@ export default {
 section {
   overflow: auto;
 }
-table {
-  width: 100%;
+.v-data-table >>> th {
+  position: relative;
 }
-th {
-  background-color: #f9f9fa;
-  padding: 8px 0;
+.v-data-table >>> .v-data-table-header__icon {
+  position: absolute;
+  right: 0;
+  top: calc(50% - 10px);
 }
-td {
-  padding: 8px 4px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+.group-header {
+  padding-left: 2px;
 }
-th, td {
-  border-right: 1px solid #ccc;
+
+.v-data-table >>> td {
+  border: 1px solid transparent;
 }
+
+tr.expanded td.has-error {
+  border-color: #ff5252;
+  border-radius: 8px 8px 0 0;
+}
+tr.expanded-cells td.has-error {
+  border-color: transparent #ff5252 #ff5252 #ff5252 !important;
+  border-radius: 0 0 8px 8px;
+}
+
+tr.expanded,
+.data-grid >>> tr.expanded-cells,
+tr.expanded-info {
+  background: #eeeeee;
+}
+/* .v-data-table >>> .v-data-table__expanded__content {
+  box-shadow: none;
+} */
+/* .v-data-table >>> .v-data-table__expanded__content td {
+  box-shadow: none;
+  border-bottom: 16px solid #fff !important;
+} */
+tr.expandable td {
+  cursor: pointer;
+}
+
+tr.expanded td,
+tr.expanded-cells td {
+  border-bottom-color: transparent !important;
+}
+
+tr.expanded-info td {
+  border-bottom: 16px solid #fff !important;
+} 
 </style>
