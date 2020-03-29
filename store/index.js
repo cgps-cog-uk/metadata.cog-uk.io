@@ -183,7 +183,7 @@ export const getters = {
     return !state.user;
   },
   isAuthenticated(state) {
-    return state.credentials.username && state.credentials.token;
+    return !!state.credentials.username && !!state.credentials.token;
   },
   groups(state) {
     const queued = [];
