@@ -157,7 +157,18 @@ export const getters = {
     ];
   },
   formInputs(state) {
-    return formManifest;
+    const inputs = [];
+    for (const input of formManifest) {
+      input.label = (
+        input.required
+          ?
+          `${input.description} (required)`
+          :
+          input.description
+      );
+      inputs.push(input);
+    }
+    return inputs;
   },
   filteredList(state) {
     if (state.filter) {
