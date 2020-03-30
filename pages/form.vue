@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 import InputControl from "~/components/InputControl/index.vue";
 
@@ -129,9 +129,6 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      user: "user",
-    }),
     ...mapGetters({
       formInputs: "formInputs",
     }),

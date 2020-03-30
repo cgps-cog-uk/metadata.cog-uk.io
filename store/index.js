@@ -21,7 +21,6 @@ export const state = () => ({
   formManifest: null,
   mode: "files",
   uploading: false,
-  user: null,
 });
 
 export const mutations = {

@@ -114,11 +114,11 @@ export default {
     login() {
       if (this.isFormValid) {
         this.mode = "sending";
-        const user = {
+        const data = {
           username: this.username,
           token: this.token,
         };
-        this.$auth.loginWith("local", { data: user })
+        this.$auth.loginWith("local", { data })
           .catch((err) => {
             this.mode = "error";
           });

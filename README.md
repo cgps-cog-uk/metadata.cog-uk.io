@@ -28,9 +28,3 @@ npm run dev
 # make changes and commit them
 npm run release # this creates a new tag and starts a job on Gotlab CI to build a new image
 ```
-
-## Add a new user
-``` bash
-coguk
-db.users.insert({ email: "e@mail.com", "apiAccessToken": UUID().hex() });
-```
