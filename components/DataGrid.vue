@@ -31,8 +31,55 @@
           {{ group.toUpperCase() }}: {{ items.length }} {{ items.length === 1 ? "row" : "rows" }}
         </td>
       </template>
-      <template v-slot:item="{ item, headers, isExpanded, expand }">
+      <template v-slot:item="{ item, headers, isExpanded, expand, isMobile }">
         <tr
+          v-if="isMobile"
+          class="v-data-table__mobile-table-row"
+        >
+          <td
+            v-for="header in headers"
+            v-bind:key="header.name"
+            class="v-data-table__mobile-row"
+            v-bind:class="{ 'has-error': item._messages && item._messages[header.value] }"
+          >
+            <template v-if="header.value === 'data-table-expand'">
+              <div class="v-data-table__mobile-row__header">
+                Status:
+              </div>
+              <div class="v-data-table__mobile-row__cell">
+                {{ item._error }}
+                <pending-icon
+                  v-if="item.Status === 'Pending'"
+                  title="Pending"
+                />
+                <uploading-icon
+                  v-else-if="item.Status === 'Uploading'"
+                />
+                <done-icon
+                  v-else-if="item.Status === 'Uploaded'"
+                />
+                <v-icon
+                  v-else-if="item.Status === 'Failed'"
+                  class="v-data-table__expand-icon"
+                  v-bind:class="{ 'v-data-table__expand-icon--active': isExpanded }"
+                  title="Failed, click to see details."
+                >
+                  {{ isExpanded ? "mdi-alert-circle" : "mdi-alert-circle-outline" }}
+                </v-icon>
+              </div>
+            </template>
+            <template v-else>
+              <div class="v-data-table__mobile-row__header">
+                {{ header.text }}:
+              </div>
+              <div class="v-data-table__mobile-row__cell">
+                {{ item[header.value] }}
+              </div>
+            </template>
+          </td>
+        </tr>
+        <tr
+          v-else
           v-bind:class="{ expanded: isExpanded, expandable: (item.Status === 'Failed') }"
           v-on:click="(item.Status === 'Failed') ? expand(!isExpanded) : undefined"
         >
