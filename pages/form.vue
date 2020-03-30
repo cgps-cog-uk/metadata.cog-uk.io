@@ -42,7 +42,7 @@
           <v-expansion-panel-header>Samples</v-expansion-panel-header>
           <v-expansion-panel-content>
             <input-control
-              v-for="(arg, index) in biosampleSectionInputs"
+              v-for="(arg) in biosampleSectionInputs"
               v-bind:key="arg.name"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
@@ -60,7 +60,7 @@
           <v-expansion-panel-header>Library</v-expansion-panel-header>
           <v-expansion-panel-content>
             <input-control
-              v-for="(arg, index) in librarySectionInputs"
+              v-for="(arg) in librarySectionInputs"
               v-bind:key="arg.name"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
@@ -77,7 +77,7 @@
           <v-expansion-panel-header>Sequencing</v-expansion-panel-header>
           <v-expansion-panel-content>
             <input-control
-              v-for="(arg, index) in sequencingSectionInputs"
+              v-for="(arg) in sequencingSectionInputs"
               v-bind:key="arg.name"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
