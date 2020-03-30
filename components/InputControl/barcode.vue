@@ -6,6 +6,7 @@
   >
     <template v-slot:activator="{}">
       <v-text-field
+        v-bind:error-messages="errorMessages"
         append-icon="mdi-camera"
         dense
         v-bind:hide-details="inline ? true : false"
@@ -62,6 +63,7 @@
 export default {
   props: {
     description: String,
+    errorMessages: null,
     inline: Boolean,
     label: String,
     name: String,

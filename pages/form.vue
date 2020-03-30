@@ -46,6 +46,7 @@
               v-bind:key="index"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
+              v-bind:error-messages="messages[arg.name]"
               v-bind:enum-values="arg.enum"
               v-bind:label="arg.label"
               v-bind:name="arg.name"
@@ -118,13 +119,14 @@ export default {
   },
   data() {
     return {
-      formValues: {},
-      isFormValid: false,
-      wasAdded: false,
       error: null,
       expandedSections: [ 0 ],
+      formValues: {},
+      isFormValid: false,
       librarySectionIndex: 1,
+      messages: {},
       sequencingIndex: 2,
+      wasAdded: false,
     };
   },
   computed: {
@@ -144,8 +146,14 @@ export default {
   methods: {
     submitForm() {
       this.$axios.$post("/api/data/submit/", this.formValues)
-        .then(() => {
-          this.wasAdded = true;
+        .then((results) => {
+          this.wasAdded = results.ok;
+          for (const key of Object.keys(results.messages)) {
+            this.messages[key] = results.messages[key].map((x) => x.message).join(". ");
+          }
+          if (!results.ok) {
+            this.error = `Errors in the following fields: ${Object.keys(results.messages).join(", ")}`;
+          }
         })
         .catch((err) => {
           console.error(err);

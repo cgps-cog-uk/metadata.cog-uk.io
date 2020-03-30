@@ -2,6 +2,7 @@
   <component
     v-bind:is="currentInputComponent"
     v-bind:description="description"
+    v-bind:error-messages="errorMessages"
     v-bind:enum-values="enumValues"
     v-bind:inline="inline"
     v-bind:label="label || name"
@@ -39,6 +40,7 @@ const editors = {
 export default {
   props: {
     description: String,
+    errorMessages: null,
     inline: Boolean,
     enumValues: Array,
     label: String,

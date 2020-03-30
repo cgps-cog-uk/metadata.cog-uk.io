@@ -26,6 +26,7 @@ export default {
   },
   props: {
     description: String,
+    errorMessages: null,
     inline: Boolean,
     label: String,
     name: String,
@@ -36,6 +37,7 @@ export default {
   computed: {
     textFieldProps() {
       return {
+        errorMessages: this.errorMessages,
         dense: true,
         hideDetails: this.inline,
         hint: this.inline ? undefined : this.description,
