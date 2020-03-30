@@ -247,11 +247,8 @@ export const actions = {
     if (entry) {
       commit("setUploading", true);
       commit("setEntryStatus", { entryId, status: "Uploading" });
-      const request = {
-        biosamples: [ entry ],
-      };
       return (
-        this.$axios.$post("/api/data/submit/", request)
+        this.$axios.$post("/api/data/submit/", entry)
           .then((response) => {
             const status = response.ok ? "Uploaded" : "Failed";
             commit(
@@ -264,9 +261,9 @@ export const actions = {
                     ?
                     null
                     :
-                    `Errors in the following fields: ${Object.keys(response.messages[0]).join(", ")}`
+                    `Errors in the following fields: ${Object.keys(response.messages).join(", ")}`
                 ),
-                messages: response.messages[0],
+                messages: response.messages,
               }
             );
           })

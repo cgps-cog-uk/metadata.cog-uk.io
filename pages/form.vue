@@ -141,15 +141,12 @@ export default {
   },
   methods: {
     submitForm() {
-      const request = {
-        biosamples: [ this.formValues ],
-      };
-      this.$axios.$post("/api/data/submit/", request)
+      this.$axios.$post("/api/data/submit/", this.formValues)
         .then(() => {
           this.wasAdded = true;
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
           this.error = err.response.data.error;
         });
     },
