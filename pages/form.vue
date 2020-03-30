@@ -57,7 +57,7 @@
 
         <v-expansion-panel>
           <v-expansion-panel-header>Library</v-expansion-panel-header>
-          <v-expansion-panel-content v-if="sections.includes(1)">
+          <v-expansion-panel-content>
             <input-control
               v-for="(arg, index) in librarySectionInputs"
               v-bind:key="index"
@@ -66,7 +66,7 @@
               v-bind:enum-values="arg.enum"
               v-bind:label="arg.label"
               v-bind:name="arg.name"
-              v-bind:required="arg.required"
+              v-bind:required="sections.includes(1) && arg.required"
               v-bind:type="arg.type"
             />
           </v-expansion-panel-content>
@@ -74,7 +74,7 @@
 
         <v-expansion-panel>
           <v-expansion-panel-header>Sequencing</v-expansion-panel-header>
-          <v-expansion-panel-content v-if="sections.includes(2)">
+          <v-expansion-panel-content>
             <input-control
               v-for="(arg, index) in sequencingSectionInputs"
               v-bind:key="index"
@@ -83,7 +83,7 @@
               v-bind:enum-values="arg.enum"
               v-bind:label="arg.label"
               v-bind:name="arg.name"
-              v-bind:required="arg.required"
+              v-bind:required="sections.includes(2) && arg.required"
               v-bind:type="arg.type"
             />
           </v-expansion-panel-content>
