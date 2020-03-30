@@ -4,7 +4,7 @@
     "description": "central sample id",
     "type": "barcode",
     "required": true,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "adm1",
@@ -12,21 +12,21 @@
     "type": "text",
     "required": true,
     "enum": [ "UK-ENG", "UK-SCT", "UK-WLS", "UK-NIR"],
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "collection_date",
     "description": "collection date",
     "type": "date",
     "required": true,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "source_age",
     "description": "source age",
     "type": "integer",
     "required": true,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "source_sex",
@@ -34,77 +34,77 @@
     "type": "text",
     "required": true,
     "enum": [ "F", "M", "Other" ],
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "adm2",
     "description": "adm2",
     "type": "text",
     "required": false,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "biosample_source_id",
     "description": "biosample source id",
     "type": "text",
     "required": false,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "root_sample_id",
     "description": "root sample id",
     "type": "text",
     "required": false,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "sender_sample_id",
     "description": "sender sample id",
     "type": "text",
     "required": false,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "collecting_org",
     "description": "collecting org",
     "type": "text",
     "required": false,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "sample_type_collected",
     "description": "sample type collected",
     "type": "text",
     "required": false,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "sample_type_received",
     "description": "sample type received",
     "type": "text",
     "required": false,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "swab_site",
     "description": "swab site",
     "type": "text",
     "required": false,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "secondary_accession",
     "description": "secondary accession",
     "type": "text",
     "required": false,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "secondary_identifier",
     "description": "secondary identifier",
     "type": "text",
     "required": false,
-    "section": "bissample"
+    "section": "biosample"
   },
   {
     "name": "library_name",

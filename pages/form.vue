@@ -42,7 +42,7 @@
           <v-expansion-panel-header>Samples</v-expansion-panel-header>
           <v-expansion-panel-content>
             <input-control
-              v-for="(arg, index) in bissampleSectionInputs"
+              v-for="(arg, index) in biosampleSectionInputs"
               v-bind:key="index"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
@@ -131,8 +131,8 @@ export default {
     ...mapGetters({
       formInputs: "formInputs",
     }),
-    bissampleSectionInputs() {
-      return this.formInputs.filter((x) => x.section === "bissample");
+    biosampleSectionInputs() {
+      return this.formInputs.filter((x) => x.section === "biosample");
     },
     librarySectionInputs() {
       return this.formInputs.filter((x) => x.section === "library");
