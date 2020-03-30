@@ -4,13 +4,13 @@
       v-if="wasAdded"
     >
       <v-alert type="success">
-        Entry was added successfully.
+        Biosample was submitted successfully.
       </v-alert>
       <v-btn
         color="primary"
         v-on:click="resetForm"
       >
-        Add another entry
+        Submit another Biosample
       </v-btn>
       <v-btn
         to="/"
@@ -25,7 +25,7 @@
       v-model="isFormValid"
     >
       <h2>
-        Add New Entry
+        Submit Biosample
       </h2>
       <v-alert
         v-if="!!error"
@@ -94,7 +94,7 @@
         color="primary"
         v-on:click="submitForm"
       >
-        ADD
+        SUBMIT
       </v-btn>
       <v-btn
         to="/"
