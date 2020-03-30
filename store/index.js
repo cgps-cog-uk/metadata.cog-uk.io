@@ -162,9 +162,9 @@ export const getters = {
       input.label = (
         input.required
           ?
-          `${input.description} (required)`
+          `${input.name} (required)`
           :
-          input.description
+          input.name
       );
       inputs.push(input);
     }
