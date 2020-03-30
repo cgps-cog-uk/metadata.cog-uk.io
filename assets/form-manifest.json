@@ -25,14 +25,12 @@
     "name": "source_age",
     "description": "Age of patient in years",
     "type": "integer",
-    "required": true,
     "section": "biosample"
   },
   {
     "name": "source_sex",
     "description": "Sex of the patient",
     "type": "text",
-    "required": true,
     "enum": [ "F", "M", "Other" ],
     "section": "biosample"
   },
