@@ -43,7 +43,7 @@
           <v-expansion-panel-content>
             <input-control
               v-for="(arg, index) in formInputs"
-              v-if="!(arg.jumpField && (!formValues[arg.jumpField] || formValues[arg.jumpField] === arg.jumpValue)) && arg.section === 'samples'"
+              v-if="arg.section === 'samples'"
               v-bind:key="index"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
@@ -61,7 +61,7 @@
           <v-expansion-panel-content v-if="sections.includes(1)">
             <input-control
               v-for="(arg, index) in formInputs"
-              v-if="!(arg.jumpField && (!formValues[arg.jumpField] || formValues[arg.jumpField] === arg.jumpValue)) && arg.section === 'library'"
+              v-if="arg.section === 'library'"
               v-bind:key="index"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
@@ -79,7 +79,7 @@
           <v-expansion-panel-content v-if="sections.includes(2)">
             <input-control
               v-for="(arg, index) in formInputs"
-              v-if="!(arg.jumpField && (!formValues[arg.jumpField] || formValues[arg.jumpField] === arg.jumpValue)) && arg.section === 'sequencing'"
+              v-if="arg.section === 'sequencing'"
               v-bind:key="index"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
