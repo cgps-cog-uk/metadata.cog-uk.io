@@ -179,10 +179,6 @@ export const getters = {
     }
   },
   dataGridHeaders(state, getters) {
-    const inputsByName = {};
-    for (const input of getters.formInputs) {
-      inputsByName[input.name] = input;
-    }
     const headers = [
       {
         value: "Status",
@@ -191,12 +187,10 @@ export const getters = {
       },
     ];
     for (const header of state.data.headers) {
-      const input = inputsByName[header];
-      const text = input ? input.description : header;
       headers.push({
         value: header,
-        text,
-        width: measureTextWidth(text) + 36,
+        text: header,
+        width: measureTextWidth(header) + 36,
       });
     }
     return headers;
