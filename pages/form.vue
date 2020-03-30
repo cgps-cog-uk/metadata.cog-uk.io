@@ -168,6 +168,9 @@ section {
 .v-expansion-panels {
   margin: 16px 0;
 }
+.v-form >>> .v-input {
+  margin-bottom: 16px;
+}
 @media (min-width:768px) {
   section {
     max-width: 600px;
