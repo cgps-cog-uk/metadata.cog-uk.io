@@ -48,16 +48,9 @@
               </div>
               <div class="v-data-table__mobile-row__cell">
                 {{ item._error }}
-                <pending-icon
-                  v-if="item.Status === 'Pending'"
-                  title="Pending"
-                />
-                <uploading-icon
-                  v-else-if="item.Status === 'Uploading'"
-                />
-                <done-icon
-                  v-else-if="item.Status === 'Uploaded'"
-                />
+                <v-icon v-if="item.Status === 'Pending'">mdi-timer-sand-empty</v-icon>
+                <v-icon v-else-if="item.Status === 'Uploading'">mdi-progress-upload</v-icon>
+                <v-icon v-else-if="item.Status === 'Uploaded'">mdi-check</v-icon>
                 <v-icon
                   v-else-if="item.Status === 'Failed'"
                   class="v-data-table__expand-icon"
@@ -80,6 +73,7 @@
         </tr>
         <tr
           v-else
+          class="cells"
           v-bind:class="{ expanded: isExpanded, expandable: (item.Status === 'Failed') }"
           v-on:click="(item.Status === 'Failed') ? expand(!isExpanded) : undefined"
         >
@@ -90,16 +84,9 @@
             v-bind:class="{ 'has-error': item._messages && item._messages[header.value] }"
           >
             <template v-if="header.value === 'data-table-expand'">
-              <pending-icon
-                v-if="item.Status === 'Pending'"
-                title="Pending"
-              />
-              <uploading-icon
-                v-else-if="item.Status === 'Uploading'"
-              />
-              <done-icon
-                v-else-if="item.Status === 'Uploaded'"
-              />
+              <v-icon v-if="item.Status === 'Pending'">mdi-timer-sand-empty</v-icon>
+              <v-icon v-else-if="item.Status === 'Uploading'">mdi-progress-upload</v-icon>
+              <v-icon v-else-if="item.Status === 'Uploaded'">mdi-check</v-icon>
               <v-icon
                 v-else-if="item.Status === 'Failed'"
                 class="v-data-table__expand-icon"
@@ -110,6 +97,13 @@
               </v-icon>
             </template>
             <template v-else>
+              <v-icon
+                v-if="item._messages && item._messages[header.value]"
+                title="Click to see details"
+                color="error"
+              >
+                mdi-alert
+              </v-icon>
               {{ item[header.value] }}
             </template>
           </td>
@@ -123,10 +117,11 @@
             class="text-start"
             v-bind:class="{ 'has-error': item._messages && item._messages[header.value] }"
           >
-            <warning-icon
+            <strong
               v-if="item._messages && item._messages[header.value]"
-              v-bind:title="item._messages[header.value].map((x) => x.message).join('. ')"
-            />
+            >
+              {{ item._messages[header.value].map((x) => x.message).join('. ') }}
+            </strong>
           </td>
         </tr>
         <tr class="expanded-info">
@@ -142,18 +137,7 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 
-import DoneIcon from "~/components/DoneIcon.vue";
-import WarningIcon from "~/components/WarningIcon.vue";
-import PendingIcon from "~/components/PendingIcon.vue";
-import UploadingIcon from "~/components/UploadingIcon.vue";
-
 export default {
-  components: {
-    WarningIcon,
-    DoneIcon,
-    PendingIcon,
-    UploadingIcon,
-  },
   data() {
     return {
       selected: [],
@@ -207,15 +191,6 @@ td.group-header {
   border: 1px solid transparent;
 }
 
-tr.expanded td.has-error {
-  border-color: #ff5252;
-  border-radius: 8px 8px 0 0;
-}
-tr.expanded-cells td.has-error {
-  border-color: transparent #ff5252 #ff5252 #ff5252 !important;
-  border-radius: 0 0 8px 8px;
-}
-
 tr.expanded,
 .data-grid >>> tr.expanded-cells,
 tr.expanded-info {
@@ -233,5 +208,25 @@ tr.expanded-cells td {
 
 tr.expanded-info td {
   border-bottom: 16px solid #fff !important;
+}
+
+tr.cells td.has-error {
+  border-color: #ff5252 !important;
+  border-radius: 8px;
+}
+tr.expanded td.has-error {
+  border-color: #ff5252;
+  border-bottom-color: transparent !important;
+  border-radius: 8px 8px 0 0;
+}
+tr.expanded-cells td.has-error {
+  border-color: transparent #ff5252 #ff5252 #ff5252 !important;
+  border-radius: 0 0 8px 8px;
+}
+tr.expanded-cells td.has-error strong {
+  display: block;
+  line-height: 14px;
+  font-style: italic;
+  padding-bottom: 4px;
 }
 </style>
