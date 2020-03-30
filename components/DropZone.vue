@@ -32,9 +32,7 @@
 
 <script>
 // import dropSheet from "../assets/scripts/dropsheet";
-import readFile from "../assets/scripts/read-file";
-
-const validFiles = /(\.xlsx|\.xls|\.csv|\.ods)$/i;
+import processFile from "./utils/processFile"
 
 export default {
   data() {
@@ -71,39 +69,9 @@ export default {
   },
   methods: {
     handleFileChange(event) {
-      this.processFile(event.target.files[0]);
       const files = event.target.files;
       if (files.length) {
-        this.processFile(files[0]);
-      }
-    },
-    processFile(file) {
-      if (validFiles.test(file.name)) {
-        this.message = `Processing file ${file.name}`;
-        readFile(
-          file,
-          (err, data) => {
-            if (err) {
-              this.setInfoMessage(err);
-            }
-            else {
-              const fields = [];
-              for (const field of data[0]) {
-                if (fields.includes(field)) {
-                  this.setInfoMessage(`Dupliate field: ${field}`);
-                  return;
-                }
-                else {
-                  fields.push(field);
-                }
-              }
-              this.$store.commit("setData", data);
-            }
-          }
-        );
-      }
-      else {
-        this.setInfoMessage("Invalid file type. Supported files are: .xlsx, .xls, .csv, or .ods");
+        processFile(files[0], this.$store.data);
       }
     },
     handleDragover(e) {
