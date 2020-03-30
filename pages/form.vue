@@ -42,8 +42,7 @@
           <v-expansion-panel-header>Samples</v-expansion-panel-header>
           <v-expansion-panel-content>
             <input-control
-              v-for="(arg, index) in formInputs"
-              v-if="arg.section === 'samples'"
+              v-for="(arg, index) in bissampleSectionInputs"
               v-bind:key="index"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
@@ -60,8 +59,7 @@
           <v-expansion-panel-header>Library</v-expansion-panel-header>
           <v-expansion-panel-content v-if="sections.includes(1)">
             <input-control
-              v-for="(arg, index) in formInputs"
-              v-if="arg.section === 'library'"
+              v-for="(arg, index) in librarySectionInputs"
               v-bind:key="index"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
@@ -78,8 +76,7 @@
           <v-expansion-panel-header>Sequencing</v-expansion-panel-header>
           <v-expansion-panel-content v-if="sections.includes(2)">
             <input-control
-              v-for="(arg, index) in formInputs"
-              v-if="arg.section === 'sequencing'"
+              v-for="(arg, index) in sequencingSectionInputs"
               v-bind:key="index"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
@@ -132,6 +129,15 @@ export default {
     ...mapGetters({
       formInputs: "formInputs",
     }),
+    bissampleSectionInputs() {
+      return this.formInputs.filter((x) => x.section === "samples");
+    },
+    librarySectionInputs() {
+      return this.formInputs.filter((x) => x.section === "library");
+    },
+    sequencingSectionInputs() {
+      return this.formInputs.filter((x) => x.section === "sequencing");
+    },
   },
   methods: {
     submitForm() {
