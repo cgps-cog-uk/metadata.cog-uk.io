@@ -2,7 +2,7 @@
   {
     "name": "central_sample_id",
     "description": "Centrally assigned barcode",
-    "type": "barcode",
+    "type": "text",
     "required": true,
     "section": "biosample"
   },
@@ -76,6 +76,7 @@
     "description": "Sample type collected",
     "type": "text",
     "required": false,
+    "enum": ["swab", "sputum", "BAL"],
     "section": "biosample"
   },
   {
@@ -83,6 +84,7 @@
     "description": "Sample type received",
     "type": "text",
     "required": false,
+    "enum": ["primary", "extract", "culture"],
     "section": "biosample"
   },
   {
@@ -90,6 +92,7 @@
     "description": "Swab site",
     "type": "text",
     "required": false,
+    "enum": ["nose", "throat", "nose-throat"],
     "section": "biosample"
   },
   {
