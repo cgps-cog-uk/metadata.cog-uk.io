@@ -1,5 +1,6 @@
 <template>
   <v-autocomplete
+    dense
     v-bind:hide-details="inline ? true : false"
     v-bind:hint="inline ? undefined : description"
     v-bind:items="enumValues"

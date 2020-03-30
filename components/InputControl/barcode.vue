@@ -7,6 +7,7 @@
     <template v-slot:activator="{}">
       <v-text-field
         append-icon="mdi-camera"
+        dense
         v-bind:hide-details="inline ? true : false"
         v-bind:hint="inline ? undefined : description"
         v-bind:label="label"

@@ -21,13 +21,9 @@ import boolean from "./boolean.vue";
 import combobox from "./combobox.vue";
 import date from "./date.vue";
 import datetime from "./datetime.vue";
-import file from "./file.vue";
 import integer from "./integer.vue";
-import list from "./list.vue";
-import map from "./map.vue";
 import number from "./number.vue";
 import text from "./text.vue";
-import url from "./url.vue";
 
 const editors = {
   barcode,
@@ -35,13 +31,9 @@ const editors = {
   combobox,
   date,
   datetime,
-  file,
   integer,
-  list,
-  map,
   number,
   text,
-  url,
 };
 
 export default {

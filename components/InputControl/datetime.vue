@@ -36,6 +36,7 @@ export default {
   computed: {
     textFieldProps() {
       return {
+        dense: true,
         hideDetails: this.inline,
         hint: this.inline ? undefined : this.description,
         name: this.name,
