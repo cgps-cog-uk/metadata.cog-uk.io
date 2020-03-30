@@ -43,7 +43,7 @@
           <v-expansion-panel-content>
             <input-control
               v-for="(arg, index) in biosampleSectionInputs"
-              v-bind:key="index"
+              v-bind:key="arg.name"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
               v-bind:error-messages="messages[arg.name]"
@@ -61,7 +61,7 @@
           <v-expansion-panel-content>
             <input-control
               v-for="(arg, index) in librarySectionInputs"
-              v-bind:key="index"
+              v-bind:key="arg.name"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
               v-bind:enum-values="arg.enum"
@@ -78,7 +78,7 @@
           <v-expansion-panel-content>
             <input-control
               v-for="(arg, index) in sequencingSectionInputs"
-              v-bind:key="index"
+              v-bind:key="arg.name"
               v-model="formValues[arg.name]"
               v-bind:description="arg.description"
               v-bind:enum-values="arg.enum"
