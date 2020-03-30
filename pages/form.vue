@@ -68,7 +68,7 @@
               v-bind:enum-values="arg.enum"
               v-bind:label="arg.label"
               v-bind:name="arg.name"
-              v-bind:required="expandedSections.includes(librarySectionIndex) && arg.required"
+              v-bind:required="arg.required && expandedSections.includes(librarySectionIndex)"
               v-bind:type="arg.type"
               v-on:input="resetInputMessage(arg.name)"
             />
@@ -86,7 +86,7 @@
               v-bind:enum-values="arg.enum"
               v-bind:label="arg.label"
               v-bind:name="arg.name"
-              v-bind:required="expandedSections.includes(sequencingIndex) && arg.required"
+              v-bind:required="arg.required && expandedSections.includes(sequencingIndex)"
               v-bind:type="arg.type"
               v-on:input="resetInputMessage(arg.name)"
             />
