@@ -148,7 +148,11 @@ section {
   right: 0;
   top: calc(50% - 10px);
 }
-.group-header {
+
+tr.v-row-group__header:not(:first-child) td {
+  border-top: 24px solid #fff !important;
+}
+td.group-header {
   padding-left: 2px;
 }
 
@@ -168,15 +172,9 @@ tr.expanded-cells td.has-error {
 tr.expanded,
 .data-grid >>> tr.expanded-cells,
 tr.expanded-info {
-  background: #eeeeee;
+  background: rgba(98,0,238,.04) !important;
 }
-/* .v-data-table >>> .v-data-table__expanded__content {
-  box-shadow: none;
-} */
-/* .v-data-table >>> .v-data-table__expanded__content td {
-  box-shadow: none;
-  border-bottom: 16px solid #fff !important;
-} */
+
 tr.expandable td {
   cursor: pointer;
 }
@@ -188,5 +186,5 @@ tr.expanded-cells td {
 
 tr.expanded-info td {
   border-bottom: 16px solid #fff !important;
-} 
+}
 </style>
