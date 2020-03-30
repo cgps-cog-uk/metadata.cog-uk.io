@@ -8,6 +8,7 @@
     v-bind:rules="rules"
     v-bind:value="value"
     outlined
+    persistent-hint
     type="number"
     v-on:input="$emit('input', Number.parseFloat($event))"
   />

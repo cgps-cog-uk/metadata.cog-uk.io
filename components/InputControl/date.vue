@@ -17,6 +17,7 @@
           v-bind:rules="rules"
           v-bind:value="value"
           outlined
+          persistent-hint
           readonly
           v-on="on"
         />

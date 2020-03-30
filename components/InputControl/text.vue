@@ -8,6 +8,7 @@
     v-bind:rules="rules"
     v-bind:value="value"
     outlined
+    persistent-hint
     rows="1"
     v-on:input="$emit('input', $event)"
   />

@@ -6,6 +6,7 @@
     v-bind:label="label"
     v-bind:name="name"
     outlined
+    persistent-hint
     v-bind:required="required"
     v-bind:rules="rules"
     v-bind:value="value"

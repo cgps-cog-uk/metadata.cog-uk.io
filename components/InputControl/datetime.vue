@@ -44,6 +44,7 @@ export default {
         value: this.value,
         label: this.label,
         outlined: true,
+        persistentHint: true,
       };
     },
   },
