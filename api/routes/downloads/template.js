@@ -1,14 +1,19 @@
 const formManifest = require("../../../assets/form-manifest.json");
 
 async function generateTemplate(req, res) {
+  const type = req.params.type;
+  let inputs = formManifest;
+  if (type === "biosamples") {
+    inputs = inputs.filter((x) => x.section === "biosample");
+  }
   const csvHeader = (
-    formManifest
+    inputs
       .map((x) => `"${x.name}"`)
       .join(",")
   );
   res.setHeader(
     "Content-Disposition",
-    "attachment; filename=cog-uk-metadata-template.csv"
+    `attachment; filename=cog-uk-metadata-template-${type}.csv`
   );
   res.setHeader(
     "Content-Type",

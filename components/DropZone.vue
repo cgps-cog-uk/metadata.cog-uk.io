@@ -103,7 +103,7 @@ export default {
         );
       }
       else {
-        this.setInfoMessage("Invalid file type. Supported files are: .xslx, .xsl, .csv, or .ods");
+        this.setInfoMessage("Invalid file type. Supported files are: .xlsx, .xls, .csv, or .ods");
       }
     },
     handleDragover(e) {
