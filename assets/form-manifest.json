@@ -1,14 +1,14 @@
 [
   {
     "name": "central_sample_id",
-    "description": "central sample id",
+    "description": "Centrally assigned barcode",
     "type": "barcode",
     "required": true,
     "section": "biosample"
   },
   {
     "name": "adm1",
-    "description": "adm1",
+    "description": "Collection date",
     "type": "text",
     "required": true,
     "enum": [ "UK-ENG", "UK-SCT", "UK-WLS", "UK-NIR"],
@@ -16,21 +16,21 @@
   },
   {
     "name": "collection_date",
-    "description": "collection date",
+    "description": "Collection date",
     "type": "date",
     "required": true,
     "section": "biosample"
   },
   {
     "name": "source_age",
-    "description": "source age",
+    "description": "Age of patient in years",
     "type": "integer",
     "required": true,
     "section": "biosample"
   },
   {
     "name": "source_sex",
-    "description": "source sex",
+    "description": "Sex of the patient",
     "type": "text",
     "required": true,
     "enum": [ "F", "M", "Other" ],
@@ -38,70 +38,70 @@
   },
   {
     "name": "adm2",
-    "description": "adm2",
+    "description": "The county that the patient lives in (no abbreviations or short hand)",
     "type": "text",
     "required": false,
     "section": "biosample"
   },
   {
     "name": "biosample_source_id",
-    "description": "biosample source id",
+    "description": "Unique identifier of patient or environmental sample. Do not use an NHS number here",
     "type": "text",
     "required": false,
     "section": "biosample"
   },
   {
     "name": "root_sample_id",
-    "description": "root sample id",
+    "description": "Identifier assigned to this sample from one of the health agencies",
     "type": "text",
     "required": false,
     "section": "biosample"
   },
   {
     "name": "sender_sample_id",
-    "description": "sender sample id",
+    "description": "Id only if renamed on receipt, otherwise leave blank",
     "type": "text",
     "required": false,
     "section": "biosample"
   },
   {
     "name": "collecting_org",
-    "description": "collecting org",
+    "description": "The site where the sample was collected (eg. hospital or surgery)",
     "type": "text",
     "required": false,
     "section": "biosample"
   },
   {
     "name": "sample_type_collected",
-    "description": "sample type collected",
+    "description": "Sample type collected",
     "type": "text",
     "required": false,
     "section": "biosample"
   },
   {
     "name": "sample_type_received",
-    "description": "sample type received",
+    "description": "Sample type received",
     "type": "text",
     "required": false,
     "section": "biosample"
   },
   {
     "name": "swab_site",
-    "description": "swab site",
+    "description": "Swab site",
     "type": "text",
     "required": false,
     "section": "biosample"
   },
   {
     "name": "secondary_accession",
-    "description": "secondary accession",
+    "description": "GISAID accession",
     "type": "text",
     "required": false,
     "section": "biosample"
   },
   {
     "name": "secondary_identifier",
-    "description": "secondary identifier",
+    "description": "GISAID identifier (eg. hCov-19/…/2020)",
     "type": "text",
     "required": false,
     "section": "biosample"
