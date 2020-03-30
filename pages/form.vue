@@ -66,7 +66,7 @@
               v-bind:enum-values="arg.enum"
               v-bind:label="arg.label"
               v-bind:name="arg.name"
-              v-bind:required="expandedSections.includes(1) && arg.required"
+              v-bind:required="expandedSections.includes(librarySectionIndex) && arg.required"
               v-bind:type="arg.type"
             />
           </v-expansion-panel-content>
@@ -83,7 +83,7 @@
               v-bind:enum-values="arg.enum"
               v-bind:label="arg.label"
               v-bind:name="arg.name"
-              v-bind:required="expandedSections.includes(2) && arg.required"
+              v-bind:required="expandedSections.includes(sequencingIndex) && arg.required"
               v-bind:type="arg.type"
             />
           </v-expansion-panel-content>
@@ -123,6 +123,8 @@ export default {
       wasAdded: false,
       error: null,
       expandedSections: [ 0 ],
+      librarySectionIndex: 1,
+      sequencingIndex: 2,
     };
   },
   computed: {
