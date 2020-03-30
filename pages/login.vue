@@ -97,7 +97,7 @@ export default {
   },
   computed: {
     loginLabel() {
-      if (this.username && /^test-/i.test(this.username)) {
+      if (this.username) {
         if (/^test-/i.test(this.username)) {
           return "Login to covid.majora.ironowl.it";
         }
