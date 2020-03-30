@@ -52,6 +52,7 @@
               v-bind:name="arg.name"
               v-bind:required="arg.required"
               v-bind:type="arg.type"
+              v-on:input="resetInputMessage(arg.name)"
             />
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -69,6 +70,7 @@
               v-bind:name="arg.name"
               v-bind:required="expandedSections.includes(librarySectionIndex) && arg.required"
               v-bind:type="arg.type"
+              v-on:input="resetInputMessage(arg.name)"
             />
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -86,6 +88,7 @@
               v-bind:name="arg.name"
               v-bind:required="expandedSections.includes(sequencingIndex) && arg.required"
               v-bind:type="arg.type"
+              v-on:input="resetInputMessage(arg.name)"
             />
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -148,6 +151,7 @@ export default {
       this.$axios.$post("/api/data/submit/", this.formValues)
         .then((results) => {
           this.wasAdded = results.ok;
+          this.messages = {};
           for (const key of Object.keys(results.messages)) {
             this.messages[key] = results.messages[key].map((x) => x.message).join(". ");
           }
@@ -164,6 +168,15 @@ export default {
       this.formValues = {};
       this.isFormValid = false;
       this.wasAdded = false;
+    },
+    resetInputMessage(name) {
+      const messages = {};
+      for (const key of Object.keys(this.messages)) {
+        if (key !== name) {
+          messages[key] = this.messages[key];
+        }
+      }
+      this.messages = messages;
     },
   },
 };
