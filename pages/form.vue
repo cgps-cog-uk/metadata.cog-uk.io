@@ -34,7 +34,7 @@
         {{ error.message || error }}
       </v-alert>
       <v-expansion-panels
-        v-model="sections"
+        v-model="expandedSections"
         multiple
         accordion
       >
@@ -66,7 +66,7 @@
               v-bind:enum-values="arg.enum"
               v-bind:label="arg.label"
               v-bind:name="arg.name"
-              v-bind:required="sections.includes(1) && arg.required"
+              v-bind:required="expandedSections.includes(1) && arg.required"
               v-bind:type="arg.type"
             />
           </v-expansion-panel-content>
@@ -83,7 +83,7 @@
               v-bind:enum-values="arg.enum"
               v-bind:label="arg.label"
               v-bind:name="arg.name"
-              v-bind:required="sections.includes(2) && arg.required"
+              v-bind:required="expandedSections.includes(2) && arg.required"
               v-bind:type="arg.type"
             />
           </v-expansion-panel-content>
@@ -122,7 +122,7 @@ export default {
       isFormValid: false,
       wasAdded: false,
       error: null,
-      sections: [0],
+      expandedSections: [ 0 ],
     };
   },
   computed: {
