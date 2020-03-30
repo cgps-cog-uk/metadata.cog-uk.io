@@ -8,7 +8,7 @@
   },
   {
     "name": "adm1",
-    "description": "Collection date",
+    "description": "The administrative region",
     "type": "text",
     "required": true,
     "enum": [ "UK-ENG", "UK-SCT", "UK-WLS", "UK-NIR"],
