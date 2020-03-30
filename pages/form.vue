@@ -130,7 +130,7 @@ export default {
       formInputs: "formInputs",
     }),
     bissampleSectionInputs() {
-      return this.formInputs.filter((x) => x.section === "samples");
+      return this.formInputs.filter((x) => x.section === "bissample");
     },
     librarySectionInputs() {
       return this.formInputs.filter((x) => x.section === "library");
