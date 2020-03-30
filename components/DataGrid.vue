@@ -40,7 +40,7 @@
             v-for="header in headers"
             v-bind:key="header.name"
             class="v-data-table__mobile-row"
-            v-bind:class="{ 'has-error': item._messages && item._messages[header.value] }"
+            v-bind:class="{ 'has-error': item._messages[header.value] }"
           >
             <template v-if="header.value === 'data-table-expand'">
               <div class="v-data-table__mobile-row__header">
@@ -81,7 +81,7 @@
             v-for="header in headers"
             v-bind:key="header.name"
             class="text-start"
-            v-bind:class="{ 'has-error': item._messages && item._messages[header.value] }"
+            v-bind:class="{ 'has-error': item._messages[header.value] }"
           >
             <template v-if="header.value === 'data-table-expand'">
               <v-icon v-if="item.Status === 'Pending'">mdi-timer-sand-empty</v-icon>
@@ -98,7 +98,7 @@
             </template>
             <template v-else>
               <v-icon
-                v-if="item._messages && item._messages[header.value]"
+                v-if="item._messages[header.value]"
                 title="Click to see details"
                 color="error"
               >
@@ -115,12 +115,12 @@
             v-for="header in headers"
             v-bind:key="header.name"
             class="text-start"
-            v-bind:class="{ 'has-error': item._messages && item._messages[header.value] }"
+            v-bind:class="{ 'has-error': item._messages[header.value] }"
           >
             <strong
-              v-if="item._messages && item._messages[header.value]"
+              v-if="item._messages[header.value]"
             >
-              {{ item._messages[header.value].map((x) => x.message).join('. ') }}
+              {{ item._messages[header.value] }}
             </strong>
           </td>
         </tr>

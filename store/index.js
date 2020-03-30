@@ -55,6 +55,7 @@ export const mutations = {
       const row = data[index];
       const entry = {
         _id: index.toString(),
+        _messages: {},
         Status: "Pending",
       };
       for (let column = 0; column < headers.length; column++) {
@@ -244,31 +245,26 @@ export const actions = {
       return (
         this.$axios.$post("/api/data/submit/", entry)
           .then((response) => {
-            const status = response.ok ? "Uploaded" : "Failed";
+            const status = response.success ? "Uploaded" : "Failed";
             commit(
               "setEntryStatus",
               {
                 entryId,
                 status,
-                error: (
-                  response.ok
-                    ?
-                    null
-                    :
-                    `Errors in the following fields: ${Object.keys(response.messages).join(", ")}`
-                ),
+                error: response.error,
                 messages: response.messages,
               }
             );
           })
           .catch((err) => {
             console.error(err);
+            const error = (err.response) ? err.response.data : err;
             commit(
               "setEntryStatus",
               {
                 entryId,
                 status: "Failed",
-                error: err.response ? err.response.data.error : err,
+                error: error.message || error,
               }
             );
           })

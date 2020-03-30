@@ -16,7 +16,7 @@
           Please use <a href="/api/downloads/template/biosamples" target="_blank">this template for uploading biosamples only</a>, or <a href="/api/downloads/template/all" target="_blank">this template for uploading biosamples with library and sequencing metadata</a>; do not edit, add, or remove any columns. This page supports CSV, Excel, ODF formats.
         </p>
       </div>
-    </div>  
+    </div>
   </div>
 </template>
 

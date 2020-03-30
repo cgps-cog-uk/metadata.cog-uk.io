@@ -1,11 +1,13 @@
 const jsonwebtoken = require("jsonwebtoken");
+const coguk = require("cog-uk.js");
 
-const climbApi = require("../../utils/climb-api");
 const config = require("../../utils/config");
 
 module.exports = async function (req, res, next) {
   const { username, token } = req.body;
-  const valid = await climbApi.authenticate(username, token);
+
+  const client = coguk(username, token);
+  const valid = await client.authenticate();
 
   if (!valid) {
     res.status(400).send("Invalid credentials");

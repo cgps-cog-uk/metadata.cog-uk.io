@@ -151,17 +151,15 @@ export default {
       this.$axios.$post("/api/data/submit/", this.formValues)
         .then((results) => {
           this.wasAdded = results.ok;
-          this.messages = {};
-          for (const key of Object.keys(results.messages)) {
-            this.messages[key] = results.messages[key].map((x) => x.message).join(". ");
-          }
+          this.messages = results.messages;
           if (!results.ok) {
-            this.error = `Errors in the following fields: ${Object.keys(results.messages).join(", ")}`;
+            this.error = results.error;
           }
         })
         .catch((err) => {
           console.error(err);
-          this.error = err.response.data.error;
+          const error = (err.response) ? err.response.data : err;
+          this.error = error.message || error;
         });
     },
     resetForm() {
