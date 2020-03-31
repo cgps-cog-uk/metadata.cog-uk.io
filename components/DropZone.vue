@@ -53,7 +53,7 @@ export default {
   methods: {
     ...mapMutations({
       setData: "setData",
-      setUploading : "setUploading",
+      setUploading: "setUploading",
     }),
     handleFileChange(event) {
       const files = event.target.files;
@@ -87,9 +87,9 @@ export default {
           })
           .catch((error) => {
             this.setInfoMessage(error.message);
-          })
+          });
       }
-    }
+    },
   },
 };
 </script>
