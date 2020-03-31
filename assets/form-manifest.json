@@ -15,10 +15,17 @@
     "section": "biosample"
   },
   {
-    "name": "collection_date",
-    "description": "Collection date",
+    "name": "received_date",
+    "description": "The date the sample was received. Required if collection date not available",
     "type": "date",
-    "required": true,
+    "required": false,
+    "section": "biosample"
+  },
+  {
+    "name": "collection_date",
+    "description": "The date the sample was collected",
+    "type": "date",
+    "required": false,
     "section": "biosample"
   },
   {
@@ -37,6 +44,13 @@
   {
     "name": "adm2",
     "description": "The county that the patient lives in (no abbreviations or short hand)",
+    "type": "text",
+    "required": false,
+    "section": "biosample"
+  },
+  {
+    "name": "adm2_private",
+    "description": "The outer postcode for the patient’s home address (first half of the postcode only)",
     "type": "text",
     "required": false,
     "section": "biosample"
