@@ -31,8 +31,8 @@
 </template>
 
 <script>
-// import dropSheet from "../assets/scripts/dropsheet";
-import processFile from "./utils/processFile"
+import { mapMutations } from "vuex";
+import dataFromFile from "../assets/scripts/data-from-file"
 
 export default {
   data() {
@@ -41,23 +41,6 @@ export default {
     };
   },
   mounted() {
-    // dropSheet({
-    //   file: this.$refs["file-input"],
-    //   drop: this.$refs["drop-target"],
-    //   on: {
-    //     workstart: () => this.setInfoMessage("Processing file..."),
-    //     workend: () => this.setInfoMessage("Done."),
-    //     sheet: (json, sheetnames, cb) => {
-    //       console.log({ json, sheetnames, cb });
-    //     },
-    //   },
-    //   errors: {
-    //     badfile: () => this.setInfoMessage("Bad file"),
-    //     pending: () => this.setInfoMessage("Pending"),
-    //     failed: () => this.setInfoMessage("Failed"),
-    //     large: () => this.setInfoMessage("Large file"),
-    //   },
-    // });
     this.$refs["drop-target"].addEventListener("dragenter", this.handleDragover, false);
     this.$refs["drop-target"].addEventListener("dragover", this.handleDragover, false);
     this.$refs["drop-target"].addEventListener("drop", this.handleFileDrop, false);
@@ -68,11 +51,10 @@ export default {
     this.$refs["drop-target"].removeEventListener("drop", this.handleFileDrop);
   },
   methods: {
+    ...mapMutations({ setData: "setData" }),
     handleFileChange(event) {
       const files = event.target.files;
-      if (files.length) {
-        processFile(files[0], this.$store.data);
-      }
+      this.processFiles(files);
     },
     handleDragover(e) {
       e.stopPropagation();
@@ -84,7 +66,7 @@ export default {
       event.preventDefault();
       const files = event.dataTransfer.files;
       if (files.length) {
-        this.processFile(files[0]);
+        this.processFiles(files);
       }
     },
     selectFiles() {
@@ -93,6 +75,17 @@ export default {
     setInfoMessage(message) {
       this.message = message;
     },
+    processFiles(files) {
+      if (files.length) {
+        dataFromFile(files[0])
+          .then((data) => {
+            this.setData(data);
+          })
+          .catch((error) => {
+            this.setInfoMessage(error.message);
+          })
+      }
+    }
   },
 };
 </script>

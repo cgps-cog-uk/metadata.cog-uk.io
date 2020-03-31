@@ -12,13 +12,12 @@
           Start Upload
         </button>
       </template>
-      <a
+      <upload-another-file-button
         v-if="mode === 'data'"
         class="button--grey"
-        href="/"
       >
         Upload another file
-      </a>
+      </upload-another-file-button>
     </nav>
     <files-uploader v-if="mode === 'files'" />
     <data-grid v-if="mode === 'data'" />
@@ -30,12 +29,14 @@ import { mapState } from "vuex";
 
 import FilesUploader from "~/components/FilesUploader.vue";
 import DataGrid from "~/components/DataGrid.vue";
+import UploadAnotherFileButton from "~/components/UploadAnotherFileButton";
 
 export default {
   middleware: "auth",
   components: {
     DataGrid,
     FilesUploader,
+    UploadAnotherFileButton,
   },
   computed: {
     ...mapState({
@@ -67,6 +68,7 @@ nav {
   position: fixed;
   top: 32px;
   left: 8px;
+  z-index: 1;
 }
 @media (max-width:768px) {
   nav button {
