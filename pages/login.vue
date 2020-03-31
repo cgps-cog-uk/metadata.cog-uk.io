@@ -99,10 +99,10 @@ export default {
     loginLabel() {
       if (this.username) {
         if (/^test-/i.test(this.username)) {
-          return "Login to covid.majora.ironowl.it";
+          return "Login to TEST server";
         }
         else {
-          return "Login to majora.covid19.climb.ac.uk";
+          return "Login to LIVE server";
         }
       }
       else {
