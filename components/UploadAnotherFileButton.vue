@@ -44,6 +44,7 @@ export default {
   methods: {
     ...mapMutations({ setData: "setData", setUploading: "setUploading" }),
     handleFileChange(event) {
+      this.setInfoMessage(null);
       const files = event.target.files;
       if (files.length) {
         dataFromFile(files[0])
