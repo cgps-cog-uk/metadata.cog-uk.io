@@ -42,7 +42,10 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({ setData: "setData", setUploading: "setUploading" }),
+    ...mapMutations({
+      setData: "setData",
+      setUploading: "setUploading",
+    }),
     handleFileChange(event) {
       this.setInfoMessage(null);
       const files = event.target.files;
@@ -54,7 +57,7 @@ export default {
           })
           .catch((error) => {
             this.setInfoMessage(error.message);
-          })
+          });
       }
     },
     setInfoMessage(message) {
