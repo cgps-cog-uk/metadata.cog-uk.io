@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 
 import FilesUploader from "~/components/FilesUploader.vue";
 import DataGrid from "~/components/DataGrid.vue";
