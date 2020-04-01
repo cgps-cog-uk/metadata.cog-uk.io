@@ -36,7 +36,6 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    // { src: "@/plugins/localstorage.js" },
     { src: "@/plugins/qrcode-reader.js", mode: "client" },
   ],
   /*
