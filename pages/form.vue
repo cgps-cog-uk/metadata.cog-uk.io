@@ -1,10 +1,10 @@
 <template>
   <section>
     <div
-      v-if="wasAdded"
+      v-if="status"
     >
       <v-alert type="success">
-        Biosample was submitted successfully.
+        Biosample was {{ status }} successfully.
       </v-alert>
       <v-btn
         color="primary"
@@ -33,66 +33,65 @@
       >
         {{ error.message || error }}
       </v-alert>
-      <v-expansion-panels
-        v-model="expandedSections"
-        multiple
-        accordion
+
+      <div
+        class="v-item-group theme--light v-expansion-panels v-expansion-panels--accordion"
       >
-        <v-expansion-panel>
-          <v-expansion-panel-header>Samples</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <input-control
-              v-for="(arg) in biosampleSectionInputs"
-              v-bind:key="arg.name"
-              v-model="formValues[arg.name]"
-              v-bind:description="arg.description"
-              v-bind:error-messages="messages[arg.name]"
-              v-bind:enum-values="arg.enum"
-              v-bind:label="arg.label"
-              v-bind:name="arg.name"
-              v-bind:required="arg.required"
-              v-bind:type="arg.type"
-              v-on:input="resetInputMessage(arg.name)"
-            />
-          </v-expansion-panel-content>
-        </v-expansion-panel>
+        <expansion-panel
+          title="Sample Metadata"
+        >
+          <input-control
+            v-for="(arg) in biosampleSectionInputs"
+            v-bind:key="arg.name"
+            v-model="formValues[arg.name]"
+            v-bind:description="arg.description"
+            v-bind:error-messages="messages[arg.name]"
+            v-bind:enum-values="arg.enum"
+            v-bind:label="arg.label"
+            v-bind:name="arg.name"
+            v-bind:required="arg.required"
+            v-bind:type="arg.type"
+            v-on:input="resetInputMessage(arg.name)"
+          />
+        </expansion-panel>
 
-        <v-expansion-panel>
-          <v-expansion-panel-header>Library</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <input-control
-              v-for="(arg) in librarySectionInputs"
-              v-bind:key="arg.name"
-              v-model="formValues[arg.name]"
-              v-bind:description="arg.description"
-              v-bind:enum-values="arg.enum"
-              v-bind:label="arg.label"
-              v-bind:name="arg.name"
-              v-bind:required="arg.required && expandedSections.includes(librarySectionIndex)"
-              v-bind:type="arg.type"
-              v-on:input="resetInputMessage(arg.name)"
-            />
-          </v-expansion-panel-content>
-        </v-expansion-panel>
+        <expansion-panel
+          v-if="hasSequenceMetadata"
+          title="Library Metadata"
+        >
+          <input-control
+            v-for="(arg) in librarySectionInputs"
+            v-bind:key="arg.name"
+            v-model="formValues[arg.name]"
+            v-bind:description="arg.description"
+            v-bind:enum-values="arg.enum"
+            v-bind:label="arg.label"
+            v-bind:name="arg.name"
+            v-bind:required="arg.required"
+            v-bind:type="arg.type"
+            v-on:input="resetInputMessage(arg.name)"
+          />
+        </expansion-panel>
 
-        <v-expansion-panel>
-          <v-expansion-panel-header>Sequencing</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <input-control
-              v-for="(arg) in sequencingSectionInputs"
-              v-bind:key="arg.name"
-              v-model="formValues[arg.name]"
-              v-bind:description="arg.description"
-              v-bind:enum-values="arg.enum"
-              v-bind:label="arg.label"
-              v-bind:name="arg.name"
-              v-bind:required="arg.required && expandedSections.includes(sequencingIndex)"
-              v-bind:type="arg.type"
-              v-on:input="resetInputMessage(arg.name)"
-            />
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
+        <expansion-panel
+          v-if="hasSequenceMetadata"
+          title="Sequencing Metadata"
+        >
+          <input-control
+            v-for="(arg) in sequencingSectionInputs"
+            v-bind:key="arg.name"
+            v-model="formValues[arg.name]"
+            v-bind:description="arg.description"
+            v-bind:enum-values="arg.enum"
+            v-bind:label="arg.label"
+            v-bind:name="arg.name"
+            v-bind:required="arg.required"
+            v-bind:type="arg.type"
+            v-on:input="resetInputMessage(arg.name)"
+          />
+        </expansion-panel>
+      </div>
+
       <v-btn
         v-bind:disabled="!isFormValid"
         color="primary"
@@ -100,12 +99,25 @@
       >
         SUBMIT
       </v-btn>
+
+      <v-btn
+        text
+        v-on:click="toggleSequenceMetadata"
+      >
+        <v-icon left>
+          {{ hasSequenceMetadata ? "mdi-minus-circle-outline" : "mdi-plus-circle-outline" }}
+        </v-icon>
+        {{ hasSequenceMetadata ? "Remove" : "Add" }} library and sequencing metadata
+      </v-btn>
+
+      <!--
       <v-btn
         to="/"
         text
       >
         Go back
       </v-btn>
+      -->
     </v-form>
   </section>
 </template>
@@ -113,23 +125,23 @@
 <script>
 import { mapGetters } from "vuex";
 
+import ExpansionPanel from "~/components/ExpansionPanel.vue";
 import InputControl from "~/components/InputControl/index.vue";
 
 export default {
   middleware: "auth",
   components: {
+    ExpansionPanel,
     InputControl,
   },
   data() {
     return {
       error: null,
-      expandedSections: [ 0 ],
       formValues: {},
+      hasSequenceMetadata: false,
       isFormValid: false,
-      librarySectionIndex: 1,
       messages: {},
-      sequencingIndex: 2,
-      wasAdded: false,
+      status: null,
     };
   },
   computed: {
@@ -148,11 +160,19 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$axios.$post("/api/data/submit/", this.formValues)
+      const sampleData = {};
+      for (const input of this.formInputs) {
+        if (input.section === "biosample" || this.hasSequenceMetadata) {
+          sampleData[input.name] = this.formValues[input.name];
+        }
+      }
+      this.$axios.$post("/api/data/submit/", sampleData)
         .then((results) => {
-          this.wasAdded = results.ok;
           this.messages = results.messages;
-          if (!results.ok) {
+          if (results.success) {
+            this.status = results.status;
+          }
+          else {
             this.error = results.error;
           }
         })
@@ -163,9 +183,12 @@ export default {
         });
     },
     resetForm() {
+      this.error = null;
       this.formValues = {};
+      this.hasSequenceMetadata = false;
       this.isFormValid = false;
-      this.wasAdded = false;
+      this.messages = {};
+      this.status = null;
     },
     resetInputMessage(name) {
       const messages = {};
@@ -175,6 +198,9 @@ export default {
         }
       }
       this.messages = messages;
+    },
+    toggleSequenceMetadata() {
+      this.hasSequenceMetadata = !this.hasSequenceMetadata;
     },
   },
 };
