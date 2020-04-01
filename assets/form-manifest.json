@@ -198,6 +198,20 @@
     "section": "library"
   },
   {
+    "name": "artic_primers_version",
+    "description": "The version of primers used: 1 2 or 3",
+    "type": "text",
+    "required": false,
+    "section": "library"
+  },
+  {
+    "name": "artic_protocol_version",
+    "description": "The version of the lab protocol used",
+    "type": "text",
+    "required": false,
+    "section": "library"
+  },
+  {
     "name": "run_name",
     "description": "Run Name",
     "type": "text",
