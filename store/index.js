@@ -28,7 +28,7 @@ export const mutations = {
     state.mode = "files";
     state.uploading = false;
   },
-  setEntryStatus(state, { entryId, status, error, messages }) {
+  setEntryStatus(state, { entryId, status, error, messages, url }) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
       entry.Status = status;
@@ -37,6 +37,9 @@ export const mutations = {
       }
       if (error) {
         entry._error = error;
+      }
+      if (url) {
+        entry._url = url;
       }
     }
   },
@@ -254,6 +257,7 @@ export const actions = {
               {
                 entryId,
                 status,
+                url: response.url,
                 error: response.error,
                 messages: response.messages,
               }
