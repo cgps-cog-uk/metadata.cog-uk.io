@@ -150,9 +150,9 @@ export default {
     submitForm() {
       this.$axios.$post("/api/data/submit/", this.formValues)
         .then((results) => {
-          this.wasAdded = results.ok;
+          this.wasAdded = results.success;
           this.messages = results.messages;
-          if (!results.ok) {
+          if (!results.success) {
             this.error = results.error;
           }
         })
