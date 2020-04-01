@@ -96,6 +96,14 @@
                 {{ isExpanded ? "mdi-alert-circle" : "mdi-alert-circle-outline" }}
               </v-icon>
             </template>
+            <template v-else-if="header.value === 'central_sample_id' && item._url">
+              <a
+                v-bind:href="item._url"
+                target="_blank"
+              >
+                {{ item[header.value] }}
+              </a>
+            </template>
             <template v-else>
               <v-icon
                 v-if="item._messages[header.value]"
