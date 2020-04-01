@@ -160,9 +160,6 @@ export const getters = {
       },
     ];
   },
-  cogukApiUrl() {
-    return "https://covid.majora.ironowl.it/";
-  },
   formInputs(state) {
     const inputs = [];
     for (const input of formManifest) {

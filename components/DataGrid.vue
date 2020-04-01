@@ -96,9 +96,9 @@
                 {{ isExpanded ? "mdi-alert-circle" : "mdi-alert-circle-outline" }}
               </v-icon>
             </template>
-            <template v-else-if="header.value === 'central_sample_id' && item.Status === 'Uploaded'">
+            <template v-else-if="header.value === 'central_sample_id' && item._url">
               <a
-                v-bind:href="`${apiUrl}search/?q=${item[header.value]}`"
+                v-bind:href="item._url"
                 target="_blank"
               >
                 {{ item[header.value] }}
@@ -156,7 +156,6 @@ export default {
       data: "data",
     }),
     ...mapGetters({
-      apiUrl: "cogukApiUrl",
       list: "filteredList",
       headers: "dataGridHeaders",
     }),
