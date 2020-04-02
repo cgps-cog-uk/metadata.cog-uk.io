@@ -191,10 +191,17 @@ export const getters = {
       },
     ];
     for (const header of state.data.headers) {
+      let width = "";
+      if (header === "collecting_org") {
+        width = measureTextWidth(header) + 150;
+      }
+      else {
+        width = measureTextWidth(header) + 36;
+      }
       headers.push({
         value: header,
         text: header,
-        width: measureTextWidth(header) + 36,
+        width,
       });
     }
     return headers;
