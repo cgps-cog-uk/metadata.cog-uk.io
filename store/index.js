@@ -192,8 +192,9 @@ export const getters = {
     ];
     for (const header of state.data.headers) {
       let width = "";
-      if (header === "collecting_org") {
-        width = measureTextWidth(header) + 150;
+      const manifestProperties = formManifest.filter((x) => x.name === header)[0];
+      if ("width" in manifestProperties) {
+        width = measureTextWidth(header) + manifestProperties.width;
       }
       else {
         width = measureTextWidth(header) + 36;
