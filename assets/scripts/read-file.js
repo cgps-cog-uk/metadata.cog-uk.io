@@ -30,7 +30,10 @@ export default function (fileHandle, callback) {
     let data = event.target.result;
     let wb;
     let arr;
-    const readtype = { type: rABS ? "binary" : "base64" };
+    const readtype = {
+      type: rABS ? "binary" : "base64",
+      raw: true,
+    };
     if (!rABS) {
       arr = fixdata(data);
       data = btoa(arr);
