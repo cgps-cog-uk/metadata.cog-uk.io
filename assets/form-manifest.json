@@ -123,6 +123,14 @@
     "section": "biosample"
   },
   {
+    "name": "epi_cluster",
+    "description": "Identifier for an epidemiological cluster",
+    "type": "text",
+    "required": false,
+    "section": "biosample",
+    "subsection": "metadata"
+  },
+  {
     "name": "library_name",
     "description": "Library name",
     "type": "text",
