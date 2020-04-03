@@ -191,18 +191,11 @@ export const getters = {
       },
     ];
     for (const header of state.data.headers) {
-      let width = "";
-      const manifestProperties = formManifest.filter((x) => x.name === header)[0];
-      if ("width" in manifestProperties) {
-        width = measureTextWidth(header) + manifestProperties.width;
-      }
-      else {
-        width = measureTextWidth(header) + 36;
-      }
+      const columnDefinition = formManifest.find((x) => x.name === header) || {};
       headers.push({
         value: header,
         text: header,
-        width,
+        width: 40 + (columnDefinition.width || measureTextWidth(header)),
       });
     }
     return headers;
