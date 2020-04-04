@@ -24,6 +24,7 @@
         <slot />
       </div>
     </div>
+    <v-expansion-panels v-if="false" />
   </div>
 </template>
 
