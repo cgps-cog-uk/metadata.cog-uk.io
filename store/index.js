@@ -3,6 +3,7 @@
 
 import formManifest from "../assets/form-manifest";
 import measureTextWidth from "../assets/scripts/measure-text-width";
+import exportCsv from "../assets/scripts/export-csv";
 
 const statudToFilterMap = {
   Pending: "queued",
@@ -241,6 +242,26 @@ export const getters = {
 };
 
 export const actions = {
+  downloadRows({ state }, { status = "Failed" }) {
+    const entries = state.data.entries.filter((x) => x.Status === status);
+    const rows = [];
+    // eslint-disable-next-line no-unused-vars
+    for (const { _error, _id, _messages, Status, ...rest } of entries) {
+      const row = {
+        Error: _error,
+        ...rest,
+      };
+      for (const [ field, message ] of Object.entries(_messages)) {
+        // eslint-disable-next-line prefer-template
+        row[field] = (rest[field] || "") + "⚠️" + message;
+      }
+      rows.push(row);
+    }
+    exportCsv(
+      rows,
+      "failed-rows.csv"
+    );
+  },
   uploadEntry({ commit, state }, entryId) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     if (entry) {
@@ -276,8 +297,5 @@ export const actions = {
       );
     }
     return Promise.resolve();
-  },
-  signout({ commit }, payload) {
-    commit("setCredentials", {});
   },
 };
