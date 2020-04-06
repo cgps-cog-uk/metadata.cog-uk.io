@@ -64,6 +64,10 @@ export const mutations = {
     const headers = data[headerIndex].map((x) => (x.toLowerCase ? x.toLowerCase() : x));
     for (let index = startIndex; index < data.length; index++) {
       const row = data[index];
+      // check that row is not empty by converting all values to boolean
+      if (row.every((x) => !x)) {
+        continue;
+      }
       const entry = {
         _id: index.toString(),
         _messages: {},
