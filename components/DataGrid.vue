@@ -29,6 +29,15 @@
             </v-icon>
           </v-btn>
           {{ group.toUpperCase() }}: {{ items.length }} {{ items.length === 1 ? "row" : "rows" }}
+          <template v-if="group === 'Failed'">
+            <v-btn
+              icon
+              title="Download failed rows as CSV"
+              v-on:click="onDownloadFailedRowsClick"
+            >
+              <v-icon>mdi-download</v-icon>
+            </v-btn>
+          </template>
         </td>
       </template>
       <template v-slot:item="{ item, headers, isExpanded, expand, isMobile }">
@@ -159,6 +168,14 @@ export default {
       list: "filteredList",
       headers: "dataGridHeaders",
     }),
+  },
+  methods: {
+    onDownloadFailedRowsClick() {
+      this.$store.dispatch(
+        "downloadRows",
+        { status: "Failed" }
+      );
+    },
   },
 };
 </script>
