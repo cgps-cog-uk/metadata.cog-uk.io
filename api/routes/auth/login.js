@@ -12,17 +12,18 @@ module.exports = async function (req, res, next) {
   if (!valid) {
     res.status(400).send("Invalid credentials");
   }
+  else {
+    const accessToken = jsonwebtoken.sign(
+      {
+        username,
+        token,
+      },
+      config.secret,
+      {}
+    );
 
-  const accessToken = jsonwebtoken.sign(
-    {
-      username,
-      token,
-    },
-    config.secret,
-    {}
-  );
-
-  res.json({
-    token: accessToken,
-  });
+    res.json({
+      token: accessToken,
+    });
+  }
 };
