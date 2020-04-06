@@ -277,7 +277,4 @@ export const actions = {
     }
     return Promise.resolve();
   },
-  signout({ commit }, payload) {
-    commit("setCredentials", {});
-  },
 };
