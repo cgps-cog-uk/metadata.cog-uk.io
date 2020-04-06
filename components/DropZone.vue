@@ -32,7 +32,7 @@
 
 <script>
 import { mapMutations } from "vuex";
-import dataFromFile from "../assets/scripts/data-from-file"
+import dataFromFile from "../assets/scripts/data-from-file";
 
 export default {
   data() {
