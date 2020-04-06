@@ -13,8 +13,13 @@ export default function (file) {
             reject(err);
           }
           else {
+            let headerIndex = 0;
             const fields = [];
-            for (const field of data[0]) {
+            // check if WSI template
+            if (data[0].find((x) => (x === "REQUIRED"))) {
+              headerIndex = 1;
+            }
+            for (const field of data[headerIndex]) {
               if (fields.includes(field)) {
                 return reject(new Error(`Duplicate field: ${field}`));
               }

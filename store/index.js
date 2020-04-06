@@ -52,9 +52,17 @@ export const mutations = {
     }
   },
   setData(state, data) {
+    let headerIndex = 0;
+    let startIndex = 1;
+
+    // check if WSI template
+    if (data[0].find((x) => (x === "REQUIRED"))) {
+      headerIndex = 1;
+      startIndex = 3;
+    }
     const entries = [];
-    const headers = data[0].map((x) => (x.toLowerCase ? x.toLowerCase() : x));
-    for (let index = 1; index < data.length; index++) {
+    const headers = data[headerIndex].map((x) => (x.toLowerCase ? x.toLowerCase() : x));
+    for (let index = startIndex; index < data.length; index++) {
       const row = data[index];
       const entry = {
         _id: index.toString(),
