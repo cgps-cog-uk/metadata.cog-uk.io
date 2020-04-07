@@ -207,8 +207,7 @@
     "section": "library"
   },
   {
-    "name": "
-    ",
+    "name": "artic_primers",
     "description": "The version of primers used: 1 2 or 3",
     "type": "text",
     "required": false,
