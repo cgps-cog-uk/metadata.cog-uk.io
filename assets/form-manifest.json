@@ -182,7 +182,7 @@
     "description": "Library strategy",
     "type": "text",
     "required": true,
-    "enum": ["WGA", "WGS", "AMPLICON", "OTHER"],
+    "enum": ["WGA", "WGS", "AMPLICON", "TARGETED_CAPTURE", "OTHER"],
     "section": "library"
   },
   {
@@ -207,7 +207,8 @@
     "section": "library"
   },
   {
-    "name": "artic_primers",
+    "name": "
+    ",
     "description": "The version of primers used: 1 2 or 3",
     "type": "text",
     "required": false,
