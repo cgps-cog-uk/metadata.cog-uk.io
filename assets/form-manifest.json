@@ -89,7 +89,7 @@
     "description": "Sample type collected",
     "type": "text",
     "required": false,
-    "enum": ["swab", "sputum", "BAL"],
+    "enum": ["swab", "sputum", "BAL", "aspirate"],
     "section": "biosample"
   },
   {
