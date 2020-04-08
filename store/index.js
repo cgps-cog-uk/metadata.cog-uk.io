@@ -282,7 +282,7 @@ export const actions = {
       return (
         Promise.all([
           this.$axios.$post("/api/data/submit/", entry),
-          new Promise((resolve) => setTimeout(resolve, 100)),
+          new Promise((resolve) => setTimeout(resolve, 10)),
         ])
           .then(([ response ]) => {
             const status = response.success ? "Uploaded" : "Failed";
