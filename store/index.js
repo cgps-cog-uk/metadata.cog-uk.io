@@ -280,8 +280,11 @@ export const actions = {
       commit("setUploading", true);
       commit("setEntryStatus", { entryId, status: "Uploading" });
       return (
-        this.$axios.$post("/api/data/submit/", entry)
-          .then((response) => {
+        Promise.all([
+          this.$axios.$post("/api/data/submit/", entry),
+          new Promise((resolve) => setTimeout(resolve, 100)),
+        ])
+          .then(([ response ]) => {
             const status = response.success ? "Uploaded" : "Failed";
             commit(
               "setEntryStatus",
