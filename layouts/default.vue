@@ -22,7 +22,7 @@
       </main>
       <footer>
         <span>
-          Logged in as <strong>{{ $auth.user.username }}</strong>
+          Logged in as <strong>{{ $auth.user.username }}</strong> to the <span class="server">{{ /^test-/i.test($auth.user.username) ? "Test" : "Live" }} Server</span>
         </span>
         <ul>
           <li>
@@ -132,7 +132,7 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: .75rem;
+  font-size: 0.9rem;
   color: #4a4a4f;
   align-items: flex-start;
   font-weight: 500;
@@ -154,6 +154,10 @@ footer ul li a {
   color: inherit;
   text-decoration: none;
   background-color: initial;
+}
+footer .server{
+  font-weight: 800;
+  color: #673c90;
 }
 
 @media (min-width:768px) {

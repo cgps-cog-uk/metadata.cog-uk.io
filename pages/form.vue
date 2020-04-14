@@ -97,7 +97,7 @@
         color="primary"
         v-on:click="submitForm"
       >
-        SUBMIT
+        SUBMIT TO <br/>{{ /^test-/i.test($auth.user.username) ? "TEST" : "LIVE" }} SERVER
       </v-btn>
 
       <v-btn

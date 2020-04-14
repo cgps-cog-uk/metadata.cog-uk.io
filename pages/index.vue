@@ -9,7 +9,7 @@
           class="button--green"
           v-on:click="startUpload"
         >
-          Start Upload
+          Start Upload to {{ /^test-/i.test($auth.user.username) ? "Test" : "Live" }} Server
         </button>
       </template>
       <upload-another-file-button
