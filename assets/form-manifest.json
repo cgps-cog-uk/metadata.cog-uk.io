@@ -97,7 +97,7 @@
     "description": "Sample type received",
     "type": "text",
     "required": false,
-    "enum": ["primary", "extract", "culture"],
+    "enum": ["primary", "extract", "lysate", "culture"],
     "section": "biosample"
   },
   {
