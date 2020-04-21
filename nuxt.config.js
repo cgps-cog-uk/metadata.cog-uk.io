@@ -51,9 +51,18 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    "@nuxtjs/axios",
     "@nuxtjs/auth",
+    "@nuxtjs/axios",
   ],
+
+  /*
+  ** Auth module configuration
+  ** See https://auth.nuxtjs.org/options
+  */
+  auth: {
+    localStorage: false,
+  },
+
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
