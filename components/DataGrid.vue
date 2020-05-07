@@ -57,9 +57,15 @@
               </div>
               <div class="v-data-table__mobile-row__cell">
                 {{ item._error }}
-                <v-icon v-if="item.Status === 'Pending'">mdi-timer-sand-empty</v-icon>
-                <v-icon v-else-if="item.Status === 'Uploading'">mdi-progress-upload</v-icon>
-                <v-icon v-else-if="item.Status === 'Uploaded'">mdi-check</v-icon>
+                <v-icon v-if="item.Status === 'Pending'">
+                  mdi-timer-sand-empty
+                </v-icon>
+                <v-icon v-else-if="item.Status === 'Uploading'">
+                  mdi-progress-upload
+                </v-icon>
+                <v-icon v-else-if="item.Status === 'Uploaded'">
+                  mdi-check
+                </v-icon>
                 <v-icon
                   v-else-if="item.Status === 'Failed'"
                   class="v-data-table__expand-icon"
@@ -93,9 +99,15 @@
             v-bind:class="{ 'has-error': item._messages[header.value] }"
           >
             <template v-if="header.value === 'data-table-expand'">
-              <v-icon v-if="item.Status === 'Pending'">mdi-timer-sand-empty</v-icon>
-              <v-icon v-else-if="item.Status === 'Uploading'">mdi-progress-upload</v-icon>
-              <v-icon v-else-if="item.Status === 'Uploaded'">mdi-check</v-icon>
+              <v-icon v-if="item.Status === 'Pending'">
+                mdi-timer-sand-empty
+              </v-icon>
+              <v-icon v-else-if="item.Status === 'Uploading'">
+                mdi-progress-upload
+              </v-icon>
+              <v-icon v-else-if="item.Status === 'Uploaded'">
+                mdi-check
+              </v-icon>
               <v-icon
                 v-else-if="item.Status === 'Failed'"
                 class="v-data-table__expand-icon"
