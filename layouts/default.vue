@@ -9,7 +9,7 @@
         </h1>
         <nav>
           <a
-            href="https://docs.cog-uk.io/metadata/"
+            href="https://metadata.docs.cog-uk.io"
             target="_blank"
             class="button--grey"
           >
