@@ -1,13 +1,21 @@
 <template>
   <section>
     <nav>
+      <template>
+        <button
+          class="toggle-volume"
+          v-on:click="toggleVolume"
+        >
+          &nbsp;
+        </button>
+      </template>
       <template
         v-if="!uploading"
       >
         <button
           v-if="mode === 'data'"
           class="button--green"
-          v-on:click="startUpload"
+          v-on:click="startUploadClicked"
         >
           Start Upload to {{ /^test-/i.test($auth.user.username) ? "Test" : "Live" }} Server
         </button>
@@ -26,6 +34,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { Howl } from "howler";
 
 import FilesUploader from "~/components/FilesUploader.vue";
 import DataGrid from "~/components/DataGrid.vue";
@@ -38,6 +47,11 @@ export default {
     FilesUploader,
     UploadAnotherFileButton,
   },
+  data() {
+    return {
+      soundVolume: 0.001,
+    };
+  },
   computed: {
     ...mapState({
       data: "data",
@@ -45,9 +59,24 @@ export default {
       uploading: "uploading",
     }),
   },
+  mounted() {
+    this.sound = new Howl({
+      src: "/sounds/adventures_of_flying_jack.mp3",
+      autoplay: false,
+      loop: true,
+      volume: this.soundVolume,
+      onend() {
+        console.log("Sound Track Finished!");
+      },
+    });
+  },
   methods: {
     setFilter(filter) {
       this.$store.commit("setFilter", filter);
+    },
+    startUploadClicked() {
+      this.sound.play();
+      this.startUpload();
     },
     startUpload() {
       const entry = this.data.entries.find((x) => x.Status === "Pending");
@@ -57,7 +86,18 @@ export default {
           .then(() => {
             setTimeout(() => this.startUpload(), 0);
           });
+      } else {
+        console.log("Done");
+        this.sound.stop();
       }
+    },
+    toggleVolume() {
+      if (this.soundVolume === 0.001) {
+        this.soundVolume = 0.5;
+      } else {
+        this.soundVolume = 0.001;
+      }
+      this.sound.volume(this.soundVolume);
     },
   },
 };
@@ -69,6 +109,10 @@ nav {
   top: 32px;
   left: 8px;
   z-index: 1;
+}
+
+.toggle-volume {
+  width: 50px;
 }
 @media (max-width:768px) {
   nav button {
