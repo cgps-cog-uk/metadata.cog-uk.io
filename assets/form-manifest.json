@@ -51,7 +51,7 @@
   },
   {
     "name": "source_category",
-    "description": "Patient category",
+    "description": "Patient category (HCW or blank)",
     "type": "text",
     "required": false,
     "enum": [ "HCW" ],
@@ -105,7 +105,7 @@
     "description": "Sample type collected",
     "type": "text",
     "required": false,
-    "enum": ["swab", "sputum", "BAL", "aspirate"],
+    "enum": ["dry swab", "swab", "sputum", "BAL", "aspirate"],
     "section": "biosample"
   },
   {
@@ -118,10 +118,10 @@
   },
   {
     "name": "sampling_strategy",
-    "description": "Sampling strategy used to collect sample (to flag surveillance samples)",
+    "description": "Sampling strategy used to collect sample (to flag surveillance samples), S (Surveillance), C (Cluster)",
     "type": "text",
     "required": false,
-    "enum": ["S"],
+    "enum": ["S", "C"],
     "section": "biosample"
   },
   {
@@ -129,7 +129,7 @@
     "description": "Swab site",
     "type": "text",
     "required": false,
-    "enum": ["nose", "throat", "nose-throat"],
+    "enum": ["nose", "throat", "nose-throat", "endotracheal", "rectal"],
     "section": "biosample"
   },
   {
