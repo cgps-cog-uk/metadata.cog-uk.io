@@ -16,7 +16,6 @@ export default function (file) {
             let headerIndex = 0;
             const fields = [];
             // check if WSI template
-            if (data[0].find((x) => (x === "REQUIRED"))) {
             if (data[0].find((x) => (x === "REQUIRED")) || data[0].find((x) => (x === "TRANSFER TO PHE"))) {
               headerIndex = 1;
             }
