@@ -42,19 +42,93 @@
     "section": "biosample"
   },
   {
-    "name": "source_setting",
-    "description": "Patient setting",
+    "name": "is_surveillance",
+    "description": "Is this sample one chosen according to the surveillance sampling strategy?",
     "type": "text",
-    "required": false,
-    "enum": [ "HOSPITAL", "CAREHOME" ],
+    "enum": [ "Y", "N"],
+    "required": true,
     "section": "biosample"
   },
   {
-    "name": "source_category",
-    "description": "Patient category (HCW or blank)",
+    "name": "is_hcw",
+    "description": "Is the sample from a healthcare worker?",
+    "type": "text",
+    "enum": [ "Y", "N"],
+    "required": false,
+    "section": "biosample"
+  },
+  {
+    "name": "employing_hospital_name",
+    "description": "If a HCW, the name of the hospital",
     "type": "text",
     "required": false,
-    "enum": [ "HCW" ],
+    "section": "biosample"
+  },
+  {
+    "name": "employing_hospital_trust_or_board",
+    "description": "If a HCW, the name of hospital trust (in England) or hospital organisation",
+    "type": "text",
+    "required": false,
+    "section": "biosample"
+  },
+  {
+    "name": "is_hospital_patient",
+    "description": "Is the sample from a patient in the hospital?",
+    "type": "text",
+    "enum": [ "Y", "N"],
+    "required": false,
+    "section": "biosample"
+  },
+  {
+    "name": "admitted_with_covid_diagnosis",
+    "description": "Was the patient in admitted to hospital with a positive diagnosis for covid?",
+    "type": "text",
+    "enum": [ "Y", "N"],
+    "required": false,
+    "section": "biosample"
+  },
+  {
+    "name": "admission_date",
+    "description": "The date the patient was admitted to hospital",
+    "type": "date",
+    "required": false,
+    "section": "biosample"
+  },
+  {
+    "name": "admitted_hospital_name",
+    "description": "If a hospital patient, the name of the hospital",
+    "type": "text",
+    "required": false,
+    "section": "biosample"
+  },
+  {
+    "name": "admitted_hospital_trust_or_board",
+    "description": "If a hospital patient, the name of hospital trust (in England) or hospital organisation",
+    "type": "text",
+    "required": false,
+    "section": "biosample"
+  },
+  {
+    "name": "is_care_home_worker",
+    "description": "Is the sample from a care home worker?",
+    "type": "text",
+    "enum": [ "Y", "N"],
+    "required": false,
+    "section": "biosample"
+  },
+  {
+    "name": "is_care_home_resident",
+    "description": "Is the sample from a care home resident?",
+    "type": "text",
+    "enum": [ "Y", "N"],
+    "required": false,
+    "section": "biosample"
+  },
+  {
+    "name": "anonymised_care_home_code",
+    "description": "A code identifying the care home but which does not contain any identifying information about the care home, e.g. 'A'",
+    "type": "text",
+    "required": false,
     "section": "biosample"
   },
   {
@@ -114,14 +188,6 @@
     "type": "text",
     "required": false,
     "enum": ["primary", "extract", "lysate", "culture"],
-    "section": "biosample"
-  },
-  {
-    "name": "sampling_strategy",
-    "description": "Sampling strategy used to collect sample (to flag surveillance samples), S (Surveillance), C (Cluster)",
-    "type": "text",
-    "required": false,
-    "enum": ["S", "C"],
     "section": "biosample"
   },
   {
