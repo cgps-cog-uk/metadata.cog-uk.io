@@ -75,12 +75,17 @@ export const mutations = {
         Status: "Pending",
       };
       for (let column = 0; column < headers.length; column++) {
-        entry[headers[column]] = row[column];
+        // only add data if column has a heading
+        if (headers[column]) {
+          entry[headers[column]] = row[column];
+        }
       }
       entries.push(entry);
     }
+    // remove empty headers
+    const filteredHeaders = headers.filter((header) => header !== null);
     state.data = {
-      headers,
+      headers: filteredHeaders,
       entries,
     };
     state.mode = "data";

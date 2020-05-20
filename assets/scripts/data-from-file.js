@@ -23,7 +23,7 @@ export default function (file) {
               if (fields.includes(field)) {
                 return reject(new Error(`Duplicate field: ${field}`));
               }
-              else {
+              else if (field) { // don't push in empty fields
                 fields.push(field);
               }
             }
@@ -37,4 +37,4 @@ export default function (file) {
       reject(new Error("Invalid file type. Supported files are: .xlsx, .xls, .csv, or .ods"));
     }
   });
-};
+}
