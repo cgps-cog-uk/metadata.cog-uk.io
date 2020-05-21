@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const jwt = require("express-jwt");
+const ws = require("ws");
 
 const config = require("./utils/config");
 
@@ -47,5 +48,18 @@ app.use(
     .unless({ path: [ "/api/auth/login" ] }),
   require("./routes")
 );
+
+const wss = new ws.Server({ server: app });
+
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+  ws.on('close', () => console.log('Client disconnected'));
+});
+
+setInterval(() => {
+  wss.clients.forEach((client) => {
+    client.send(new Date().toTimeString());
+  });
+}, 1000);
 
 module.exports = app;

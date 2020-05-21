@@ -21,9 +21,11 @@
         <nuxt />
       </main>
       <footer>
-        <span>
-          Logged in as <strong>{{ $auth.user.username }}</strong> to the <span class="server">{{ /^test-/i.test($auth.user.username) ? "Test" : "Live" }} Server</span>
-        </span>
+        <client-only>
+          <span v-if="!!$auth.user">
+            Logged in as <strong>{{ $auth.user.username }}</strong> to the <span class="server">{{ /^test-/i.test($auth.user.username) ? "Test" : "Live" }} Server</span>
+          </span>
+        </client-only>
         <ul>
           <li>
             <a href="mailto:metadata-support@cog-uk.io">metadata-support@cog-uk.io</a>

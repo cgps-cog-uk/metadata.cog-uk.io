@@ -1,21 +1,13 @@
 <template>
   <section>
     <nav>
-      <template>
-        <button
-          class="toggle-volume"
-          v-on:click="toggleVolume"
-        >
-          &nbsp;
-        </button>
-      </template>
       <template
         v-if="!uploading"
       >
         <button
           v-if="mode === 'data'"
           class="button--green"
-          v-on:click="startUploadClicked"
+          v-on:click="startUpload"
         >
           Start Upload to {{ /^test-/i.test($auth.user.username) ? "Test" : "Live" }} Server
         </button>
@@ -34,7 +26,6 @@
 
 <script>
 import { mapState } from "vuex";
-import { Howl } from "howler";
 
 import FilesUploader from "~/components/FilesUploader.vue";
 import DataGrid from "~/components/DataGrid.vue";
@@ -59,45 +50,29 @@ export default {
       uploading: "uploading",
     }),
   },
-  mounted() {
-    this.sound = new Howl({
-      src: "/sounds/adventures_of_flying_jack.mp3",
-      autoplay: false,
-      loop: true,
-      volume: this.soundVolume,
-      onend() {
-        console.log("Sound Track Finished!");
-      },
-    });
+  beforeMount() {
+    const url = 'wss://flavio-websockets-server-example.glitch.me'
+    const connection = new WebSocket(url)
+
+    connection.onopen = () => {
+      connection.send('hey') 
+    }
+
+    connection.onerror = (error) => {
+      console.log(`WebSocket error: ${error}`)
+    }
+
+    connection.onmessage = (e) => {
+      console.log(e.data)
+    }
   },
   methods: {
-    setFilter(filter) {
-      this.$store.commit("setFilter", filter);
-    },
-    startUploadClicked() {
-      this.sound.play();
-      this.startUpload();
-    },
     startUpload() {
-      const entry = this.data.entries.find((x) => x.Status === "Pending");
-      if (entry) {
-        this.$store.dispatch("uploadEntry", entry._id)
-          .catch((error) => console.error(error))
-          .then(() => {
-            setTimeout(() => this.startUpload(), 0);
-          });
-      } else {
-        console.log("Done");
-        this.sound.stop();
-      }
-    },
-    toggleVolume() {
-      if (this.soundVolume === 0.001) {
-        this.soundVolume = 0.5;
-      } else {
-        this.soundVolume = 0.001;
-      }
-      this.sound.volume(this.soundVolume);
+      this.$axios.$post("/api/data/submit/", {})
+        .catch(() => {})
+        .then(() => {
+          setTimeout(() => this.startUpload(), 0);
+        });
     },
   },
 };
