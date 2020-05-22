@@ -9,11 +9,14 @@
           COG-UK Sample Metadata Uploader
         </h2>
         <p>
-          You can upload batches of data using a spreadsheet by dragging and dropping the files or clicking “Select files to upload”.
+          Upload batches of data using a spreadsheet by dragging and dropping the files or clicking “Select files to upload”.
         </p>
         <p>
-          You can create a spreadsheet file in Excel, Google Docs or other spreadsheet software.
-          Please use <a href="/api/downloads/template/biosamples" target="_blank">this template for uploading biosamples only</a>, or <a href="/api/downloads/template/all" target="_blank">this template for uploading biosamples with library and sequencing metadata</a>; do not edit, add, or remove any columns. This page supports CSV, Excel, ODF formats.
+          <br>Please use <a href="/api/downloads/template/biosamples" target="_blank">this template</a> for uploading biosamples only
+          <br>or <a href="/api/downloads/template/all" target="_blank">this template</a> for uploading biosamples with library and sequencing metadata
+          <br><br><strong>Do not</strong> edit, add, or remove any columns
+          <br>The order of the columns, however, <strong>can</strong> be changed
+          <br><br>This page supports CSV, Excel, ODF formats.
         </p>
       </div>
     </div>
