@@ -80,6 +80,14 @@
     "section": "biosample"
   },
   {
+    "name": "is_icu_patient",
+    "description": "Is the sample from a patient in an ICU?",
+    "type": "text",
+    "enum": [ "Y", "N"],
+    "required": false,
+    "section": "biosample"
+  },
+  {
     "name": "admitted_with_covid_diagnosis",
     "description": "Was the patient in admitted to hospital with a positive diagnosis for covid?",
     "type": "text",
