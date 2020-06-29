@@ -61,6 +61,11 @@ export default {
   */
   auth: {
     localStorage: false,
+    cookie: {
+      options: {
+        maxAge: 60 * 60 * 12,
+      },
+    },
   },
 
   /*
