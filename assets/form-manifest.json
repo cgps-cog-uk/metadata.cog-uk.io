@@ -251,6 +251,7 @@
     "description": "The target for the qPCR test (test 1)",
     "type": "text",
     "required": false,
+    "enum": ["E","N", "S", "RDRP", "ORF1AB", "ORF8", "RDRP+N"],
     "section": "biosample",
     "subsection": "metrics"
   },
@@ -259,6 +260,7 @@
     "description": "The platform used for the qPCR tes (test 1)",
     "type": "text",
     "required": false,
+    "enum": ["ALTOSTAR_AM16", "ABBOTT_M2000", "APPLIED_BIO_7500", "ROCHE_COBAS", "ROCHE_FLOW", "ROCHE_LIGHTCYCLER", "ELITE_INGENIUS", "CEPHEID_XPERT", "QIASTAT_DX", "AUSDIAGNOSTICS", "INHOUSE", "ALTONA", "PANTHER", "SEEGENE_NIMBUS", "QIAGEN_ROTORGENE"],
     "section": "biosample",
     "subsection": "metrics"
   },
@@ -267,6 +269,7 @@
     "description": "The kit used for the qPCR test (test 1)",
     "type": "text",
     "required": false,
+    "enum": ["ALTONA", "ABBOTT", "AUSDIAGNOSTICS", "BOSPHORE", "ROCHE", "INHOUSE", "SEEGENE"],
     "section": "biosample",
     "subsection": "metrics"
   },
@@ -283,6 +286,7 @@
     "description": "The target for the qPCR test (test 2)",
     "type": "text",
     "required": false,
+    "enum": ["E","N", "S", "RDRP", "ORF1AB", "ORF8", "RDRP+N"],
     "section": "biosample",
     "subsection": "metrics"
   },
@@ -291,6 +295,7 @@
     "description": "The platform used for the qPCR test (test 2)",
     "type": "text",
     "required": false,
+    "enum": ["ALTOSTAR_AM16", "ABBOTT_M2000", "APPLIED_BIO_7500", "ROCHE_COBAS", "ROCHE_FLOW", "ROCHE_LIGHTCYCLER", "ELITE_INGENIUS", "CEPHEID_XPERT", "QIASTAT_DX", "AUSDIAGNOSTICS", "INHOUSE", "ALTONA", "PANTHER", "SEEGENE_NIMBUS", "QIAGEN_ROTORGENE"],
     "section": "biosample",
     "subsection": "metrics"
   },
@@ -299,6 +304,7 @@
     "description": "The kit used for the qPCR test (test 2)",
     "type": "text",
     "required": false,
+    "enum": ["ALTONA", "ABBOTT", "AUSDIAGNOSTICS", "BOSPHORE", "ROCHE", "INHOUSE", "SEEGENE"],
     "section": "biosample",
     "subsection": "metrics"
   },
