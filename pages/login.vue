@@ -18,6 +18,7 @@
               <center>
                 <h1>Sign in with</h1>
                 <h2>COG-UK CLIMB account</h2>
+                <h3>(COG-UK username and Majora API key)</h3>
               </center>
               <v-form v-model="isFormValid">
                 <v-text-field
@@ -31,7 +32,7 @@
                 />
                 <v-text-field
                   v-model="token"
-                  label="Token"
+                  label="Majora API key"
                   name="password"
                   outlined
                   required
