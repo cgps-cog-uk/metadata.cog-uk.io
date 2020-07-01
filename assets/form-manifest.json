@@ -269,7 +269,7 @@
     "description": "The kit used for the qPCR test (test 1)",
     "type": "text",
     "required": false,
-    "enum": ["ALTONA", "ABBOTT", "AUSDIAGNOSTICS", "BOSPHORE", "ROCHE", "INHOUSE", "SEEGENE"],
+    "enum": ["ALTONA", "ABBOTT", "AUSDIAGNOSTICS", "BOSPHORE", "ROCHE", "INHOUSE", "SEEGENE", "VIASURE"],
     "section": "biosample",
     "subsection": "metrics"
   },
@@ -304,7 +304,7 @@
     "description": "The kit used for the qPCR test (test 2)",
     "type": "text",
     "required": false,
-    "enum": ["ALTONA", "ABBOTT", "AUSDIAGNOSTICS", "BOSPHORE", "ROCHE", "INHOUSE", "SEEGENE"],
+    "enum": ["ALTONA", "ABBOTT", "AUSDIAGNOSTICS", "BOSPHORE", "ROCHE", "INHOUSE", "SEEGENE", "VIASURE"],
     "section": "biosample",
     "subsection": "metrics"
   },
