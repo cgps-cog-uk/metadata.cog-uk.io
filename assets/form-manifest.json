@@ -251,7 +251,7 @@
     "description": "The target for the qPCR test (test 1)",
     "type": "text",
     "required": false,
-    "enum": ["E","N", "S", "RDRP", "ORF1AB", "ORF8", "RDRP+N"],
+    "enum": ["E", "N", "ORF1AB", "ORF8", "RDRP", "RDRP+N", "S"],
     "section": "biosample",
     "subsection": "metrics"
   },
@@ -260,7 +260,7 @@
     "description": "The platform used for the qPCR tes (test 1)",
     "type": "text",
     "required": false,
-    "enum": ["ALTOSTAR_AM16", "ABBOTT_M2000", "APPLIED_BIO_7500", "ROCHE_COBAS", "ROCHE_FLOW", "ROCHE_LIGHTCYCLER", "ELITE_INGENIUS", "CEPHEID_XPERT", "QIASTAT_DX", "AUSDIAGNOSTICS", "INHOUSE", "ALTONA", "PANTHER", "SEEGENE_NIMBUS", "QIAGEN_ROTORGENE"],
+    "enum": ["ABBOTT_M2000", "ALTONA", "ALTOSTAR_AM16", "APPLIED_BIO_7500", "AUSDIAGNOSTICS", "BD_MAX", "CEPHEID_XPERT", "ELITE_INGENIUS", "INHOUSE", "PANTHER", "QIAGEN_ROTORGENE", "QIASTAT_DX", "ROCHE_COBAS", "ROCHE_FLOW", "ROCHE_LIGHTCYCLER", "SEEGENE_NIMBUS"],
     "section": "biosample",
     "subsection": "metrics"
   },
@@ -269,7 +269,7 @@
     "description": "The kit used for the qPCR test (test 1)",
     "type": "text",
     "required": false,
-    "enum": ["ALTONA", "ABBOTT", "AUSDIAGNOSTICS", "BOSPHORE", "ROCHE", "INHOUSE", "SEEGENE", "VIASURE"],
+    "enum": ["ABBOTT", "ALTONA", "AUSDIAGNOSTICS", "BD" , "BOSPHORE", "INHOUSE", "ROCHE", "SEEGENE", "VIASURE", "XPERT"],
     "section": "biosample",
     "subsection": "metrics"
   },
@@ -286,7 +286,7 @@
     "description": "The target for the qPCR test (test 2)",
     "type": "text",
     "required": false,
-    "enum": ["E","N", "S", "RDRP", "ORF1AB", "ORF8", "RDRP+N"],
+    "enum": ["E", "N", "ORF1AB", "ORF8", "RDRP", "RDRP+N", "S"],
     "section": "biosample",
     "subsection": "metrics"
   },
@@ -295,7 +295,7 @@
     "description": "The platform used for the qPCR test (test 2)",
     "type": "text",
     "required": false,
-    "enum": ["ALTOSTAR_AM16", "ABBOTT_M2000", "APPLIED_BIO_7500", "ROCHE_COBAS", "ROCHE_FLOW", "ROCHE_LIGHTCYCLER", "ELITE_INGENIUS", "CEPHEID_XPERT", "QIASTAT_DX", "AUSDIAGNOSTICS", "INHOUSE", "ALTONA", "PANTHER", "SEEGENE_NIMBUS", "QIAGEN_ROTORGENE"],
+    "enum": ["ABBOTT_M2000", "ALTONA", "ALTOSTAR_AM16", "APPLIED_BIO_7500", "AUSDIAGNOSTICS", "BD_MAX", "CEPHEID_XPERT", "ELITE_INGENIUS", "INHOUSE", "PANTHER", "QIAGEN_ROTORGENE", "QIASTAT_DX", "ROCHE_COBAS", "ROCHE_FLOW", "ROCHE_LIGHTCYCLER", "SEEGENE_NIMBUS"],
     "section": "biosample",
     "subsection": "metrics"
   },
@@ -304,7 +304,7 @@
     "description": "The kit used for the qPCR test (test 2)",
     "type": "text",
     "required": false,
-    "enum": ["ALTONA", "ABBOTT", "AUSDIAGNOSTICS", "BOSPHORE", "ROCHE", "INHOUSE", "SEEGENE", "VIASURE"],
+    "enum": ["ABBOTT", "ALTONA", "AUSDIAGNOSTICS", "BD" , "BOSPHORE", "INHOUSE", "ROCHE", "SEEGENE", "VIASURE", "XPERT"],
     "section": "biosample",
     "subsection": "metrics"
   },
