@@ -239,6 +239,14 @@
     "subsection": "metadata"
   },
   {
+    "name": "majora_credit",
+    "description": "Credit code associated with an author list from your Institute profile to credit biosamples correctly",
+    "type": "text",
+    "required": false,
+    "section": "biosample",
+    "subsection": "metadata"
+  },
+  {
     "name": "ct_1_ct_value",
     "description": "Ct value for samples (test 1)",
     "type": "number",
