@@ -53,6 +53,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/auth",
     "@nuxtjs/axios",
+
   ],
 
   /*
@@ -60,12 +61,31 @@ export default {
   ** See https://auth.nuxtjs.org/options
   */
   auth: {
-    localStorage: false,
     cookie: {
       options: {
         maxAge: 60 * 60 * 12,
       },
     },
+    strategies: {
+      majora: {
+        _scheme: "oauth2",
+        authorization_endpoint: "https://covid.majora.ironowl.it/o/authorize",
+        userinfo_endpoint: false,
+        scope: "majora2.temp_can_read_pags_via_api",
+        response_type: "code",
+        redirect_uri: "http://localhost:3002/callback",
+        token_type: "Bearer",
+        token_key: "access_token",
+        client_id: "U03I5En9WCuEcXLxcEDDxxiba1efadEmh3QeZ5cA",
+        client_secret: "nQYGvi1eUYVXnnSqivqFLnYLRJ437myuJQSj61AmeZxZFMZjcuNrozASGhFWcc58OM8DAJ0pnlsN9zGgOO8WEuoUj5uEnO6udSJMREqL4wl4O8dZvpWJv3BiIfdjMDNF",
+      },
+    },
+    redirect: {
+      callback: "/callback",
+      home: "/",
+    },
+
+
   },
 
   /*

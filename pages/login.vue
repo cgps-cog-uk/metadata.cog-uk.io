@@ -18,32 +18,9 @@
               <center>
                 <h1>Sign in with</h1>
                 <h2>COG-UK CLIMB account</h2>
-                <h3>(COG-UK username and Majora API key)</h3>
+                {{ this.$auth.loggedIn }}
               </center>
-              <v-form v-model="isFormValid">
-                <v-text-field
-                  v-model="username"
-                  label="Username"
-                  name="username"
-                  outlined
-                  required
-                  v-bind:rules="usernameRules"
-                  type="text"
-                />
-                <v-text-field
-                  v-model="token"
-                  label="Majora API key"
-                  name="password"
-                  outlined
-                  required
-                  v-bind:rules="tokenRules"
-                  type="password"
-                />
-                <!-- <v-select
-                  v-bind:items="[ 'covid.majora.ironowl.it', 'majora.covid19.climb.ac.uk' ]"
-                  label="Outlined style"
-                  outlined
-                /> -->
+              <v-form>
                 <v-btn
                   block
                   color="primary"
@@ -85,18 +62,7 @@ export default {
   layout: "login",
   data() {
     return {
-      username: null,
-      token: null,
       mode: "input",
-      isFormValid: false,
-      usernameRules: [
-        (v) => !!v || "Username is required",
-      ],
-      tokenRules: [
-        (v) => !!v || "Token is required",
-        (v) => (v && v.length === 36) || "Token must be 36 characters long",
-        (v) => /[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}/i.test(v) || "Token must be a valid UUID",
-      ],
     };
   },
   computed: {
@@ -117,17 +83,11 @@ export default {
   methods: {
     login($event) {
       $event.preventDefault();
-      if (this.isFormValid) {
-        this.mode = "sending";
-        const data = {
-          username: this.username,
-          token: this.token,
-        };
-        this.$auth.loginWith("local", { data })
-          .catch((err) => {
-            this.mode = "error";
-          });
-      }
+      this.mode = "sending";
+      this.$auth.loginWith("majora")
+        .catch((err) => {
+          this.mode = "error";
+        });
     },
   },
 };
