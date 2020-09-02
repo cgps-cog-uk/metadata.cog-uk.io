@@ -18,7 +18,6 @@
               <center>
                 <h1>Sign in with</h1>
                 <h2>COG-UK CLIMB account</h2>
-                {{ this.$auth.loggedIn }}
               </center>
               <v-form>
                 <v-btn

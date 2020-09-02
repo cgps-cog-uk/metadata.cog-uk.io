@@ -279,14 +279,20 @@ export const actions = {
       "failed-rows.csv"
     );
   },
-  uploadEntry({ commit, state }, entryId) {
+  uploadEntry({ commit, state, ...rest }, entryId) {
     const entry = state.data.entries.find((x) => x._id === entryId);
+    const authorization = this.$auth.$storage.getState("_token.majora");
     if (entry) {
       commit("setUploading", true);
       commit("setEntryStatus", { entryId, status: "Uploading" });
       return (
         Promise.all([
-          this.$axios.$post("/api/data/submit/", entry),
+          this.$axios({
+            method: "POST",
+            url: "/api/data/submit/",
+            data: entry,
+            headers: { authorization },
+          }),
           new Promise((resolve) => setTimeout(resolve, 10)),
         ])
           .then(([ response ]) => {
