@@ -13,11 +13,25 @@
         v-if="!uploading"
       >
         <button
-          v-if="mode === 'data'"
+          v-if="mode === 'data' & server === 'live'"
           class="button--green"
           v-on:click="startUploadClicked"
         >
-          Start Upload to {{ /^test-/i.test($auth.user.username) ? "Test" : "Live" }} Server
+          Start Upload to Live Server
+        </button>
+        <button
+          v-if="mode === 'data' & server === 'test'"
+          class="button--red"
+          v-on:click="startUploadClicked"
+        >
+          Start Upload to Test Server
+        </button>
+        <button
+          v-if="mode === 'data'"
+          class="button--blue"
+          v-on:click="toggleServer"
+        >
+          Switch Server
         </button>
       </template>
       <upload-another-file-button
@@ -57,6 +71,7 @@ export default {
       data: "data",
       mode: "mode",
       uploading: "uploading",
+      server: "server",
     }),
   },
   mounted() {
@@ -98,6 +113,13 @@ export default {
         this.soundVolume = 0.001;
       }
       this.sound.volume(this.soundVolume);
+    },
+    toggleServer() {
+      if (this.server === "test") {
+        this.$store.commit("setServer", "live");
+      } else {
+        this.$store.commit("setServer", "test");
+      }
     },
   },
 };

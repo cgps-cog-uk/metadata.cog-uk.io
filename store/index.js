@@ -5,7 +5,7 @@ import formManifest from "../assets/form-manifest";
 import measureTextWidth from "../assets/scripts/measure-text-width";
 import exportCsv from "../assets/scripts/export-csv";
 
-const statudToFilterMap = {
+const statusToFilterMap = {
   Pending: "queued",
   Uploading: "queued",
   Uploaded: "uploaded",
@@ -22,6 +22,7 @@ export const state = () => ({
   formManifest: null,
   mode: "files",
   uploading: false,
+  server: "live",
 });
 
 export const mutations = {
@@ -100,6 +101,9 @@ export const mutations = {
   },
   setUploading(state, mode) {
     state.uploading = mode;
+  },
+  setServer(state, server) {
+    state.server = server;
   },
 };
 
@@ -194,7 +198,7 @@ export const getters = {
   },
   filteredList(state) {
     if (state.filter) {
-      return state.data.entries.filter((x) => statudToFilterMap[x.Status] === state.filter);
+      return state.data.entries.filter((x) => statusToFilterMap[x.Status] === state.filter);
     }
     else {
       return state.data.entries;
@@ -279,9 +283,11 @@ export const actions = {
       "failed-rows.csv"
     );
   },
-  uploadEntry({ commit, state, ...rest }, entryId) {
+  uploadEntry({ commit, state }, entryId) {
     const entry = state.data.entries.find((x) => x._id === entryId);
     const authorization = this.$auth.$storage.getState("_token.majora");
+    console.log(authorization);
+    const server = state.server;
     if (entry) {
       commit("setUploading", true);
       commit("setEntryStatus", { entryId, status: "Uploading" });
@@ -289,22 +295,22 @@ export const actions = {
         Promise.all([
           this.$axios({
             method: "POST",
-            url: "/api/data/submit/",
+            url: `/api/data/submit/?server=${server}`,
             data: entry,
-            headers: { authorization },
+            headers: { Authorization: authorization },
           }),
           new Promise((resolve) => setTimeout(resolve, 10)),
         ])
           .then(([ response ]) => {
-            const status = response.success ? "Uploaded" : "Failed";
+            const status = response.data.success ? "Uploaded" : "Failed";
             commit(
               "setEntryStatus",
               {
                 entryId,
                 status,
-                url: response.url,
-                error: response.error,
-                messages: response.messages,
+                url: response.data.url,
+                error: response.data.error,
+                messages: response.data.messages,
               }
             );
           })

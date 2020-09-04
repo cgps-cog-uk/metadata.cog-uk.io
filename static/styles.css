@@ -46,6 +46,41 @@ body {
   background-color: #3b8070;
 }
 
+.button--red {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #722c2c;
+  color: #722c2c;
+  text-decoration: none;
+  padding: 10px 8px;
+  background: #fff;
+  line-height: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button--red:hover {
+  color: #fff;
+  background-color: #722c2c;
+}
+
+.button--blue {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #34048e;
+  color: #34048e;
+  text-decoration: none;
+  padding: 10px 8px;
+  background: #fff;
+  line-height: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button--blue:hover {
+  color: #fff;
+  background-color: #34048e;
+}
 .button--grey {
   display: inline-block;
   border-radius: 4px;
