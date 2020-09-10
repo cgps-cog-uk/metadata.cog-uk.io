@@ -1,7 +1,8 @@
 import colors from "vuetify/es5/util/colors";
 import apiServerMiddleware from "./api";
 
-import config from "./api/utils/config";
+// eslint-disable-next-line nuxt/no-cjs-in-config
+const config = require("./api/utils/config");
 
 const baseUrl = config.oauth2.baseUrl;
 const testClientId = config.oauth2.testClientId;
