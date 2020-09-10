@@ -97,7 +97,7 @@
         color="primary"
         v-on:click="submitForm"
       >
-        SUBMIT TO <br/>{{ /^test-/i.test($auth.user.username) ? "TEST" : "LIVE" }} SERVER
+        SUBMIT TO {{ server }} SERVER
       </v-btn>
 
       <v-btn
@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 import ExpansionPanel from "~/components/ExpansionPanel.vue";
 import InputControl from "~/components/InputControl/index.vue";
@@ -145,6 +145,9 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      auth: "auth",
+    }),
     ...mapGetters({
       formInputs: "formInputs",
     }),
@@ -156,6 +159,9 @@ export default {
     },
     sequencingSectionInputs() {
       return this.formInputs.filter((x) => x.section === "sequencing");
+    },
+    server() {
+      return this.auth.strategy === "majoraProduction" ? "PRODUCTION" : "TEST";
     },
   },
   methods: {

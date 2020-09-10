@@ -22,7 +22,6 @@ export const state = () => ({
   formManifest: null,
   mode: "files",
   uploading: false,
-  server: "live",
 });
 
 export const mutations = {
@@ -101,9 +100,6 @@ export const mutations = {
   },
   setUploading(state, mode) {
     state.uploading = mode;
-  },
-  setServer(state, server) {
-    state.server = server;
   },
 };
 
@@ -285,9 +281,8 @@ export const actions = {
   },
   uploadEntry({ commit, state }, entryId) {
     const entry = state.data.entries.find((x) => x._id === entryId);
-    const authorization = this.$auth.$storage.getState("_token.majora");
-    console.log(authorization);
-    const server = state.server;
+    const server = state.auth.strategy === "majoraProduction" ? "production" : "test";
+    const authorization = server === "production" ? this.$auth.$storage.getState("_token.majoraProduction") : this.$auth.$storage.getState("_token.majoraTest");
     if (entry) {
       commit("setUploading", true);
       commit("setEntryStatus", { entryId, status: "Uploading" });

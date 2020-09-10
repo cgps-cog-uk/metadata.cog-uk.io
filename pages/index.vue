@@ -13,11 +13,11 @@
         v-if="!uploading"
       >
         <button
-          v-if="mode === 'data' & server === 'live'"
+          v-if="mode === 'data' & server === 'production'"
           class="button--green"
           v-on:click="startUploadClicked"
         >
-          Start Upload to Live Server
+          Start Upload to Production Server
         </button>
         <button
           v-if="mode === 'data' & server === 'test'"
@@ -25,13 +25,6 @@
           v-on:click="startUploadClicked"
         >
           Start Upload to Test Server
-        </button>
-        <button
-          v-if="mode === 'data'"
-          class="button--blue"
-          v-on:click="toggleServer"
-        >
-          Switch Server
         </button>
       </template>
       <upload-another-file-button
@@ -68,11 +61,14 @@ export default {
   },
   computed: {
     ...mapState({
+      auth: "auth",
       data: "data",
       mode: "mode",
       uploading: "uploading",
-      server: "server",
     }),
+    server() {
+      return this.auth.strategy === "majoraProduction" ? "production" : "test";
+    },
   },
   mounted() {
     this.sound = new Howl({
@@ -113,13 +109,6 @@ export default {
         this.soundVolume = 0.001;
       }
       this.sound.volume(this.soundVolume);
-    },
-    toggleServer() {
-      if (this.server === "test") {
-        this.$store.commit("setServer", "live");
-      } else {
-        this.$store.commit("setServer", "test");
-      }
     },
   },
 };

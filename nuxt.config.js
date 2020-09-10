@@ -1,6 +1,12 @@
 import colors from "vuetify/es5/util/colors";
 import apiServerMiddleware from "./api";
 
+import config from "./api/utils/config";
+
+const baseUrl = config.oauth2.baseUrl;
+const testClientId = config.oauth2.testClientId;
+const productionClientId = config.oauth2.productionClientId;
+
 export default {
   mode: "universal",
   server: {
@@ -67,17 +73,30 @@ export default {
       },
     },
     strategies: {
-      majora: {
+      majoraProduction: {
+        _scheme: "oauth2",
+        authorization_endpoint: "https://majora.covid19.climb.ac.uk/o/authorize/",
+        userinfo_endpoint: false,
+        scope: ["majora2.add_biosampleartifact", "majora2.change_biosampleartifact", "majora2.add_biosamplesource", "majora2.change_biosamplesource", "majora2.add_biosourcesamplingprocess", "majora2.change_biosourcesamplingprocess", "majora2.add_libraryartifact", "majora2.change_libraryartifact", "majora2.add_librarypoolingprocess", "majora2.change_librarypoolingprocess", "majora2.add_dnasequencingprocess", "majora2.change_dnasequencingprocess"],
+        access_token_endpoint: "https://majora.covid19.climb.ac.uk/o/token/",
+        response_type: "code",
+        redirect_uri: `${baseUrl}/callback`,
+        token_type: "Bearer",
+        token_key: "access_token",
+        client_id: productionClientId,
+        grant_type: "authorization_code",
+      },
+      majoraTest: {
         _scheme: "oauth2",
         authorization_endpoint: "https://covid.majora.ironowl.it/o/authorize/",
         userinfo_endpoint: false,
-        scope: "majora2.temp_can_read_pags_via_api",
+        scope: ["majora2.add_biosampleartifact", "majora2.change_biosampleartifact", "majora2.add_biosamplesource", "majora2.change_biosamplesource", "majora2.add_biosourcesamplingprocess", "majora2.change_biosourcesamplingprocess", "majora2.add_libraryartifact", "majora2.change_libraryartifact", "majora2.add_librarypoolingprocess", "majora2.change_librarypoolingprocess", "majora2.add_dnasequencingprocess", "majora2.change_dnasequencingprocess"],
         access_token_endpoint: "https://covid.majora.ironowl.it/o/token/",
         response_type: "code",
-        redirect_uri: "http://localhost:3002/callback",
+        redirect_uri: `${baseUrl}/callback`,
         token_type: "Bearer",
         token_key: "access_token",
-        client_id: "U03I5En9WCuEcXLxcEDDxxiba1efadEmh3QeZ5cA",
+        client_id: testClientId,
         grant_type: "authorization_code",
       },
     },

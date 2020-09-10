@@ -16,19 +16,30 @@
           >
             <section>
               <center>
-                <h1>Sign in with</h1>
-                <h2>COG-UK CLIMB account</h2>
+                <h1>Sign in with Majora</h1>
+                <img title="Sign in with Majora" src="/images/majora.png" class="majora">
               </center>
               <v-form>
                 <v-btn
                   block
-                  color="primary"
+                  color="#eb34c3"
+                  class="loginButton"
                   depressed
                   large
                   type="submit"
-                  v-on:click="login"
+                  v-on:click="loginToTest"
                 >
-                  {{ loginLabel }}
+                  Sign in with Majora test credentials
+                </v-btn>
+                <v-btn
+                  block
+                  color="#eeeeee"
+                  depressed
+                  large
+                  type="submit"
+                  v-on:click="loginToProduction"
+                >
+                  Sign in with Majora production credentials
                 </v-btn>
                 <footer>
                   <strong
@@ -65,25 +76,20 @@ export default {
     };
   },
   computed: {
-    loginLabel() {
-      if (this.username) {
-        if (/^test-/i.test(this.username)) {
-          return "Login to TEST server";
-        }
-        else {
-          return "Login to LIVE server";
-        }
-      }
-      else {
-        return "Login";
-      }
-    },
   },
   methods: {
-    login($event) {
+    loginToTest($event) {
       $event.preventDefault();
       this.mode = "sending";
-      this.$auth.loginWith("majora")
+      this.$auth.loginWith("majoraTest")
+        .catch((err) => {
+          this.mode = "error";
+        });
+    },
+    loginToProduction($event) {
+      $event.preventDefault();
+      this.mode = "sending";
+      this.$auth.loginWith("majoraProduction")
         .catch((err) => {
           this.mode = "error";
         });
