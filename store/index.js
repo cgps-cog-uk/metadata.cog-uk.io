@@ -5,7 +5,7 @@ import formManifest from "../assets/form-manifest";
 import measureTextWidth from "../assets/scripts/measure-text-width";
 import exportCsv from "../assets/scripts/export-csv";
 
-const statudToFilterMap = {
+const statusToFilterMap = {
   Pending: "queued",
   Uploading: "queued",
   Uploaded: "uploaded",
@@ -194,7 +194,7 @@ export const getters = {
   },
   filteredList(state) {
     if (state.filter) {
-      return state.data.entries.filter((x) => statudToFilterMap[x.Status] === state.filter);
+      return state.data.entries.filter((x) => statusToFilterMap[x.Status] === state.filter);
     }
     else {
       return state.data.entries;
@@ -281,24 +281,31 @@ export const actions = {
   },
   uploadEntry({ commit, state }, entryId) {
     const entry = state.data.entries.find((x) => x._id === entryId);
+    const server = state.auth.strategy === "majoraProduction" ? "production" : "test";
+    const authorization = server === "production" ? this.$auth.$storage.getState("_token.majoraProduction") : this.$auth.$storage.getState("_token.majoraTest");
     if (entry) {
       commit("setUploading", true);
       commit("setEntryStatus", { entryId, status: "Uploading" });
       return (
         Promise.all([
-          this.$axios.$post("/api/data/submit/", entry),
+          this.$axios({
+            method: "POST",
+            url: `/api/data/submit/?server=${server}`,
+            data: entry,
+            headers: { Authorization: authorization },
+          }),
           new Promise((resolve) => setTimeout(resolve, 10)),
         ])
           .then(([ response ]) => {
-            const status = response.success ? "Uploaded" : "Failed";
+            const status = response.data.success ? "Uploaded" : "Failed";
             commit(
               "setEntryStatus",
               {
                 entryId,
                 status,
-                url: response.url,
-                error: response.error,
-                messages: response.messages,
+                url: response.data.url,
+                error: response.data.error,
+                messages: response.data.messages,
               }
             );
           })

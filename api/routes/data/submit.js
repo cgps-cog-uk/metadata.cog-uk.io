@@ -3,8 +3,8 @@
 const coguk = require("cog-uk.js");
 
 module.exports = function (req, res, next) {
-  console.info("Got request to create or update biosample data for", req.user.username);
-  const client = coguk(req.user.username, req.user.token);
+  console.info("Got request to create or update biosample data");
+  const client = coguk(req.headers.authorization, req.query.server);
 
   Promise.resolve(req.body)
     .then((sample) => {
