@@ -1,0 +1,13 @@
+#!/usr/bin/env/sh
+set -eu -o pipefail
+
+MAJORA_BASE_URL=$MAJORA_BASE_URL
+MAJORA_TEST_CLIENT_ID=$MAJORA_TEST_CLIENT_ID
+MAJORA_PRODUCTION_CLIENT_ID=$MAJORA_PRODUCTION_CLIENT_ID
+
+# NOTE on OSX  sed -i "" -e is required
+grep -rl MAJORA_BASE_URL .nuxt | xargs -n 1 sed -i "s/MAJORA_BASE_URL/$MAJORA_BASE_URL/g"
+grep -rl MAJORA_TEST_CLIENT_ID .nuxt | xargs -n 1 sed -i "s/MAJORA_TEST_CLIENT_ID/$MAJORA_TEST_CLIENT_ID/g"
+grep -rl MAJORA_PRODUCTION_CLIENT_ID .nuxt | xargs -n 1 sed -i "s/MAJORA_PRODUCTION_CLIENT_ID/$MAJORA_PRODUCTION_CLIENT_ID/g"
+
+npm start

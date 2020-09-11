@@ -1,11 +1,11 @@
 import colors from "vuetify/es5/util/colors";
 import apiServerMiddleware from "./api";
 
-require("dotenv").config();
+import config from "./api/utils/config";
 
-const baseUrl = process.env.oauth2BaseUrl;
-const testClientId = process.env.oauth2TestClientId;
-const productionClientId = process.env.oauth2ProductionClientId;
+const baseUrl = config.oauth2.baseUrl;
+const testClientId = config.oauth2.testClientId;
+const productionClientId = config.oauth2.productionClientId;
 
 export default {
   mode: "universal",
@@ -50,7 +50,6 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     "@nuxtjs/vuetify",
-    "@nuxtjs/dotenv",
     // "@nuxtjs/eslint-module",
   ],
   /*

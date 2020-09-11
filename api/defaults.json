@@ -1,8 +1,8 @@
 {
   "secret": "-",
   "oauth2" : {
-    "baseUrl": "",
-    "testClientId": "",
-    "productionClientId": ""
+    "baseUrl": "MAJORA_BASE_URL",
+    "testClientId": "MAJORA_TEST_CLIENT_ID",
+    "productionClientId": "MAJORA_PRODUCTION_CLIENT_ID"
   }
 }
