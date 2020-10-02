@@ -1,4 +1,4 @@
-const formManifest = require("../../../assets/form-manifest.json");
+const formManifest = require("cog-uk.js/form-manifest.json");
 
 async function generateTemplate(req, res) {
   const type = req.params.type;

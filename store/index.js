@@ -1,7 +1,7 @@
 /* eslint no-shadow: 0 */
 /* eslint dot-notation: 0 */
 
-import formManifest from "../assets/form-manifest";
+import formManifest from "cog-uk.js/form-manifest";
 import measureTextWidth from "../assets/scripts/measure-text-width";
 import exportCsv from "../assets/scripts/export-csv";
 
@@ -191,6 +191,9 @@ export const getters = {
       inputs.push(input);
     }
     return inputs;
+  },
+  biosampleFields(state) {
+    return formManifest.filter((field) => field.section === "biosample").map((field) => field.name);
   },
   filteredList(state) {
     if (state.filter) {

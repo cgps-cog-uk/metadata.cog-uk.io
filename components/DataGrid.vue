@@ -69,7 +69,19 @@
                   </template>
                   <span>Warning: {{ !item['library_name'] ? 'library_name empty.' : '' }} {{ !item['run_name'] ? 'run_name empty.' : '' }} Only biosample data will be uploaded</span>
                 </v-tooltip>
-                <v-icon v-if="item.Status === 'Pending'">
+                <v-tooltip v-else-if="item.Status === 'Pending' && hasLibraryAndRunOnly(item, biosampleFields) && (('library_name' in item && item['library_name']) || ('run_name' in item && item['run_name']))" right>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                      color="orange"
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      mdi-timer-sand-full
+                    </v-icon>
+                  </template>
+                  <span>Warning: No biosample information. If the biosample barcode has been registered:  {{ item['library_name'] ? 'Library metadata will be uploaded.' : '' }} {{ item['run_name'] ? 'Run metadata will be uploaded.' : '' }}</span>
+                </v-tooltip>
+                <v-icon v-else-if="item.Status === 'Pending'">
                   mdi-timer-sand-empty
                 </v-icon>
                 <v-icon v-else-if="item.Status === 'Uploading'">
@@ -86,6 +98,18 @@
                     </v-icon>
                   </template>
                   <span>Warning: {{ !item['library_name'] ? 'library_name empty.' : '' }} {{ !item['run_name'] ? 'run_name empty.' : '' }} Only biosample data was uploaded</span>
+                </v-tooltip>
+                <v-tooltip v-else-if="item.Status === 'Uploaded' && hasLibraryAndRunOnly(item, biosampleFields) && (('library_name' in item && item['library_name']) || ('run_name' in item && item['run_name']))" right>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                      color="orange"
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      mdi-alert
+                    </v-icon>
+                  </template>
+                  <span>Warning: No biosample information. {{ item['library_name'] ? 'Library metadata was uploaded.' : '' }} {{ item['run_name'] ? 'Run metadata was uploaded.' : '' }}</span>
                 </v-tooltip>
                 <v-icon v-else-if="item.Status === 'Uploaded'">
                   mdi-check
@@ -135,6 +159,18 @@
                 </template>
                 <span>Warning: {{ !item['library_name'] ? 'library_name empty.' : '' }} {{ !item['run_name'] ? 'run_name empty.' : '' }} Only biosample data will be uploaded</span>
               </v-tooltip>
+              <v-tooltip v-else-if="item.Status === 'Pending' && hasLibraryAndRunOnly(item, biosampleFields) && (('library_name' in item && item['library_name']) || ('run_name' in item && item['run_name']))" right>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="orange"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    mdi-timer-sand-full
+                  </v-icon>
+                </template>
+                <span>Warning: No biosample information. If the biosample barcode has been registered:  {{ item['library_name'] ? 'Library metadata will be uploaded.' : '' }} {{ item['run_name'] ? 'Run metadata will be uploaded.' : '' }}</span>
+              </v-tooltip>
               <v-icon v-else-if="item.Status === 'Pending'">
                 mdi-timer-sand-empty
               </v-icon>
@@ -152,6 +188,18 @@
                   </v-icon>
                 </template>
                 <span>Warning: {{ !item['library_name'] ? 'library_name empty.' : '' }} {{ !item['run_name'] ? 'run_name empty.' : '' }} Only biosample data was uploaded</span>
+              </v-tooltip>
+              <v-tooltip v-else-if="item.Status === 'Uploaded' && hasLibraryAndRunOnly(item, biosampleFields) && (('library_name' in item && item['library_name']) || ('run_name' in item && item['run_name']))" right>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="orange"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    mdi-alert
+                  </v-icon>
+                </template>
+                <span>Warning: No biosample information. {{ item['library_name'] ? 'Library metadata was uploaded.' : '' }} {{ item['run_name'] ? 'Run metadata was uploaded.' : '' }}</span>
               </v-tooltip>
               <v-icon v-else-if="item.Status === 'Uploaded'">
                 mdi-check
@@ -227,6 +275,7 @@ export default {
     ...mapGetters({
       list: "filteredList",
       headers: "dataGridHeaders",
+      biosampleFields: "biosampleFields",
     }),
   },
   methods: {
@@ -235,6 +284,14 @@ export default {
         "downloadRows",
         { status: "Failed" }
       );
+    },
+    hasLibraryAndRunOnly(item, biosampleFields) {
+      for (const field of biosampleFields) {
+        if (field !== "central_sample_id" && field in item && item[field]) {
+          return false;
+        }
+      }
+      return true;
     },
   },
 };
