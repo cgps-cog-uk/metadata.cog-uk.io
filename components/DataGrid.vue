@@ -3,10 +3,12 @@
     <v-data-table
       v-model="selected"
       dense
-      disable-pagination
       group-by="Status"
       v-bind:headers="headers"
-      hide-default-footer
+      v-bind:footer-props="{
+        'items-per-page-options': [15, 20, 30, 40, 50, -1]
+      }"
+      v-bind:items-per-page="15"
       item-key="_id"
       v-bind:items="list"
       show-expand
