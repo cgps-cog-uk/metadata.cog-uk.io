@@ -11,7 +11,7 @@
       v-bind:items="list"
       show-expand
       single-expand
-      v:bind-show-select="false"
+      v-bind:show-select="false"
     >
       <template v-slot:group.header="{ group, groupBy, items, headers, isOpen, toggle }">
         <td
