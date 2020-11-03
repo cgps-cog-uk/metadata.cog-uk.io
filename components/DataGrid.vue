@@ -12,6 +12,7 @@
       show-expand
       single-expand
       v-bind:show-select="false"
+      v-bind:height="$windowHeight - 64"
       fixed-header
     >
       <template v-slot:group.header="{ group, groupBy, items, headers, isOpen, toggle }">
@@ -262,8 +263,10 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import { vueWindowSizeMixin } from "vue-window-size/option-api";
 
 export default {
+  mixins: [ vueWindowSizeMixin() ],
   data() {
     return {
       selected: [],
