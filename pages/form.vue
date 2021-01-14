@@ -161,7 +161,7 @@ export default {
       return this.formInputs.filter((x) => x.section === "sequencing");
     },
     server() {
-      return this.auth.strategy === "majoraProduction" ? "PRODUCTION" : "TEST";
+      return this.auth.strategy === "majoraProduction" ? "production" : "test";
     },
   },
   methods: {
@@ -172,7 +172,7 @@ export default {
           sampleData[input.name] = this.formValues[input.name];
         }
       }
-      this.$axios.$post("/api/data/submit/", sampleData)
+      this.$axios.$post(`/api/data/submit/?server=${this.server}`, sampleData)
         .then((results) => {
           this.messages = results.messages;
           if (results.success) {
