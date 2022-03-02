@@ -1,9 +1,9 @@
 build:
-  image: docker:20.10.12
+  image: docker:19.03.8
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   services:
-    - docker:20.10.12-dind
+    - docker:19.03.8-dind
   only:
     - tags
   before_script:
