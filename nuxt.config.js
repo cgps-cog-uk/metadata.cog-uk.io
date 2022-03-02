@@ -88,10 +88,10 @@ export default {
       },
       majoraTest: {
         _scheme: "oauth2",
-        authorization_endpoint: "https://covid.majora.ironowl.it/o/authorize/",
+        authorization_endpoint: "https://majora-test.covid19.climb.ac.uk/o/authorize/",
         userinfo_endpoint: false,
         scope: ["majora2.add_biosampleartifact", "majora2.change_biosampleartifact", "majora2.add_biosamplesource", "majora2.change_biosamplesource", "majora2.add_biosourcesamplingprocess", "majora2.change_biosourcesamplingprocess", "majora2.add_libraryartifact", "majora2.change_libraryartifact", "majora2.add_librarypoolingprocess", "majora2.change_librarypoolingprocess", "majora2.add_dnasequencingprocess", "majora2.change_dnasequencingprocess"],
-        access_token_endpoint: "https://covid.majora.ironowl.it/o/token/",
+        access_token_endpoint: "https://majora-test.covid19.climb.ac.uk/o/token/",
         response_type: "code",
         redirect_uri: `${baseUrl}/callback`,
         token_type: "Bearer",
