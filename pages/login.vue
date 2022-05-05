@@ -62,6 +62,7 @@
         </v-row>
       </v-container>
     </v-content>
+    <script defer data-domain="metadata.cog-uk.io" src="https://analytics.cgps.dev/js/plausible.js"></script>
   </v-app>
 </template>
 
